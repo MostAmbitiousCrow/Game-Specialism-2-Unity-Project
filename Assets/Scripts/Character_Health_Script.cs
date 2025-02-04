@@ -1,9 +1,30 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-[CreateAssetMenu(fileName = "Character Data", menuName = "ScriptableObjects/CharacterHealth", order = 1)]
-public class CharacterHealth : ScriptableObject
+public class Character_Health_Script : MonoBehaviour
 {
-    public string prefabName;
+    [SerializeField] int maxHealth = 5;
+    [SerializeReference] float health;
 
-    public float health;
+    public UnityEvent deathEvent;
+
+    // Start is called before the first frame update
+    void Awake()
+    {
+        health = maxHealth;
+    }
+
+    public void Damage(int value)
+    {
+        health -= value;
+
+    }
+
+    public void Heal(int value)
+    {
+        health += value;
+
+    }
 }
