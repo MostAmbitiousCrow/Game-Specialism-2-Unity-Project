@@ -9,8 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e90f99f4b569cd44c9fb0163311e570c, type: 3}
-  m_Name: Zombie Health
+  m_Script: {fileID: 11500000, guid: 95f5f889b062fe345878dda7409cceda, type: 3}
+  m_Name: Projectile Data
   m_EditorClassIdentifier: 
-  maxHealth: 5
-  health: 5
+  projectilePrefab: {fileID: 0}
+  projectileStartSpeed: 10
+  projectileDamage: 1
+  projectileLifeTime: 5
+  projectileSize: 1
