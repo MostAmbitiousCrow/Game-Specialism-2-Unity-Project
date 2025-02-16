@@ -9,7 +9,7 @@ public class Test_Imp_Basic_Shoot : MonoBehaviour // By Samuel White
     private Coroutine attackRoutine; // The coroutine that runs the attack
 
     [SerializeField] private int attackID; // The ID of the attack
-    [SerializeField] Basic_Projectile_Scriptable_Object scriptableObject; // The scriptable object that holds the projectile prefab
+    // [SerializeField] SO_Proj_Eni_Bas scriptableObject; // The scriptable object that holds the projectile prefab //TODO Implement the projectile pooling system
     [SerializeField] Test_Imp_Atk_Beh_SO attackData; // The Imps attack data
 
     public void Begin() // Start the attack
@@ -42,7 +42,7 @@ public class Test_Imp_Basic_Shoot : MonoBehaviour // By Samuel White
             yield return new WaitForSeconds(attackData.attackTime);
         }
     }
-
+    /*
     private void Awake()
     {
         GameObject prefab = scriptableObject.projectilePrefab;
@@ -53,6 +53,7 @@ public class Test_Imp_Basic_Shoot : MonoBehaviour // By Samuel White
         }
         // enabled = false; // Disable the script
     }
+    */ //TODO: Implement the projectile pooling system
 
     void OnDrawGizmosSelected()
     {

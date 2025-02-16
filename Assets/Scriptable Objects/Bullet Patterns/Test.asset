@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcf9fe27a2c3947509e8d5f7dca52797, type: 3}
+  m_Name: Test
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 3281167574738189479, guid: 25b49a56799e14330b5df89ca07de1da, type: 3}
+  projectileStartSpeed: 10
+  projectileEndSpeed: 10
+  useAccelleration: 0
+  accellerationTime: 1
+  decellerationTime: 1
+  useTilt: 0
+  projectileTilt: 15
+  tiltAccellerationTime: 0.1
+  tiltDecellerationTime: 0.1
+  projectileDamage: 1
+  projectileLifeTime: 5
+  useScale: 0
+  projectileStartSize: 1
+  projectileEndSize: 2
+  accellerateScaleTime: 1
+  decellerateScaleTime: 1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Projectile Data
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 0}
-  projectileStartSpeed: 10
+  projectileStartSpeed: 4
   projectileDamage: 1
   projectileLifeTime: 5
-  projectileSize: 1
+  projectileSize: 0.5
