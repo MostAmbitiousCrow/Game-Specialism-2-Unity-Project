@@ -20,7 +20,7 @@ public class MovementPlayer : MonoBehaviour
         rb.velocity = new Vector2(InputDirection.x * MoveSpeed, InputDirection.y * MoveSpeed);
     }
 
-    public void MoveInput(InputAction.CallbackContext context)
+    public void MoveInput(InputAction.CallbackContext context)// This function is called when the player moves the input stick
     {
         // Read the input direction from the input context
         InputDirection = context.ReadValue<Vector2>();
