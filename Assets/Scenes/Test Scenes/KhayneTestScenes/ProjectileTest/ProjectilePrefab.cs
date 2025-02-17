@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectilePrefab : MonoBehaviour
+public class ProjectilePrefab : MonoBehaviour // Made by Khayne
 {
     [SerializeField] float speed;
 
