@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// Made by Khayne
+
 public class PauseMenu : MonoBehaviour
 {
     // Static variable to track if the game is paused

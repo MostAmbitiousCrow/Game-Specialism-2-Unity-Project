@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// Made by Samuel
+
 public class Player_Controls : MonoBehaviour
 {
     [Header("Player Stats")]
