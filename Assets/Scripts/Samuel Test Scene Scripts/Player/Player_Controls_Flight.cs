@@ -13,18 +13,13 @@ public class Player_Controls_Flight : MonoBehaviour
 
     [SerializeField] Vector2 inputDirection;
 
-    [Header("Components")]
-    [SerializeField] Rigidbody rb;
-
     void Awake()
     {
         screenWidth = Screen.width;
         screenHeight = Screen.height;
 
-        worldXLimit = screenWidth / 100;
-        worldYLimit = screenHeight / 100;
-
-        rb = GetComponent<Rigidbody>();
+        // worldXLimit = screenWidth / 100; // Temporarily ingoring because this won't work properly with all devices.
+        // worldYLimit = screenHeight / 100;
     }
 
     void FixedUpdate()
