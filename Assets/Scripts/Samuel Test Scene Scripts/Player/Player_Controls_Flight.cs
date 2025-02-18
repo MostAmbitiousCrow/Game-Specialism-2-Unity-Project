@@ -7,6 +7,8 @@ public class Player_Controls_Flight : MonoBehaviour
     [SerializeField] private float moveSpeed = 10f;
     public float screenWidth, screenHeight;
     public bool useCursorMovement = false;
+
+    [SerializeField] float worldXLimit, worldYLimit;
     [SerializeField] Vector2 cursorPosition;
 
     [SerializeField] Vector2 inputDirection;
@@ -18,6 +20,10 @@ public class Player_Controls_Flight : MonoBehaviour
     {
         screenWidth = Screen.width;
         screenHeight = Screen.height;
+
+        worldXLimit = screenWidth / 100;
+        worldYLimit = screenHeight / 100;
+
         rb = GetComponent<Rigidbody>();
     }
 
@@ -26,10 +32,16 @@ public class Player_Controls_Flight : MonoBehaviour
         if (useCursorMovement)
         {
             Vector2 playerPosition = Camera.main.WorldToScreenPoint(transform.position);
-            inputDirection = (cursorPosition - playerPosition).normalized;
+            inputDirection = cursorPosition - playerPosition;
+            transform.position = inputDirection;
         }
-        rb.velocity = new Vector3(inputDirection.x, inputDirection.y, 0) * moveSpeed;
-        rb.position = new Vector2(Mathf.Clamp(rb.position.x, -screenWidth, screenWidth), Mathf.Clamp(rb.position.y, -screenHeight, screenHeight));
+        else
+        {
+            Vector3 direction = moveSpeed * Time.deltaTime * (Vector3)inputDirection;
+            transform.position += direction;
+            transform.position = new Vector2(Mathf.Clamp(transform.position.x, -worldXLimit, worldXLimit),
+                Mathf.Clamp(transform.position.y, -worldYLimit, worldYLimit));
+        }
     }
 
     public void MoveInput(InputAction.CallbackContext context)
