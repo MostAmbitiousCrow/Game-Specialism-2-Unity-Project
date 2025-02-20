@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player_Controls_Flight : MonoBehaviour
+public class Player_Controls_Flight : MonoBehaviour // By Samuel White
 {
     [Header("Player Controls")]
     [SerializeField] private float moveSpeed = 10f;

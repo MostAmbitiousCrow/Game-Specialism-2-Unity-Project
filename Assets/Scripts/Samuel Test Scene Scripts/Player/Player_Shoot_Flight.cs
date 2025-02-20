@@ -2,7 +2,7 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player_Shoot_Flight : MonoBehaviour
+public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
 {
     [SerializeField] private ScriptableObject scriptableObject;
     [SerializeField] private bool isShooting = false;

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Projectile_Player_Flight : BulletManager
+public class Projectile_Player_Flight : BulletManager // By Samuel White
 {
 public SO_Proj_Eni_Bas scriptable_Object;
     private float time = 0;

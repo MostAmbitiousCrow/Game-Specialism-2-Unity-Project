@@ -1,7 +1,7 @@
 using System.Reflection;
 using UnityEngine;
 
-public class Test_Shoot_Projectile : MonoBehaviour
+public class Test_Shoot_Projectile : MonoBehaviour // By Samuel White
 {
     [SerializeField] private float direction = 0;
     [SerializeField] private bool showDebug = true;
