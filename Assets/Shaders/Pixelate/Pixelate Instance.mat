@@ -40,8 +40,8 @@ Material:
     m_Floats:
     - _Fullscreen_DepthWrite: 0
     - _Pixel_Size: 2
-    - _Pixelate: 1
-    - _Posterize: 1
+    - _Pixelate: 0
+    - _Posterize: 0
     - _Posterize_Value: 256
     m_Colors: []
   m_BuildTextureStacks: []
