@@ -2,8 +2,6 @@ using System.Reflection;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Unity.Mathematics;
-using System.Linq;
 
 public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
 {
@@ -21,7 +19,7 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
     [Range(1, 9.9f)] [SerializeField] float detectRadius = 5;
     [Range(1, 16)] [SerializeField] float detectRange = 10;
 
-    [Range(0, 2)] [SerializeField] int closestEnemiesRange = 2;
+    [Range(0, 4)] [SerializeField] int closestEnemiesRange = 2;
 
     [SerializeField] List<Transform> detectedEnemies;
     [SerializeField] LayerMask enemyLayer;
@@ -77,15 +75,18 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
 
     private void UpdateRings()
     {
-        int c = Mathf.Clamp(detectedEnemies.Count, 0, closestEnemiesRange);
+        int c = Mathf.Clamp(detectedEnemies.Count, 0, closestEnemiesRange); // Count of Targetted enemies from closest enemy range.
+
+        foreach (var item in enemyDetectRings) item.gameObject.SetActive(false); // TODO - Temporary fix, optimize this to only disable the rings that are not needed.
 
         for (int i = 0; i < c; i++)
         { enemyDetectRings[i].position = detectedEnemies[i].position; enemyDetectRings[i].gameObject.SetActive(true); }
-        if (c < closestEnemiesRange)
-        {
-            for (int i = c; i < closestEnemiesRange; i++)
-            { enemyDetectRings[i].position = new(); enemyDetectRings[i].gameObject.SetActive(false); }
-        }
+        // if (c < closestEnemiesRange)
+        // {
+
+        //     for (int i = c; i < closestEnemiesRange; i++)
+        //     { enemyDetectRings[i].position = new(); enemyDetectRings[i].gameObject.SetActive(false); }
+        // }
     }
 
     public void Shoot()
