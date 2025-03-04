@@ -3,7 +3,7 @@ using System.Reflection;
 using UnityEngine;
 
 public class Bullet_Pool_System : MonoBehaviour // By Samuel White // Add this script to the scene. It will create a pool of bullets that can be used and returned.
-{
+{ 
     [Header("Bullet Pool Settings")]
     
     public static Bullet_Pool_System instance; // Set instance to be acessed by other scripts
