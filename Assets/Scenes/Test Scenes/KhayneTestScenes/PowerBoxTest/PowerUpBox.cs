@@ -8,6 +8,7 @@ public class PowerUpBox : MonoBehaviour // Made by Khayne. This script is for th
     [SerializeField] private List<GameObject> PowerUps;
     [SerializeField] private GameObject SetPowerUp;
     [SerializeField] private bool Assigned = false;
+    [SerializeField] private bool EmptyBox = false;
 
     public void BreakOpen()
     {
@@ -16,10 +17,15 @@ public class PowerUpBox : MonoBehaviour // Made by Khayne. This script is for th
         {
             Instantiate(SetPowerUp, transform.position, Quaternion.identity);
         }
-        else
+        else if(!Assigned)
         {
             int RandomPowerUp = Random.Range(0, PowerUps.Count);
             Instantiate(PowerUps[RandomPowerUp], transform.position, Quaternion.identity);
         }
+        else if (EmptyBox)
+        {
+            Debug.Log("Empty Box");
+        }
     }
+    
 }
