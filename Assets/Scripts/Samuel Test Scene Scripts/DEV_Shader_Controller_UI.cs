@@ -18,23 +18,23 @@ public class DEV_Shader_UI_Controller : MonoBehaviour // By Samuel White
     private bool b;
     private bool c;
 
-    void Start()
-    {
-        float p = pixelSlider.value = shaderMaterial.GetFloat("_Pixel_Size");
-        pixelText.text = p.ToString();
-        p = posterizeSlider.value = shaderMaterial.GetFloat("_Posterize_Value");
-        posterizeText.text = p.ToString();
+    // void Start()
+    // {
+    //     float p = pixelSlider.value = shaderMaterial.GetFloat("_Pixel_Size");
+    //     pixelText.text = p.ToString();
+    //     p = posterizeSlider.value = shaderMaterial.GetFloat("_Posterize_Value");
+    //     posterizeText.text = p.ToString();
 
-        if (shaderMaterial.GetFloat("_Pixelate") == 0)
-            b = false;
-        else b = true;
-        pixelToggle.isOn = b;
+    //     if (shaderMaterial.GetFloat("_Pixelate") == 0)
+    //         b = false;
+    //     else b = true;
+    //     pixelToggle.isOn = b;
 
-        if (shaderMaterial.GetFloat("_Posterize") == 0)
-            c = false;
-        else c = true;
-        posterizeToggle.isOn = c;
-    }
+    //     if (shaderMaterial.GetFloat("_Posterize") == 0)
+    //         c = false;
+    //     else c = true;
+    //     posterizeToggle.isOn = c;
+    // }
 
     public void UpdatePixelation()
     {
