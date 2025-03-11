@@ -44,3 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e4656c0a5773104d9874b57397a0353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerT: {fileID: 0}
+  enemyData: {fileID: 0}
+  projectileData: {fileID: 0}
