@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95f5f889b062fe345878dda7409cceda, type: 3}
-  m_Name: Player Projectile
+  m_Name: Flake Projectiles
   m_EditorClassIdentifier: 
   useMoveAcceleration: 0
-  moveStartSpeed: 10
+  moveStartSpeed: 2
   moveEndSpeed: 0
   moveAccelerationCurve:
     serializedVersion: 2
@@ -22,8 +22,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   projectileDamage: 1
-  projectileLifeTime: 2
-  projectileSize: 0.2
+  projectileLifeTime: 5
+  projectileSize: 1
   useRotation: 0
   useAngularAcceleration: 0
   rotateStartSpeed: 0

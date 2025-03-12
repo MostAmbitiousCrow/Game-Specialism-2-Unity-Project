@@ -1,8 +1,10 @@
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Projectile_Player_Flight : BulletManager // By Samuel White
 {
-public SO_Proj_Eni_Bas scriptable_Object;
+    public PlayerProjectileData scriptable_Object;
+    public Transform target;
     private float time = 0;
     [SerializeField] private int ID;
 
@@ -20,6 +22,8 @@ public SO_Proj_Eni_Bas scriptable_Object;
 
         float f = scriptable_Object.projectileSize;
         transform.localScale = new(f,f,f);
+        transform.rotation = new();
+        target = Player_Shoot_Flight.targetEnemy;
         time = 0;
     }
     #endregion
@@ -28,10 +32,10 @@ public SO_Proj_Eni_Bas scriptable_Object;
     public override void UpdateBullet() // Updated by the Bullet Manager
     {
         Move();
-        if (scriptable_Object.useRotation) Rotate();
+        if (scriptable_Object.canHome && target != null) Home();
         
         if (time > 1) 
-        { gameObject.SetActive(false); Deactivate(); }
+        { Deactivate(); }
         else time += Time.deltaTime / scriptable_Object.projectileLifeTime;
     }
 
@@ -47,16 +51,16 @@ public SO_Proj_Eni_Bas scriptable_Object;
             transform.position += scriptable_Object.moveStartSpeed * Time.deltaTime * transform.forward;
         }
     }
-    private void Rotate() // Rotate the projectile
+    private void Home() // Rotate the projectile
     {
-        if (scriptable_Object.useAngularAcceleration)
+        if (time > scriptable_Object.timeTilHome) //TODO Adjust this to match lerp
         {
-            float speed = Mathf.Lerp(scriptable_Object.rotateStartSpeed, scriptable_Object.rotateEndSpeed, scriptable_Object.rotateAccelerationCurve.Evaluate(time));
-            transform.Rotate(0, 0, speed * Time.deltaTime);
-        }
-        else
-        {
-            transform.Rotate(0, 0, scriptable_Object.rotateStartSpeed * Time.deltaTime);
+            Vector3 direction = target.position - transform.position; // Get direction from this projectile to the closest enemy
+            //Vector3 newDirection = Vector3.RotateTowards(transform.forward, direction, scriptable_Object.homingStrength * Time.deltaTime, 0.0F);
+            Vector3 newDirection = Vector3.RotateTowards(transform.forward, direction, scriptable_Object.homingStrength * Time.deltaTime, 0.0F);
+
+            //transform.rotation = Quaternion.LookRotation(newDirection);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(newDirection), 1 - scriptable_Object.homingStrength * Time.deltaTime);
         }
     }
     #endregion
@@ -64,8 +68,9 @@ public SO_Proj_Eni_Bas scriptable_Object;
     #region Collision Detection
     public void Deactivate() // Return the projectile to the pool and deactivate this bullet
     {
+        target = null;
+        gameObject.SetActive(false);
         Bullet_Pool_System.instance.ReturnBullet(gameObject, ID, GetType().GetField("scriptable_Object"));
-
     }
     #endregion
 }

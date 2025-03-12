@@ -2,6 +2,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Linq;
 
 public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
 {
@@ -9,7 +10,9 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
     [SerializeField] private ScriptableObject projectileData;
     [SerializeField] private bool isShooting = false;
     [SerializeField] float fireRate = .2f;
+    [SerializeField] Transform shootPointA, shootPointB;
     private float t = 0;
+    private bool lG;
 
     [Header("Ring")]
     [SerializeField] Transform[] enemyDetectRings;
@@ -21,18 +24,14 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
 
     [Range(0, 4)] [SerializeField] int closestEnemiesRange = 2;
 
-    [SerializeField] List<Transform> detectedEnemies;
+    public List<Transform> detectedEnemies;
+    public static Transform targetEnemy;
     [SerializeField] LayerMask enemyLayer;
 
     [Header("Debug")]
     [SerializeField] bool enableDebug = true;
     [SerializeField] Mesh mesh;
     [SerializeField] bool debugAffectMaterial = false;
-
-    void Start()
-    {
-        // enemyDetectRingMaterial = enemyDetectRing.GetComponent<Renderer>().material;
-    }
     
     void Update()
     {
@@ -48,6 +47,8 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
         Collider[] colliders = Physics.OverlapCapsule(pPos, new(pPos.x, pPos.y, pPos.z + detectRange), detectRadius / 2, enemyLayer); // https://roundwide.com/physics-overlap-capsule/
         Debug.DrawLine(pPos, new(pPos.x, pPos.y, pPos.z + detectRange));
 
+        if (colliders.Length == 0) { targetEnemy = null; return; }
+
         foreach (var item in colliders)
         {
             detectedEnemies.Add(item.transform);
@@ -58,6 +59,7 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
             return Vector3.Distance(t1.transform.position, transform.position)
                 .CompareTo(Vector3.Distance(t2.transform.position, transform.position));
         });
+        targetEnemy = detectedEnemies?[0]; // Assign Target Enemy to Player Projectiles
     }
 
     private void Shooting()
@@ -91,20 +93,41 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
 
     public void Shoot()
     {
-        for (int i = 0; i < Mathf.Clamp(detectedEnemies.Count, 0, closestEnemiesRange); i++)
+        if (detectedEnemies.Count != 0)
+        {
+            for (int i = 0; i < Mathf.Clamp(detectedEnemies.Count, 0, closestEnemiesRange); i++)
+            {
+                (GameObject GO, FieldInfo SO) = Bullet_Pool_System.instance.GetBullet(0);
+                if (GO != null && SO != null)
+                {
+                    Transform pos = lG ? shootPointA : shootPointB;
+                    Quaternion look = detectedEnemies.Count == 0 ? Quaternion.identity : Quaternion.LookRotation(detectedEnemies[i].position - pos.position);
+                    GO.transform.SetPositionAndRotation(pos.position, look);
+                    SO.SetValue(GO.GetComponent(SO.DeclaringType), projectileData);
+                    GO.SetActive(true);
+                    lG = !lG;
+                }
+                else
+                {
+                    Debug.LogWarning("Failed to get bullet from pool.");
+                }   
+            }
+        }
+        else
         {
             (GameObject GO, FieldInfo SO) = Bullet_Pool_System.instance.GetBullet(0);
             if (GO != null && SO != null)
             {
-                Quaternion look = detectedEnemies.Count == 0 ? Quaternion.identity : Quaternion.LookRotation(detectedEnemies[i].position - transform.position);
-                GO.transform.SetPositionAndRotation(transform.position, look);
+                Transform pos = lG ? shootPointA : shootPointB;
+                GO.transform.SetPositionAndRotation(pos.position, Quaternion.identity);
                 SO.SetValue(GO.GetComponent(SO.DeclaringType), projectileData);
                 GO.SetActive(true);
+                lG = !lG;
             }
             else
             {
                 Debug.LogWarning("Failed to get bullet from pool.");
-            }   
+            }
         }
     }
 

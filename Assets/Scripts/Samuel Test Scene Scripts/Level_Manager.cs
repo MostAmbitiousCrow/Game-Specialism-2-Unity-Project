@@ -4,20 +4,28 @@ using UnityEngine;
 
 public class Level_Manager : MonoBehaviour // By Samuel White
 {
+    [System.Serializable]
     public class Wave
     {
         public string waveName;
+        [System.Serializable]
         public class EnemySpawn
         {
             [Tooltip("Enemy Info")]
             public class EnemyInfo
             {
+                [Header("Enemy Info")]
+                [Tooltip("The ID of the enemy, corresponding to the order in the list of the Enemy Pool")]
                 public int enemyID;
+                [Tooltip("Enemy Data, provided by its corresponding scriptable object data.")]
                 public ScriptableObject enemyData;
-                public float timeAppearance = 1f;
-                public Vector3 targetPos = new();
+                [Tooltip("The time")]
+                public float timeOfAppearance = 1f;
                 public enum SpawnType { Portal, Behind, Front }
+                [Tooltip("The way the enemy/enemies will spawn into the scene. Portal: A portal will appear directly in the scene under the Target Position, the enemy/enemies will emerge from the portal based on the appearance rate. Behind: the Enemy/Enemies will appear behind the player camera and move in behind ")]
                 public SpawnType enterType;
+                [Tooltip("")]
+                public Vector3 targetPos = new();
 
                 [Header("Clone Controls")]
                 [Range(1, 16)] public int amount = 1;
@@ -39,7 +47,7 @@ public class Level_Manager : MonoBehaviour // By Samuel White
         public bool showDebug;
         public Color debugColor = Color.red;
     }
-    [SerializeField] List<Wave> waves;
+    public List<Wave> waves;
 
     public float playTime = 0;
     private Coroutine timerRoutine;
