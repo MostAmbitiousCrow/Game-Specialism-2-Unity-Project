@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Scene_Transition_Controller : MonoBehaviour
+public class Scene_Transition_Controller : MonoBehaviour // By Samuel
 {
     [SerializeField] float t;
     private Coroutine c;

@@ -64,7 +64,7 @@ public class Bullet_Pool_System : MonoBehaviour // By Samuel White // Add this s
             GameObject bullet = bulletTypes[ID].pool.Dequeue();
             FieldInfo fieldInfo = bulletTypes[ID].fieldInfos.Dequeue();
             // bullet.SetActive(true);
-            print($"{bullet} : {fieldInfo}");
+            //print($"{bullet} : {fieldInfo}");
             return (bullet, fieldInfo);
         }
         else
@@ -83,6 +83,6 @@ public class Bullet_Pool_System : MonoBehaviour // By Samuel White // Add this s
         bulletTypes[BID].pool.Enqueue(bullet);
         if (BFI != null) bulletTypes[BID].fieldInfos.Enqueue(BFI);
         else Debug.LogError("Field Info not found");
-        print($"Items Remaining: {bulletTypes[BID].PoolCount}. Field Info: {BFI}");
+        //print($"Items Remaining: {bulletTypes[BID].PoolCount}. Field Info: {BFI}");
     }
 }
