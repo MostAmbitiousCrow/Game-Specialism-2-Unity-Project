@@ -28,9 +28,14 @@ public class Bullet_Pool_System : MonoBehaviour // By Samuel White // Add this s
         instance = this;
         foreach (var item in bulletTypes)
         {
+            GameObject folder = Instantiate(new GameObject(), new(), Quaternion.identity);
+            folder.name = item.name + " Folder";
             for (int i = 0; i < item.poolSize; i++)
             {
                 GameObject bullet = Instantiate(item.prefab);
+
+                bullet.transform.SetParent(folder.transform);
+                
                 bullet.name = "Bullet " + i;
                 bullet.SetActive(false);
                 item.pool.Enqueue(bullet);

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class BulletManager : MonoBehaviour // By Samuel
+public abstract class BulletManager : MonoBehaviour // By Samuel White
 {
     private void Update() 
     {

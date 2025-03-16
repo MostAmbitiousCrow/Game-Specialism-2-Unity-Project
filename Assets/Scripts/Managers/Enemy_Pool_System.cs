@@ -39,6 +39,8 @@ public class Enemy_Pool_System : MonoBehaviour // By Samuel White // Add this sc
         instance = this;
         foreach (var item in enemyTypes)
         {
+            GameObject folder = Instantiate(new GameObject(), new(), Quaternion.identity);
+            folder.name = item.name + " Folder";
             for (int i = 0; i < item.poolSize; i++)
             {
                 GameObject enemy = Instantiate(item.prefab);
@@ -59,6 +61,8 @@ public class Enemy_Pool_System : MonoBehaviour // By Samuel White // Add this sc
                 p.fiED = p.SC.GetType().GetField("enemyData");
                 p.fiTP = p.SC.GetType().GetField("destination");
                 item.infoPool.Enqueue(p);
+
+                enemy.transform.SetParent(folder.transform);
             }
         }
     }
