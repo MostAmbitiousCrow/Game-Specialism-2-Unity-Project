@@ -125,4 +125,9 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
             if (debugAffectMaterial) enemyDetectRingMaterial.SetFloat("_Radius", detectRadius * .05f);
         }
     }
+    public float FireRateSprinkle // Added by Khayne for the sprinkle powerup, makes it so it doesn't have to be set to a public variable.
+    {
+    get { return fireRate; }
+    set { fireRate = Mathf.Max(0, value); }
+    }
 }
