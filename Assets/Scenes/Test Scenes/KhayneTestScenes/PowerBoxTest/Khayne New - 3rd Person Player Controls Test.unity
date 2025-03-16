@@ -4120,6 +4120,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+
 --- !u!1001 &2723515125834339629
 PrefabInstance:
   m_ObjectHideFlags: 0
