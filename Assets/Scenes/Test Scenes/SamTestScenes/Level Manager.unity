@@ -3601,12 +3601,12 @@ PrefabInstance:
     - target: {fileID: 11843312951328411, guid: 530d275a1b61b49dda2842a814c35e19,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 11843312951328411, guid: 530d275a1b61b49dda2842a814c35e19,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11843312951328411, guid: 530d275a1b61b49dda2842a814c35e19,
         type: 3}
@@ -3647,6 +3647,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 209576661767599461, guid: 530d275a1b61b49dda2842a814c35e19,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3912,7 +3917,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - waveName: 
-    enemySpawnInfo: []
+    enemySpawnInfo:
+    - cloneAmount: 0
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 0, y: 0}
+      enemyInfo:
+        name: 
+        enemyID: 0
+        enemyData: {fileID: 0}
+        projectileData: {fileID: 0}
+        timeOfAppearance: 0
+        enterType: 0
     obstacleSpawnInfo: []
     powerUpSpawnInfo: []
     waveDuration: 0
@@ -4395,12 +4410,12 @@ PrefabInstance:
     - target: {fileID: 9102286608345224159, guid: 904fbb1e2c7984805a9bb6a0841985be,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6
+      value: -9
       objectReference: {fileID: 0}
     - target: {fileID: 9102286608345224159, guid: 904fbb1e2c7984805a9bb6a0841985be,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 9102286608345224159, guid: 904fbb1e2c7984805a9bb6a0841985be,
         type: 3}
@@ -4458,12 +4473,12 @@ PrefabInstance:
     - target: {fileID: 2101766033488334029, guid: 0afe8d5c9961f4aa3b0c3ffa8886052b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -7
       objectReference: {fileID: 0}
     - target: {fileID: 2101766033488334029, guid: 0afe8d5c9961f4aa3b0c3ffa8886052b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2101766033488334029, guid: 0afe8d5c9961f4aa3b0c3ffa8886052b,
         type: 3}
@@ -4531,12 +4546,12 @@ PrefabInstance:
     - target: {fileID: 6900849612907046242, guid: e16e026cabbc04fd4aaa0c06e58d4c0c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6900849612907046242, guid: e16e026cabbc04fd4aaa0c06e58d4c0c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 6900849612907046242, guid: e16e026cabbc04fd4aaa0c06e58d4c0c,
         type: 3}
@@ -4631,12 +4646,12 @@ PrefabInstance:
     - target: {fileID: 5171392013083506513, guid: 6342e1ec4c31744fbad2171c03c5c8b7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 5171392013083506513, guid: 6342e1ec4c31744fbad2171c03c5c8b7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5171392013083506513, guid: 6342e1ec4c31744fbad2171c03c5c8b7,
         type: 3}
@@ -4704,7 +4719,7 @@ PrefabInstance:
     - target: {fileID: 3137033375463477432, guid: ef39e352d16784fada0fa04878db4e0a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 3137033375463477432, guid: ef39e352d16784fada0fa04878db4e0a,
         type: 3}
