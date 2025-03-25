@@ -474,6 +474,7 @@ MonoBehaviour:
   fireRate: 0.1
   shootPointA: {fileID: 2785143755135533972}
   shootPointB: {fileID: 5443200363664097008}
+  gameCamera: {fileID: 0}
   enemyDetectRings:
   - {fileID: 6283365587399571215}
   - {fileID: 3549791633836974634}
@@ -481,9 +482,9 @@ MonoBehaviour:
   - {fileID: 7042836314805817516}
   enemyDetectRingMaterial: {fileID: 2100000, guid: a6497507b3e104dec8025bef1ce779db,
     type: 2}
-  detectRadius: 9.9
+  detectRadius: 2
   detectRange: 16
-  closestEnemiesRange: 2
+  closestEnemiesRange: 1
   detectedEnemies: []
   enemyLayer:
     serializedVersion: 2
@@ -731,7 +732,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -347648665
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 173480b9701267245afa5cf1cf932c6f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

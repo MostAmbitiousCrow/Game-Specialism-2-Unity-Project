@@ -16,13 +16,6 @@ public class New_Enemy_Pool_System : MonoBehaviour // By Samuel White
         public GameObject prefab; // The prefab of the enemy type
         public int poolSize = 4; // The pool size of the enemies type
 
-        // [System.Serializable]
-        // public class EnemyInfo
-        // {
-        //     public GameObject GO;
-        //     [HideInInspector]
-        //     public Enemy_Character_Data ECD;
-        // }
         [HideInInspector]
         public Enemy_Character_Data ECD;
 
@@ -46,19 +39,6 @@ public class New_Enemy_Pool_System : MonoBehaviour // By Samuel White
 
                 Enemy_Character_Data ECD = enemy.GetComponent<Enemy_Character_Data>();
                 item.enemyPool.Enqueue(ECD);
-
-                // EnemyType.EnemyInfo EI = new();
-
-                // // EI.GO = enemy;
-                // // EI.ECD = enemy.GetComponent<Enemy_Character_Data>();
-
-                // // // Ensure the Enemy Info Class has values
-                // // if (!EI.ECD || !EI.GO)
-                // // {
-                // //     Debug.LogError("Missing Enemy (Prefab)");
-                // //     return;
-                // // }
-                // // item.infoPool.Enqueue(EI);
             }
         }
     }
@@ -69,7 +49,7 @@ public class New_Enemy_Pool_System : MonoBehaviour // By Samuel White
 
         if (enemyTypes[ID].enemyPool.Count > 0)
         {
-            print($"Spawned {ECD.name}");
+            Debug.Log($"Spawned {ECD.name}");
             return ECD;
         }
         else
@@ -79,43 +59,11 @@ public class New_Enemy_Pool_System : MonoBehaviour // By Samuel White
         }
     }
 
-    // public (EnemyType.EnemyInfo, int) GetEnemy(int ID)
-    // {
-    //     EnemyType.EnemyInfo info = enemyTypes[ID].infoPool.Dequeue();
-
-    //     if (enemyTypes[ID].infoPool.Count > 0)
-    //     {
-    //         print($"Spawned {info.GO}");
-    //         return (info, ID);
-    //     }
-    //     else
-    //     {
-    //         Debug.LogWarning($"No {info} remaining");
-    //         return (null, 0);
-    //     }
-    // }
-
     public void ReturnEnemy(Enemy_Character_Data ECD)
     {
         EnemyType ET = enemyTypes[ECD.enemyID];
         ECD.gameObject.SetActive(false);
         enemyTypes[ECD.enemyID].enemyPool.Enqueue(ECD);
-        print($"{ET.name}s Remaining: {ET.enemyPool.Count}"); // Debug
+        Debug.Log($"{ET.name}s Remaining: {ET.enemyPool.Count}"); // Debug
     }
-
-    // public void ReturnEnemy(EnemyType.EnemyInfo info, int ID)
-    // {
-    //     info.GO.SetActive(false);
-    //     enemyTypes[ID].infoPool.Enqueue(info);
-    //     print($"{info.GO}s Remaining: {enemyTypes[ID].infoPool.Count}"); // Debug
-    // }
-
-    //public void ReturnEnemy(GameObject enemy, int BID, FieldInfo BFI) // Recieved bullets are deactivated and returned to the pool
-    //{
-    //    enemy.SetActive(false);
-    //    enemyTypes[BID].pool.Enqueue(enemy);
-    //    if (BFI != null) enemyTypes[BID].fieldInfos.Enqueue(BFI);
-    //    else Debug.LogError("Field Info not found");
-    //    print($"Items Remaining: {enemyTypes[BID].PoolCount}. Field Info: {BFI}");
-    //}
 }
