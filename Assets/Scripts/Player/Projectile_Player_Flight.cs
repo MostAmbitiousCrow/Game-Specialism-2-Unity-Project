@@ -35,7 +35,7 @@ public class Projectile_Player_Flight : BulletManager // By Samuel White
         if (scriptable_Object.canHome && target != null) Home();
         
         if (time > 1) 
-        { Deactivate(); }
+        Deactivate();
         else time += Time.deltaTime / scriptable_Object.projectileLifeTime;
     }
 
@@ -66,6 +66,12 @@ public class Projectile_Player_Flight : BulletManager // By Samuel White
     #endregion
 
     #region Collision Detection
+
+    private void OnTriggerEnter(Collider c)
+    {
+        c.GetComponent<Character_Health_Script>().Damage(1); // Damage the target
+        Deactivate();
+    }
     public void Deactivate() // Return the projectile to the pool and deactivate this bullet
     {
         target = null;

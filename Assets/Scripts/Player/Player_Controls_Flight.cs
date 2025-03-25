@@ -27,6 +27,7 @@ public class Player_Controls_Flight : MonoBehaviour // By Samuel White
         if (useCursorMovement)
         {
             Vector2 playerPosition = Camera.main.WorldToScreenPoint(transform.position);
+
             inputDirection = cursorPosition - playerPosition;
             transform.position = inputDirection;
         }

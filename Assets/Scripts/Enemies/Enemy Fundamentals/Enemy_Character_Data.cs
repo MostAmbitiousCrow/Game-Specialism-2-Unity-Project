@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class Enemy_Character_Data : MonoBehaviour
@@ -19,5 +20,10 @@ public class Enemy_Character_Data : MonoBehaviour
         {
             enemyShooting = GetComponent<Enemy_Shooting>();
         }
+    }
+
+    public void ReturnEnemy()
+    {
+        New_Enemy_Pool_System.instance.ReturnEnemy(this);
     }
 }
