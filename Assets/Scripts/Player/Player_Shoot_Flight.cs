@@ -2,7 +2,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Linq;
+using UnityEngine.UIElements;
 
 public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
 {
@@ -13,6 +13,7 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
     [SerializeField] Transform shootPointA, shootPointB;
     private float t = 0;
     private bool lG;
+    [SerializeField] Transform gameCamera;
 
     [Header("Ring")]
     [SerializeField] Transform[] enemyDetectRings;
@@ -119,10 +120,13 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
             if (GO != null && SO != null)
             {
                 Transform pos = lG ? shootPointA : shootPointB;
-                GO.transform.SetPositionAndRotation(pos.position, Quaternion.identity);
+                Vector3 dir = transform.position - gameCamera.position;
+                Quaternion rot = Quaternion.LookRotation(dir);
+                GO.transform.SetPositionAndRotation(pos.position, rot);
                 SO.SetValue(GO.GetComponent(SO.DeclaringType), projectileData);
                 GO.SetActive(true);
                 lG = !lG;
+                Debug.Log($"{GO.name} Shot: Rotation = {GO.transform.rotation}");
             }
             else
             {
@@ -143,7 +147,7 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
             Gizmos.color = Color.green;
             Quaternion rot = Quaternion.identity;
             Gizmos.DrawWireMesh(mesh, 0, new(transform.position.x, transform.position.y, transform.position.z + detectRange /2 - (detectRange * .25f)),
-                Quaternion.Euler(90, rot.y, 0), new(detectRadius, detectRange/2, detectRadius));
+                Quaternion.Euler(90, rot.y, 0), new(detectRadius * 2, detectRange/2, detectRadius * 2));
             
             if (debugAffectMaterial) enemyDetectRingMaterial.SetFloat("_Radius", detectRadius * .05f);
         }
