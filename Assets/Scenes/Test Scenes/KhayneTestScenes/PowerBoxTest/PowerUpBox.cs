@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
 
 public class PowerUpBox : MonoBehaviour // Made by Khayne. This script is for the power up box that the player can destroy to get a power up.
