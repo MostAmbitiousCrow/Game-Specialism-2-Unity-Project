@@ -11,7 +11,7 @@ public class Wall_Pattern_Behaviour : MonoBehaviour // By Samuel White //TODO
     [SerializeField] private bool mirror = true;
     [SerializeField] private bool curve = true;
 
-    [SerializeField] private List<Test_Enemy_Projectile> projectiles;
+    [SerializeField] private List<Test_Enemy_Basic_Projectile> projectiles;
 
     public void Shoot()
     {

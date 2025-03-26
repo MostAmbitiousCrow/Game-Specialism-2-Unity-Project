@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Test_Enemy_Projectile : BulletManager // By Samuel White
+public class Test_Enemy_Basic_Projectile : BulletManager // By Samuel White
 {
     public SO_Proj_Eni_Bas scriptable_Object;
     private float time = 0;

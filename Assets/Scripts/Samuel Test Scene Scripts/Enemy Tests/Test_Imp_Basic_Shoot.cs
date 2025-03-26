@@ -27,7 +27,7 @@ public class Test_Imp_Basic_Shoot : MonoBehaviour // By Samuel White
     {
         while (true)
         {
-            Test_Enemy_Projectile projectile = controller.storedProjectiles[attackID].availableProjectiles[0];
+            Test_Enemy_Basic_Projectile projectile = controller.storedProjectiles[attackID].availableProjectiles[0];
             projectile.gameObject.SetActive(true);
 
             Vector2 direction = controller.player.position - transform.position; // Calculate the direction to the target

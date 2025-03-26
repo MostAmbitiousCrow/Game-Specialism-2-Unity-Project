@@ -693,7 +693,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -347648665
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6,
     type: 3}
@@ -3002,9 +3002,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9184666cf574fec468f5459627904cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  environment: {fileID: 0}
   startPosition: {x: 0, y: 0, z: -10}
   endPosition: {x: 0, y: 0, z: 24.4}
   travelTime: 10
+  pause: 0
 --- !u!1 &1831800010
 GameObject:
   m_ObjectHideFlags: 0
@@ -3973,6 +3975,9 @@ MonoBehaviour:
   projectileData: {fileID: 11400000, guid: 1736b068844d74922961cf759fb32c29, type: 2}
   isShooting: 0
   fireRate: 0.2
+  shootPointA: {fileID: 0}
+  shootPointB: {fileID: 0}
+  gameCamera: {fileID: 0}
   enemyDetectRings:
   - {fileID: 133689065}
   - {fileID: 452737713}

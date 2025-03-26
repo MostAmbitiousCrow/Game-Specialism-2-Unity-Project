@@ -12,8 +12,8 @@ public class Test_Enemy_Shoot_Controller : MonoBehaviour // By Samuel White
     public class AttackProjectiles
     {
         public int poolingSpawnCount;
-        public List<Test_Enemy_Projectile> availableProjectiles;
-        public List<Test_Enemy_Projectile> activeProjectiles;
+        public List<Test_Enemy_Basic_Projectile> availableProjectiles;
+        public List<Test_Enemy_Basic_Projectile> activeProjectiles;
     }
     public List<AttackProjectiles> storedProjectiles;
 

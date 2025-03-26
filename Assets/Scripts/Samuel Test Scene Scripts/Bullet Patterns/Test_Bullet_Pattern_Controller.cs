@@ -48,8 +48,8 @@ public class Test_Bullet_Pattern_Controller : MonoBehaviour // By Samuel White
         }
         public PatternSegment[] patternSegments;
 
-        public List<Test_Enemy_Projectile> availableProjectiles;
-        public List<Test_Enemy_Projectile> activeProjectiles;
+        public List<Test_Enemy_Basic_Projectile> availableProjectiles;
+        public List<Test_Enemy_Basic_Projectile> activeProjectiles;
     }
     public List<BulletPattern> bulletPattern;
 
