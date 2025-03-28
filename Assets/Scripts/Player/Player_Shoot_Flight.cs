@@ -45,8 +45,10 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
     {
         detectedEnemies.Clear();
         Vector3 pPos = transform.position;
-        Collider[] colliders = Physics.OverlapCapsule(pPos, new(pPos.x, pPos.y, pPos.z + detectRange), detectRadius / 2, enemyLayer); // https://roundwide.com/physics-overlap-capsule/
-        Debug.DrawLine(pPos, new(pPos.x, pPos.y, pPos.z + detectRange));
+        Vector3 dir = (transform.position - gameCamera.position).normalized;
+        //Quaternion rot = Quaternion.LookRotation(dir);
+        Collider[] colliders = Physics.OverlapCapsule(pPos, transform.position + dir * detectRange, detectRadius / 2, enemyLayer); 
+        // https://roundwide.com/physics-overlap-capsule/
 
         if (colliders.Length == 0) { targetEnemy = null; return; }
 
@@ -102,7 +104,8 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
                 if (GO != null && SO != null)
                 {
                     Transform pos = lG ? shootPointA : shootPointB;
-                    Quaternion look = detectedEnemies.Count == 0 ? Quaternion.identity : Quaternion.LookRotation(detectedEnemies[i].position - pos.position);
+                    Quaternion look = detectedEnemies.Count == 0 ? Quaternion.LookRotation(transform.forward)
+                        : Quaternion.LookRotation(detectedEnemies[i].position - pos.position);
                     GO.transform.SetPositionAndRotation(pos.position, look);
                     SO.SetValue(GO.GetComponent(SO.DeclaringType), projectileData);
                     GO.SetActive(true);
@@ -121,12 +124,14 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
             {
                 Transform pos = lG ? shootPointA : shootPointB;
                 Vector3 dir = transform.position - gameCamera.position;
-                Quaternion rot = Quaternion.LookRotation(dir);
+                Quaternion rot = Quaternion.LookRotation(transform.forward);
                 GO.transform.SetPositionAndRotation(pos.position, rot);
+                Debug.Log($"{GO.name} Shot: Rotation = {GO.transform.rotation}");
                 SO.SetValue(GO.GetComponent(SO.DeclaringType), projectileData);
                 GO.SetActive(true);
                 lG = !lG;
-                Debug.Log($"{GO.name} Shot: Rotation = {GO.transform.rotation}");
+                //Debug.Log($"{GO.name} Shot: Rotation = {GO.transform.rotation}");
+                Gamepad.current.SetMotorSpeeds(0.25f, 0.75f);
             }
             else
             {
@@ -145,11 +150,19 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
         if (enableDebug)
         {
             Gizmos.color = Color.green;
-            Quaternion rot = Quaternion.identity;
-            Gizmos.DrawWireMesh(mesh, 0, new(transform.position.x, transform.position.y, transform.position.z + detectRange /2 - (detectRange * .25f)),
-                Quaternion.Euler(90, rot.y, 0), new(detectRadius * 2, detectRange/2, detectRadius * 2));
-            
+            Vector3 dir = (transform.position - gameCamera.position).normalized;
+            Quaternion rot = Quaternion.LookRotation(transform.position - gameCamera.position);
+
+            //Gizmos.DrawWireMesh(mesh, 0, new(transform.position.x, transform.position.y, transform.position.z + detectRange /2 - (detectRange * .25f)),
+            //    Quaternion.Euler(rot.x + 90, rot.y, rot.z), new(detectRadius * 2, detectRange/2, detectRadius * 2));
+            Gizmos.DrawWireCube(transform.position, new(detectRadius, detectRadius, detectRange));
+            Gizmos.matrix = Matrix4x4.TRS(transform.localPosition, rot, transform.localScale);
+
             if (debugAffectMaterial) enemyDetectRingMaterial.SetFloat("_Radius", detectRadius * .05f);
+
+            Debug.DrawLine(transform.position, gameCamera.position);
+            Debug.DrawLine(transform.position, transform.position + dir * detectRange, Color.red);
+            //Debug.DrawRay(transform.position, dir + dir * detectRange, Color.cyan);
         }
     }
 }

@@ -245,6 +245,8 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
                 }
             }
         }
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireCube(new(0, -2.5f, 10), new(11, 4, 1));
     }
     #endregion
 }
