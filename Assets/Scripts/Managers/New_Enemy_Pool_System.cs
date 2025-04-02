@@ -45,10 +45,9 @@ public class New_Enemy_Pool_System : MonoBehaviour // By Samuel White
 
     public Enemy_Character_Data GetEnemy(int ID)
     {
-        Enemy_Character_Data ECD = enemyTypes[ID].enemyPool.Dequeue();
-
         if (enemyTypes[ID].enemyPool.Count > 0)
         {
+            Enemy_Character_Data ECD = enemyTypes[ID].enemyPool.Dequeue();
             Debug.Log($"Spawned {ECD.name}");
             return ECD;
         }

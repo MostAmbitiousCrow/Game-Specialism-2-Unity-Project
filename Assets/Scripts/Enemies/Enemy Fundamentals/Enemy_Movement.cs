@@ -1,15 +1,27 @@
 using System.Collections;
 using UnityEngine;
 
-public class Enemy_Movement : MonoBehaviour
+public class Enemy_Movement : MonoBehaviour // By Samuel White
 {
+    //========================================
+    // The Movement aspect of the enemy.
+    // Enemy will move, or spawn towards its target destination (assigned by the New Level manager).
+    // It will either transition from infront, behind or via a portal.
+    //========================================
+
     public Enemy_Character_Data data;
     public SO_Standard_Enemy_Movement movementData;
+    private Coroutine coroutine;
 
     public void StartEnterance()
     {
         Debug.Log($"{name} Started");
-        StartCoroutine(SpawnRoutine());
+       coroutine = StartCoroutine(SpawnRoutine());
+    }
+
+    public void StopEnterance()
+    {
+        if (coroutine != null) StopCoroutine(SpawnRoutine());
     }
 
     IEnumerator SpawnRoutine()
@@ -43,6 +55,7 @@ public class Enemy_Movement : MonoBehaviour
                 }
                 break;
         }
+        data.enemyShooting.StartAttacking(); // Once enemy has reached destination, start attacking
         yield break;
     }
 

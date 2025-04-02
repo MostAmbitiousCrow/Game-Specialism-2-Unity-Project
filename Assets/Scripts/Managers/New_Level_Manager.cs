@@ -34,7 +34,7 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
                 public SO_Standard_Enemy_Movement movementData;
 
                 [Tooltip("Enemy Projectile Data, provided by its corresponding scriptable object data. Defines how the enemies projectiles will work.")]
-                public SO_Projectile_Enemy_Attack projectileData;
+                public SO_Standard_Enemy_Attack projectileData;
 
                 [Tooltip("Enemy Functionality Data. Must correspond to the enemy.")]
                 public ScriptableObject enemyFunctionalityData;

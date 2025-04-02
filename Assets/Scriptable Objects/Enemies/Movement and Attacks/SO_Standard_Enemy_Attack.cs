@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Standard Enemy Movement Type", menuName = "ScriptableObjects/Enemies/Attacks/Standard Types", order = 0)]
-public class SO_Projectile_Enemy_Attack : ScriptableObject
+public class SO_Standard_Enemy_Attack : ScriptableObject
 {
     [Header("Projectile Settings")]
 

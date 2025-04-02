@@ -126,12 +126,10 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
                 Vector3 dir = transform.position - gameCamera.position;
                 Quaternion rot = Quaternion.LookRotation(transform.forward);
                 GO.transform.SetPositionAndRotation(pos.position, rot);
-                Debug.Log($"{GO.name} Shot: Rotation = {GO.transform.rotation}");
                 SO.SetValue(GO.GetComponent(SO.DeclaringType), projectileData);
                 GO.SetActive(true);
                 lG = !lG;
                 //Debug.Log($"{GO.name} Shot: Rotation = {GO.transform.rotation}");
-                Gamepad.current.SetMotorSpeeds(0.25f, 0.75f);
             }
             else
             {
