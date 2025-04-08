@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Standard Enemy Movement Type", menuName = "ScriptableObjects/Enemies/Movement/Standard Types", order = 0)]
+[CreateAssetMenu(fileName = "Standard Enemy Movement Data", menuName = "ScriptableObjects/Enemies/Movement/Standard Types", order = 0)]
 public class SO_Standard_Enemy_Movement : ScriptableObject
 {
     public enum MovementType { Static, Hover, Circle }

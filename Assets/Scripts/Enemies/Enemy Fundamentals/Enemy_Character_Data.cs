@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class Enemy_Character_Data : MonoBehaviour

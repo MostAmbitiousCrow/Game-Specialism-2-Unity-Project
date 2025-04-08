@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 public class Test_Imp_Basic_Shoot : MonoBehaviour // By Samuel White
+    // Script no longer in use
 {
     [SerializeField] Test_Enemy_Shoot_Controller controller; // The controller that holds the projectile pool
 
@@ -27,7 +28,7 @@ public class Test_Imp_Basic_Shoot : MonoBehaviour // By Samuel White
     {
         while (true)
         {
-            Test_Enemy_Basic_Projectile projectile = controller.storedProjectiles[attackID].availableProjectiles[0];
+            Projectile_Enemy projectile = controller.storedProjectiles[attackID].availableProjectiles[0];
             projectile.gameObject.SetActive(true);
 
             Vector2 direction = controller.player.position - transform.position; // Calculate the direction to the target

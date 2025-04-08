@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,21 @@ public class DEV_Test_Enemy_Manager : MonoBehaviour // By Samuel White
 
     [SerializeField] New_Level_Manager.Wave.EnemySpawn.EnemyInfo.SpawnType spawnType;
 
+    [Serializable]
+    public struct EnemyData
+    {
+        public string name;
+        public SO_Standard_Enemy_Movement movementData;
+        public SO_Standard_Enemy_Attack attackData;
+        public SO_Proj_Eni_Bas projectileData; 
+    }
+    [SerializeField] EnemyData[] enemyDatas;
+
+    private void Awake()
+    {
+        enemyDatas.Initialize(); // Unsure what this does... Hoping it'll restrict data from being added.
+    }
+
     public void SelectEnemy(int enemy)
     {
         selectedEnemydata = New_Enemy_Pool_System.instance.GetEnemy(enemy);
@@ -33,6 +49,10 @@ public class DEV_Test_Enemy_Manager : MonoBehaviour // By Samuel White
             case 3: selectedEnemy = Enemy.Oni; break;
             case 4: selectedEnemy = Enemy.Limb; break;
         }
+        selectedEnemydata.enemyMovement.movementData = enemyDatas[enemy].movementData;
+        selectedEnemydata.enemyShooting.attackData = enemyDatas[enemy].attackData;
+        selectedEnemydata.enemyShooting.projectileData = enemyDatas[enemy].projectileData;
+
         if (selectedEnemydata != null)
         {
             selectedEnemydata.gameObject.SetActive(false);

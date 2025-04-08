@@ -31,6 +31,10 @@ public class Enemy_Movement : MonoBehaviour // By Samuel White
         switch (data.spawnType)
         {
             case New_Level_Manager.Wave.EnemySpawn.EnemyInfo.SpawnType.Portal:
+                gameObject.SetActive(false);
+                yield return new WaitForSeconds(1); //TODO Improve
+                gameObject.SetActive(true);
+
                 Debug.Log($"{name} Spawned as Portal");
                 break;
             case New_Level_Manager.Wave.EnemySpawn.EnemyInfo.SpawnType.Behind:
