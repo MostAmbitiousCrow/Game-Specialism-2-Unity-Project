@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class Projectile_Player_Flight : BulletManager // By Samuel White
 {
@@ -7,6 +6,7 @@ public class Projectile_Player_Flight : BulletManager // By Samuel White
     public Transform target;
     private float time = 0;
     [SerializeField] private int ID;
+    [SerializeField] private int damage;
 
     #region Active States
     void Awake() => gameObject.SetActive(false);
@@ -22,7 +22,6 @@ public class Projectile_Player_Flight : BulletManager // By Samuel White
 
         float f = scriptable_Object.projectileSize;
         transform.localScale = new(f,f,f);
-        transform.rotation = new();
         target = Player_Shoot_Flight.targetEnemy;
         time = 0;
     }
@@ -69,7 +68,7 @@ public class Projectile_Player_Flight : BulletManager // By Samuel White
 
     private void OnTriggerEnter(Collider c)
     {
-        c.GetComponent<Character_Health_Script>().Damage(1); // Damage the target
+        c.GetComponent<Character_Health_Script>().Damage(damage); // Damage the target
         Deactivate();
     }
     public void Deactivate() // Return the projectile to the pool and deactivate this bullet

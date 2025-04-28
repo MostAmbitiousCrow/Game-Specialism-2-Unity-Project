@@ -53,6 +53,24 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Powerup"",
+                    ""type"": ""Button"",
+                    ""id"": ""6d70185f-bcda-4f8c-b3de-a2dddf41b16d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Tap"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FreezeMeter"",
+                    ""type"": ""Button"",
+                    ""id"": ""ec8dce14-e375-45d2-80a4-bc39faa6791a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -114,7 +132,7 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""2D Vector (Gamepad)"",
                     ""id"": ""32d63cee-c05f-41b6-93a0-6120ecaf110f"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -159,6 +177,61 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
                     ""name"": ""right"",
                     ""id"": ""e0c97377-8de7-4a67-9abe-3aa6d641e982"",
                     ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""2D Vector (Gamepad)"",
+                    ""id"": ""97244445-c315-4545-837e-8a28d344de72"",
+                    ""path"": ""2DVector(mode=2)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""9770cd32-ce90-44ec-96b7-1c57963ccfa9"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""8435b07f-5cbe-4262-aa21-b852314d6d56"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""43701907-66ca-4668-bd0f-64d57aaa3d9e"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""bf5c2ee7-f78f-448f-bf2f-ea4adeefbaa8"",
+                    ""path"": ""<Gamepad>/dpad/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -212,8 +285,30 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""d41bea4e-5090-4278-adc0-e82e2e00dc0a"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""6f318e99-895e-4f44-91f6-799b209cfaa7"",
                     ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Mouse and Keyboard"",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6bbb4485-8ac6-4226-b906-63a4adf2aa38"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Mouse and Keyboard"",
@@ -240,6 +335,39 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Joystick"",
                     ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c687d73c-ed9b-4435-b8a5-208c6eb675ae"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Powerup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d69d25f6-dd62-46db-bd73-162036ede31f"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Powerup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""84c04e17-20f8-41b9-8902-f98ed549643a"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""FreezeMeter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -768,6 +896,8 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
         m_PlayerMovement_Move = m_PlayerMovement.FindAction("Move", throwIfNotFound: true);
         m_PlayerMovement_Point = m_PlayerMovement.FindAction("Point", throwIfNotFound: true);
         m_PlayerMovement_Fire = m_PlayerMovement.FindAction("Fire", throwIfNotFound: true);
+        m_PlayerMovement_Powerup = m_PlayerMovement.FindAction("Powerup", throwIfNotFound: true);
+        m_PlayerMovement_FreezeMeter = m_PlayerMovement.FindAction("FreezeMeter", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -842,6 +972,8 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMovement_Move;
     private readonly InputAction m_PlayerMovement_Point;
     private readonly InputAction m_PlayerMovement_Fire;
+    private readonly InputAction m_PlayerMovement_Powerup;
+    private readonly InputAction m_PlayerMovement_FreezeMeter;
     public struct PlayerMovementActions
     {
         private @UserInput m_Wrapper;
@@ -849,6 +981,8 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_PlayerMovement_Move;
         public InputAction @Point => m_Wrapper.m_PlayerMovement_Point;
         public InputAction @Fire => m_Wrapper.m_PlayerMovement_Fire;
+        public InputAction @Powerup => m_Wrapper.m_PlayerMovement_Powerup;
+        public InputAction @FreezeMeter => m_Wrapper.m_PlayerMovement_FreezeMeter;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -867,6 +1001,12 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
+            @Powerup.started += instance.OnPowerup;
+            @Powerup.performed += instance.OnPowerup;
+            @Powerup.canceled += instance.OnPowerup;
+            @FreezeMeter.started += instance.OnFreezeMeter;
+            @FreezeMeter.performed += instance.OnFreezeMeter;
+            @FreezeMeter.canceled += instance.OnFreezeMeter;
         }
 
         private void UnregisterCallbacks(IPlayerMovementActions instance)
@@ -880,6 +1020,12 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
             @Fire.canceled -= instance.OnFire;
+            @Powerup.started -= instance.OnPowerup;
+            @Powerup.performed -= instance.OnPowerup;
+            @Powerup.canceled -= instance.OnPowerup;
+            @FreezeMeter.started -= instance.OnFreezeMeter;
+            @FreezeMeter.performed -= instance.OnFreezeMeter;
+            @FreezeMeter.canceled -= instance.OnFreezeMeter;
         }
 
         public void RemoveCallbacks(IPlayerMovementActions instance)
@@ -1040,6 +1186,8 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnPoint(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
+        void OnPowerup(InputAction.CallbackContext context);
+        void OnFreezeMeter(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

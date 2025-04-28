@@ -7,9 +7,9 @@ public class PlayerProjectileData : ScriptableObject
     [Header("Movement")]
     public bool useMoveAcceleration = false; // If true, the projectile will start at a slower speed and Accelerate to the start speed, or the opposite
 
-    [Range(0, 10f)] public float moveStartSpeed = 2; // The speed at which the projectile starts
+    [Range(0, 25f)] public float moveStartSpeed = 2; // The speed at which the projectile starts
 
-    [Range(0, 10f)] public float moveEndSpeed = 0; // The speed at which the projectile ends
+    [Range(0, 25f)] public float moveEndSpeed = 0; // The speed at which the projectile ends
 
     public AnimationCurve moveAccelerationCurve; // The Acceleration curve that the projectile will follow
 
