@@ -152,7 +152,8 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
     public static void SetColourBlindMode(ColourBlindMode mode)
     {
         colourBlindMode = mode;
-        SOHNE.Accessibility.Colorblindness.Colorblindness.Instance.Change((int)mode); // Using the SOHNE Colorblindness package
+        //SOHNE.Accessibility.Colorblindness.Colorblindness.Instance.Change((int)mode); // Using the SOHNE Colorblindness package
+        // ^ Was using the package.Turned out to be mega poopy.^
     }
 
     public static void SetDyslexiaFont(bool dyslexia)
