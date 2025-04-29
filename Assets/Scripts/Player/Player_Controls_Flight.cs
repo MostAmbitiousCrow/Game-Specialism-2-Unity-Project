@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.PlayerSettings;
 
 public class Player_Controls_Flight : MonoBehaviour // By Samuel White
 {
@@ -8,10 +7,10 @@ public class Player_Controls_Flight : MonoBehaviour // By Samuel White
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float minAcceleration = .2f;
     [SerializeField] private float maxAcceleration = 1;
-    [SerializeField] private float accelerationSpeed = 2f;
-    [SerializeField] private float deccelerationSpeed = 1f;
+    // [SerializeField] private float accelerationSpeed = 2f;
+    // [SerializeField] private float deccelerationSpeed = 1f;
     private float speed;
-    private float acceleration;
+    // private float acceleration;
 
     public float screenWidth, screenHeight;
     public bool useCursorMovement = false;
@@ -34,10 +33,10 @@ public class Player_Controls_Flight : MonoBehaviour // By Samuel White
     void Update()
     {
         //if (moving) Move();
-        MovementAcceleration();
+        // MovementAcceleration();
         Move();
 
-        return;
+        return; // Old cursor movement code. Leaving this here until I get the time to properly implement it.
         if (useCursorMovement)
         {
             Vector2 playerPosition = Camera.main.WorldToScreenPoint(transform.position);
@@ -63,26 +62,26 @@ public class Player_Controls_Flight : MonoBehaviour // By Samuel White
     private void Move()
     {
         Vector2 pos = transform.position;
-        Vector2 direction = speed * Time.deltaTime * inputDirection;
+        Vector2 direction = moveSpeed * Global_Game_Speed.GetUnscaledDeltaTime() * inputDirection;
         Vector2 newPos = Vector2.Lerp(pos, pos + direction, .1f);
         transform.position = new Vector2(Mathf.Clamp(newPos.x, -worldXLimit, worldXLimit),
             Mathf.Clamp(newPos.y, worldLowerYLimit, worldUpperYLimit));
     }
 
-    private void MovementAcceleration()
-    {
-        if (moving)
-        {
-            acceleration += Time.deltaTime * accelerationSpeed;
-            acceleration = Mathf.Clamp(acceleration, minAcceleration, maxAcceleration);
-        }
-        else
-        {
-            acceleration -= Time.deltaTime * deccelerationSpeed;
-            acceleration = Mathf.Clamp(acceleration, minAcceleration, maxAcceleration);
-        }
-        speed = moveSpeed * acceleration;
-    }
+    // private void MovementAcceleration()
+    // {
+    //     if (moving)
+    //     {
+    //         acceleration += Time.deltaTime * accelerationSpeed;
+    //         acceleration = Mathf.Clamp(acceleration, minAcceleration, maxAcceleration);
+    //     }
+    //     else
+    //     {
+    //         acceleration -= Time.deltaTime * deccelerationSpeed;
+    //         acceleration = Mathf.Clamp(acceleration, minAcceleration, maxAcceleration);
+    //     }
+    //     speed = moveSpeed * acceleration;
+    // }
 
     public void MoveInput(InputAction.CallbackContext context)
     {

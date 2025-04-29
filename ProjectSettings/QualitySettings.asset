@@ -44,7 +44,7 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 11400000, guid: d0e2fc18fe036412f8223b3b3d9ad574,
+    customRenderPipeline: {fileID: 11400000, guid: 287a030232b0b4009acd2610fe6c2ea8,
       type: 2}
     terrainQualityOverrides: 0
     terrainPixelError: 1
@@ -94,7 +94,7 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 11400000, guid: e1260c1148f6143b28bae5ace5e9c5d1,
+    customRenderPipeline: {fileID: 11400000, guid: 287a030232b0b4009acd2610fe6c2ea8,
       type: 2}
     terrainQualityOverrides: 0
     terrainPixelError: 1
@@ -166,10 +166,10 @@ QualitySettings:
     Nintendo Switch: 2
     PS4: 2
     PS5: 2
-    Server: 0
+    Server: 2
     Stadia: 2
     Standalone: 2
-    WebGL: 1
+    WebGL: 2
     Windows Store Apps: 2
     XboxOne: 2
     iPhone: 1
