@@ -50,7 +50,7 @@ public class Projectile_Player_Flight : BulletManager // By Samuel White
             transform.position += scriptable_Object.moveStartSpeed * Time.deltaTime * transform.forward;
         }
     }
-    private void Home() // Rotate the projectile
+    private void Home() // Home the projectile
     {
         if (time > scriptable_Object.timeTilHome) //TODO Adjust this to match lerp
         {

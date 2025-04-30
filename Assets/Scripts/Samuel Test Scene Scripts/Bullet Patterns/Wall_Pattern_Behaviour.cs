@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wall_Pattern_Behaviour : MonoBehaviour // By Samuel White //TODO
+public class Wall_Pattern_Behaviour : MonoBehaviour // By Samuel White
+    // Script no longer in use
 {
     [SerializeField] private GameObject prefab;
     [SerializeField] private int length = 1;
@@ -11,7 +12,7 @@ public class Wall_Pattern_Behaviour : MonoBehaviour // By Samuel White //TODO
     [SerializeField] private bool mirror = true;
     [SerializeField] private bool curve = true;
 
-    [SerializeField] private List<Test_Enemy_Basic_Projectile> projectiles;
+    [SerializeField] private List<Projectile_Enemy> projectiles;
 
     public void Shoot()
     {
