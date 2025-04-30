@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,6 +10,11 @@ public class Character_Health_Script : MonoBehaviour // by Samuel
 
     // Start is called before the first frame update
     void Awake()
+    {
+        health = maxHealth;
+    }
+
+    private void OnEnable()
     {
         health = maxHealth;
     }

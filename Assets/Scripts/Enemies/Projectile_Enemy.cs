@@ -1,7 +1,9 @@
 using UnityEngine;
 
-public class Test_Enemy_Basic_Projectile : BulletManager // By Samuel White
+public class Projectile_Enemy : BulletManager // By Samuel White
 {
+    // The global script for enemy projectiles.
+
     public SO_Proj_Eni_Bas scriptable_Object;
     private float time = 0;
     [SerializeField] private int ID;
@@ -21,6 +23,8 @@ public class Test_Enemy_Basic_Projectile : BulletManager // By Samuel White
         float f = scriptable_Object.projectileSize;
         transform.localScale = new(f,f,f);
         time = 0;
+
+        transform.LookAt(GameManager.instance.player);
     }
     #endregion
 
@@ -39,19 +43,21 @@ public class Test_Enemy_Basic_Projectile : BulletManager // By Samuel White
     {
         if (scriptable_Object.useMoveAcceleration)
         {
-            float speed = Mathf.Lerp(scriptable_Object.moveStartSpeed, scriptable_Object.moveEndSpeed, scriptable_Object.moveAccelerationCurve.Evaluate(time));
-            transform.position += speed * Time.deltaTime * transform.right;
+            float speed = Mathf.Lerp(scriptable_Object.moveStartSpeed, scriptable_Object.moveEndSpeed,
+                scriptable_Object.moveAccelerationCurve.Evaluate(time));
+            transform.position += speed * Time.deltaTime * transform.forward;
         }
         else
         {
-            transform.position += scriptable_Object.moveStartSpeed * Time.deltaTime * transform.right;
+            transform.position += scriptable_Object.moveStartSpeed * Time.deltaTime * transform.forward;
         }
     }
     private void Rotate() // Rotate the projectile
     {
         if (scriptable_Object.useAngularAcceleration)
         {
-            float speed = Mathf.Lerp(scriptable_Object.rotateStartSpeed, scriptable_Object.rotateEndSpeed, scriptable_Object.rotateAccelerationCurve.Evaluate(time));
+            float speed = Mathf.Lerp(scriptable_Object.rotateStartSpeed, scriptable_Object.rotateEndSpeed,
+                scriptable_Object.rotateAccelerationCurve.Evaluate(time));
             transform.Rotate(0, 0, speed * Time.deltaTime);
         }
         else
@@ -62,10 +68,16 @@ public class Test_Enemy_Basic_Projectile : BulletManager // By Samuel White
     #endregion
 
     #region Collision Detection
+    private void OnTriggerEnter(Collider c)
+    {
+        c.GetComponent<Character_Health_Script>().Damage(scriptable_Object.projectileDamage); // Damage the target
+        Deactivate();
+    }
+
     public void Deactivate() // Return the projectile to the pool and deactivate this bullet
     {
+        gameObject.SetActive(false);
         Bullet_Pool_System.instance.ReturnBullet(gameObject, ID, GetType().GetField("scriptable_Object"));
-
     }
     #endregion
 }
