@@ -13,6 +13,7 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
     private float t = 0;
     private bool lG;
     [SerializeField] Transform gameCamera;
+    [SerializeField] Player_Power_Up_Controller powerUpController;
 
     [Header("Ring")]
     [SerializeField] Transform[] enemyDetectRings;
@@ -33,6 +34,11 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
     [SerializeField] Mesh mesh;
     [SerializeField] bool debugAffectMaterial = false;
     
+    void Start()
+    {
+        transform.GetChild(0).parent = null; // Unparent the rings
+    }
+
     void Update()
     {
         Shooting();
@@ -72,6 +78,7 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
             if (t >= fireRate)
             {
                 Shoot();
+
                 t = 0;
             }   
         }
@@ -128,7 +135,6 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
                 SO.SetValue(GO.GetComponent(SO.DeclaringType), projectileData);
                 GO.SetActive(true);
                 lG = !lG;
-                //Debug.Log($"{GO.name} Shot: Rotation = {GO.transform.rotation}");
             }
             else
             {
