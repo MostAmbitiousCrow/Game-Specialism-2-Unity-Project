@@ -13,7 +13,6 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
     private float t = 0;
     private bool lG;
     [SerializeField] Transform gameCamera;
-    [SerializeField] Player_Power_Up_Controller powerUpController;
 
     [Header("Ring")]
     [SerializeField] Transform[] enemyDetectRings;
