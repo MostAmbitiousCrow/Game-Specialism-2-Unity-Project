@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class Test_Bullet_Pattern_Controller : MonoBehaviour // By Samuel White
+    // Script no longer in use
 {
     [System.Serializable]
     public class BulletPattern
@@ -48,8 +49,8 @@ public class Test_Bullet_Pattern_Controller : MonoBehaviour // By Samuel White
         }
         public PatternSegment[] patternSegments;
 
-        public List<Test_Enemy_Basic_Projectile> availableProjectiles;
-        public List<Test_Enemy_Basic_Projectile> activeProjectiles;
+        public List<Projectile_Enemy> availableProjectiles;
+        public List<Projectile_Enemy> activeProjectiles;
     }
     public List<BulletPattern> bulletPattern;
 

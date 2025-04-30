@@ -1,9 +1,10 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Projectile Data", menuName = "ScriptableObjects/Projectiles/Enemy Projectiles/Basic Enemy Projectile", order = 0)]
+[CreateAssetMenu(fileName = "Enemy Projectile Data", menuName = "ScriptableObjects/Projectiles/Enemy Projectiles/Basic Enemy Projectile", order = 0)]
 public class SO_Proj_Eni_Bas : ScriptableObject // By Samuel White
 {
     [Header("Projectile Settings")]
+
     [Header("Movement")]
     public bool useMoveAcceleration = false; // If true, the projectile will start at a slower speed and Accelerate to the start speed, or the opposite
 
@@ -13,11 +14,22 @@ public class SO_Proj_Eni_Bas : ScriptableObject // By Samuel White
 
     public AnimationCurve moveAccelerationCurve; // The Acceleration curve that the projectile will follow
 
+    [Header("Homing Options")]
+    public bool useHoming = false; // If true, the projectile will home in on the player
+
+    public bool useHomingAcceleration = false; // If true, the projectile will start homing at a slower speed and Accelerate to the start speed, or the opposite
+
+    [Range(0, 10f)] public float homeStartStrength = 1; // The start strength of the homing
+
+    [Range(0, 10f)] public float homeEndStrength = 1; // The end strength of the homing
+
+    public AnimationCurve homeAccelerationCurve; // The Acceleration curve that the homing will follow
+
     [Header("Damage")]
-    [Range(0, 100)] public float projectileDamage = 1; // The damage the projectile will deal
+    [Range(0, 100)] public int projectileDamage = 1; // The damage the projectile will deal
 
     [Header("Life Time")]
-    [Range(.1f, 20f)] public float projectileLifeTime = 5; // The time before the projectile is disabled
+    [Range(.1f, 20f)] public float projectileLifeTime = 5; // The time before the projectile is disabled/returned to pool
 
     [Header("Size")]
     [Range(.1f, 10)] public float projectileSize = 1; // The size of the projectile
@@ -32,5 +44,9 @@ public class SO_Proj_Eni_Bas : ScriptableObject // By Samuel White
     [Range(-180f, 180f)] public float rotateEndSpeed = 0; // The speed at which the projectile ends
 
     public AnimationCurve rotateAccelerationCurve; // The Acceleration curve that the projectile will follow
+
+    [Header("Audio")]
+    public EnemyCategory.EnemySoundTypes destroySound; // The sound the projectile will play when returned to the pool
+    public EnemyCategory.EnemySoundTypes travelSound; // The sound the projectile will make while traveling
 }
 
