@@ -2747,7 +2747,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7998682040527626448, guid: 527c24504fc02d447ae0c723fece10a7, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 527c24504fc02d447ae0c723fece10a7, type: 3}
@@ -5024,6 +5025,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Managers
+      objectReference: {fileID: 0}
+    - target: {fileID: 7732577133294176343, guid: 115c11da6836e4c1493fe066e77731d6,
+        type: 3}
+      propertyPath: waves.Array.data[0].enemySpawnInfo.Array.data[0].enemyInfo.targetSpawnPosition.z
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7732577133294176343, guid: 115c11da6836e4c1493fe066e77731d6,
+        type: 3}
+      propertyPath: waves.Array.data[0].enemySpawnInfo.Array.data[1].enemyInfo.targetSpawnPosition.y
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7732577133294176343, guid: 115c11da6836e4c1493fe066e77731d6,
+        type: 3}
+      propertyPath: waves.Array.data[0].enemySpawnInfo.Array.data[1].enemyInfo.targetSpawnPosition.z
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 462147783948797543, guid: 115c11da6836e4c1493fe066e77731d6, type: 3}
