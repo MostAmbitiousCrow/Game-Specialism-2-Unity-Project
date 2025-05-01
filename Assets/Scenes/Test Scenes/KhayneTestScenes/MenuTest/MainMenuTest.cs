@@ -23,6 +23,7 @@ public class MainMenuTest : MonoBehaviour // Made by Khayne Lutchmun
     
     IEnumerator AysncPlay()
     {
+        FadeObject.SetActive(true); // Show the fade object
         //fade out the screen
         float fadeTime = 1f; // Time to fade out
         
