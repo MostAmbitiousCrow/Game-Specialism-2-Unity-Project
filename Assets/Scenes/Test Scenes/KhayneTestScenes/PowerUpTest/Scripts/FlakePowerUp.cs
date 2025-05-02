@@ -3,8 +3,7 @@ using UnityEngine;
 public class FlakePowerUp : MonoBehaviour
 {
     // This script is for the flake power-up.
-    bool ready = true;
-    
+    bool ready = true;    
     public void PowerUpTrigger()
     {
         // Called when the power-up is triggered.

@@ -4,7 +4,6 @@ public class SprinklesPowerUp : MonoBehaviour
 {
     // This script is for the sprinkles power-up.
     bool ready = true;
-
     public void PowerUpTrigger()
     {
         if (ready)

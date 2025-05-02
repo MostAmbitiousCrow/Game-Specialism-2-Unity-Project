@@ -345,6 +345,12 @@ MonoBehaviour:
     - listName: Enemy_Hit
       enemySoundType: 15
       sounds: []
+    - listName: Enemy_Frozen
+      enemySoundType: 0
+      sounds: []
+    - listName: Enemy_Defeated
+      enemySoundType: 0
+      sounds: []
   interfaceCategory:
     categoryName: 
     audioSource: {fileID: 371810640}
@@ -1250,111 +1256,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6925dd4d008a3c048991a77ad30a17f6, type: 3}
---- !u!1 &591261704
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 591261708}
-  - component: {fileID: 591261707}
-  - component: {fileID: 591261706}
-  - component: {fileID: 591261705}
-  m_Layer: 0
-  m_Name: SprinklePowerUpMinigun
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!65 &591261705
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 591261704}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &591261706
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 591261704}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &591261707
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 591261704}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &591261708
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 591261704}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.4073896, y: 12.027808, z: -11.972566}
-  m_LocalScale: {x: 1, y: 1, z: 5}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &656980949
 GameObject:
   m_ObjectHideFlags: 0
@@ -14635,8 +14536,7 @@ MonoBehaviour:
         movementData: {fileID: 11400000, guid: 7b751389b5f0149efac922887e62b43a, type: 2}
         projectileData: {fileID: 11400000, guid: d16fe99ff41664036a6915330240cb18,
           type: 2}
-        enemyFunctionalityData: {fileID: 11400000, guid: cac7c089a95df4b4297d6496c6cf9ed8,
-          type: 2}
+        attackData: {fileID: 0}
         timeOfAppearance: 3
         targetSpawnPosition: {x: -4, y: 0, z: 10}
         enterType: 1
@@ -14649,8 +14549,7 @@ MonoBehaviour:
         movementData: {fileID: 11400000, guid: 7b751389b5f0149efac922887e62b43a, type: 2}
         projectileData: {fileID: 11400000, guid: d16fe99ff41664036a6915330240cb18,
           type: 2}
-        enemyFunctionalityData: {fileID: 11400000, guid: cac7c089a95df4b4297d6496c6cf9ed8,
-          type: 2}
+        attackData: {fileID: 0}
         timeOfAppearance: 5
         targetSpawnPosition: {x: -4, y: -5, z: 10}
         enterType: 2
@@ -15800,4 +15699,3 @@ SceneRoots:
   - {fileID: 1924722590}
   - {fileID: 717715355}
   - {fileID: 569845074}
-  - {fileID: 591261708}

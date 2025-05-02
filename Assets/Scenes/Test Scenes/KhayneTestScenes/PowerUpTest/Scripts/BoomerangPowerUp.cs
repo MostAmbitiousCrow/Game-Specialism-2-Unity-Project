@@ -3,8 +3,7 @@ using UnityEngine;
 public class BoomerangPowerUp : MonoBehaviour
 {
     // This script is for the boomerang power-up.
-    bool ready;
-    
+    bool ready = true;    
     public void PowerUpTrigger()
     {
         if (ready)

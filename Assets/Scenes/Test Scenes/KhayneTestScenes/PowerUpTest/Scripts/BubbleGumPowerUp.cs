@@ -3,8 +3,7 @@ using UnityEngine;
 public class BubbleGumPowerUp : MonoBehaviour
 {
     // This script is for the bubble gum power-up.
-    bool ready = true;
-    
+    bool ready = true;    
     public void PowerUpTrigger()
     {
         if (ready)
