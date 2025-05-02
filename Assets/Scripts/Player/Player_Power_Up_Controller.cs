@@ -5,11 +5,11 @@ public class Player_Power_Up_Controller : MonoBehaviour // By Samuel White && Kh
 {
     // Add the PowerUp scripts here.
 
-    // [Header("Power Up Scripts")]
-    // [SerializeField] private PowerUp_BubbleGum bubbleGumPowerUp;
-    // [SerializeField] private PowerUp_Flake flakePowerUp;
-    // [SerializeField] private PowerUp_Boomerang boomerangPowerUp;
-    // [SerializeField] private PowerUp_Sprinkles sprinklesPowerUp;
+    [Header("Power Up Scripts")]
+    [SerializeField] private BubbleGumPowerUp bubbleGumPowerUp;
+    [SerializeField] private FlakePowerUp flakePowerUp;
+    [SerializeField] private BoomerangPowerUp boomerangPowerUp;
+    [SerializeField] private SprinklesPowerUp sprinklesPowerUp;
 
     private Player_Power_Up_Controller selectedPowerUp;
 
@@ -26,19 +26,19 @@ public class Player_Power_Up_Controller : MonoBehaviour // By Samuel White && Kh
         switch (type)
         {
             case PowerUpType.BubbleGum:
-                // selectedPowerUp = bubbleGumPowerUp;
+                selectedPowerUp = bubbleGumPowerUp;
                 break;
 
             case PowerUpType.Flake:
-                // selectedPowerUp = flakePowerUp;
+                selectedPowerUp = flakePowerUp;
                 break;
 
             case PowerUpType.Boomerang:
-                // selectedPowerUp = boomerangPowerUp;
+                selectedPowerUp = boomerangPowerUp;
                 break;
 
             case PowerUpType.Sprinkles:
-                // selectedPowerUp = sprinklesPowerUp;
+                selectedPowerUp = sprinklesPowerUp;
                 break;
         }
     }
