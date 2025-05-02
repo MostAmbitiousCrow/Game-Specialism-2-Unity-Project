@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4274966299090237085
+--- !u!1 &8183920815096363581
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4119206242649696023}
-  - component: {fileID: 8617730456981551745}
-  - component: {fileID: 5318938984199123105}
-  - component: {fileID: 767462041894655566}
-  - component: {fileID: 9074934224329600255}
-  - component: {fileID: 3440353925219744885}
+  - component: {fileID: 2618356599928296342}
+  - component: {fileID: 1367365408244900968}
+  - component: {fileID: 789184822850815873}
+  - component: {fileID: 1791924154505166225}
+  - component: {fileID: -6629856677713813961}
+  - component: {fileID: -3114696135289165952}
   m_Layer: 8
-  m_Name: PowerUpBox
+  m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4119206242649696023
+--- !u!4 &2618356599928296342
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4274966299090237085}
+  m_GameObject: {fileID: 8183920815096363581}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: -1, z: 7.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 7.371292, z: -0.30755773}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8617730456981551745
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+--- !u!33 &1367365408244900968
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4274966299090237085}
+  m_GameObject: {fileID: 8183920815096363581}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &5318938984199123105
+--- !u!23 &789184822850815873
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4274966299090237085}
+  m_GameObject: {fileID: 8183920815096363581}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5a059df2f77724f45a08ae6bf99d2606, type: 2}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,13 +86,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &767462041894655566
+--- !u!65 &1791924154505166225
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4274966299090237085}
+  m_GameObject: {fileID: 8183920815096363581}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -107,50 +107,51 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &9074934224329600255
-MonoBehaviour:
+--- !u!65 &-6629856677713813961
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4274966299090237085}
+  m_GameObject: {fileID: 8183920815096363581}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb10ef17f1524d4ba911cd1e31327d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PowerUps:
-  - {fileID: 575410589969998064, guid: dd61f3315b68fe24ba4922139e28f03e, type: 3}
-  - {fileID: 3313291142366313410, guid: 51c4440d44e974a47982a48280752d91, type: 3}
-  - {fileID: 8183920815096363581, guid: bc5fe818502b98243b6db190698ce8d3, type: 3}
-  - {fileID: 5150809719252542253, guid: 5acf7976d6e86e24bb2fef4ce146b745, type: 3}
-  SetPowerUp: {fileID: 0}
-  Assigned: 0
-  EmptyBox: 0
---- !u!114 &3440353925219744885
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-3114696135289165952
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4274966299090237085}
+  m_GameObject: {fileID: 8183920815096363581}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62fa86376d22fdf458646c0a1f105c8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
+  maxHealth: 1
   health: 0
   deathEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9074934224329600255}
-        m_TargetAssemblyTypeName: PowerUpBox, Assembly-CSharp
-        m_MethodName: BreakOpen
-        m_Mode: 1
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
