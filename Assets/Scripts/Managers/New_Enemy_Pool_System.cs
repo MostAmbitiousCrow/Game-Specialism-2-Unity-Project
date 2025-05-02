@@ -37,6 +37,8 @@ public class New_Enemy_Pool_System : MonoBehaviour // By Samuel White
                 enemy.SetActive(false);
 
                 Enemy_Character_Data ECD = enemy.GetComponent<Enemy_Character_Data>();
+                ECD.enemyMaterial = enemy.GetComponentInChildren<Renderer>().material;
+
                 item.enemyPool.Enqueue(ECD);
             }
         }

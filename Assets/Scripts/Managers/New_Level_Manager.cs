@@ -29,14 +29,14 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
                 [Tooltip("The ID of the enemy, corresponding to the order in the list of the Enemy Pool")]
                 public int enemyID;
 
-                [Tooltip("Enemy Data, provided by its corresponding scriptable object data.")]
+                [Tooltip("Enemy Movement Data, provided by its corresponding scriptable object data. Defines how the enemies will move.")]
                 public SO_Standard_Enemy_Movement movementData;
 
-                [Tooltip("Enemy Projectile Data, provided by its corresponding scriptable object data. Defines how the enemies projectiles will work.")]
-                public SO_Standard_Enemy_Attack projectileData;
+                [Tooltip("Enemy Projectile Data, provided by its corresponding scriptable object data. Defines how the enemies projectiles will act.")]
+                public SO_Proj_Eni_Bas projectileData;
 
-                [Tooltip("Enemy Functionality Data. Must correspond to the enemy.")]
-                public ScriptableObject enemyFunctionalityData;
+                [Tooltip("Enemy Attack Data, provided by its corresponding scriptable object data. Defines how the enemies will attack.")]
+                public SO_Standard_Enemy_Attack attackData;
 
                 [Tooltip("The time of which the enemy spawns, from the duration of the beginning of the wave.")]
                 public float timeOfAppearance = 1f;
@@ -192,17 +192,24 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
         yield break;
     }
 
+    #region Spawn Obstacles
     private IEnumerator SpawnObstacles(Wave wave)
     {
 
         yield break;
     }
+    #endregion
+
+    #region Spawn PowerUps
 
     private IEnumerator SpawnPowerUps(Wave wave)
     {
         
         yield break;
     }
+    #endregion
+
+    #region Spawn Enemy
 
     public void SpawnEnemy(Wave.EnemySpawn item, Vector3 offset)
     {
@@ -210,13 +217,17 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
         Enemy_Character_Data ECD = New_Enemy_Pool_System.instance.GetEnemy(item.enemyInfo.enemyID);
         ECD.gameObject.SetActive(true);
         ECD.targetPosition = item.enemyInfo.targetSpawnPosition + offset;
-        ECD.enemyFunctionalityData = item.enemyInfo.enemyFunctionalityData;
-        ECD.enemyMovement.movementData = item.enemyInfo.movementData;
-        ECD.enemyShooting.attackData = item.enemyInfo.projectileData;
+
+        ECD.attackData = item.enemyInfo.attackData;
+        ECD.movementData = item.enemyInfo.movementData;
+        ECD.projectileData = item.enemyInfo.projectileData;
+
+        ECD.enemyID = item.enemyInfo.enemyID;
         ECD.spawnType = item.enemyInfo.enterType;
-        ECD.enemyMovement.StartEnterance();
+        ECD.StartEnterance();
         Debug.Log($"{ECD.name} Spawned. Enter Type: {ECD.spawnType}");
     }
+    #endregion
 
     #region Debug
     private void OnDrawGizmosSelected()

@@ -56,7 +56,7 @@ public class Player_Controls_Flight : MonoBehaviour // By Samuel White
     private void Move()
     {
         Vector2 pos = transform.position;
-        Vector2 direction = moveSpeed * Global_Game_Speed.GetUnscaledDeltaTime() * inputDirection;
+        Vector2 direction = moveSpeed * Global_Game_Speed.GetDeltaTime() * inputDirection;
         Vector2 newPos = Vector2.Lerp(pos, pos + direction, .1f);
         transform.position = new Vector2(Mathf.Clamp(newPos.x, -worldXLimit, worldXLimit),
             Mathf.Clamp(newPos.y, worldLowerYLimit, worldUpperYLimit));

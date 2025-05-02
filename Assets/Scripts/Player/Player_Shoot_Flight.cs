@@ -73,7 +73,7 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
     {
         if (isShooting)
         {
-            t += Time.deltaTime;
+            t += Global_Game_Speed.GetDeltaTime();
             if (t >= fireRate)
             {
                 Shoot();
@@ -90,7 +90,7 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
         foreach (var item in enemyDetectRings) item.gameObject.SetActive(false); // TODO - Temporary fix, optimize this to only disable the rings that are not needed.
 
         for (int i = 0; i < c; i++)
-        { enemyDetectRings[i].position = detectedEnemies[i].position; enemyDetectRings[i].gameObject.SetActive(true); }
+        { enemyDetectRings[i].position = detectedEnemies[i].position + new Vector3(0, 0, -.1f); enemyDetectRings[i].gameObject.SetActive(true); }
         // if (c < closestEnemiesRange)
         // {
 
@@ -166,11 +166,5 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
             Debug.DrawLine(transform.position, transform.position + dir * detectRange, Color.red);
             //Debug.DrawRay(transform.position, dir + dir * detectRange, Color.cyan);
         }
-    }
-
-    public float FireRateSprinkle // Added by Khayne for the sprinkle powerup, makes it so it doesn't have to be set to a public variable.
-    {
-    get { return fireRate; }
-    set { fireRate = Mathf.Max(0, value); }
     }
 }
