@@ -24,7 +24,7 @@ public class Projectile_Enemy : BulletManager // By Samuel White
         transform.localScale = new(f,f,f);
         time = 0;
 
-        transform.LookAt(GameManager.instance.player);
+        transform.LookAt(GameData.playerOne.position);
     }
     #endregion
 
@@ -36,7 +36,7 @@ public class Projectile_Enemy : BulletManager // By Samuel White
         
         if (time > 1) 
         { gameObject.SetActive(false); Deactivate(); }
-        else time += Time.deltaTime / scriptable_Object.projectileLifeTime;
+        else time += Global_Game_Speed.GetDeltaTime() / scriptable_Object.projectileLifeTime;
     }
 
     private void Move() // Move the projectile
@@ -45,11 +45,11 @@ public class Projectile_Enemy : BulletManager // By Samuel White
         {
             float speed = Mathf.Lerp(scriptable_Object.moveStartSpeed, scriptable_Object.moveEndSpeed,
                 scriptable_Object.moveAccelerationCurve.Evaluate(time));
-            transform.position += speed * Time.deltaTime * transform.forward;
+            transform.position += speed * Global_Game_Speed.GetDeltaTime() * transform.forward;
         }
         else
         {
-            transform.position += scriptable_Object.moveStartSpeed * Time.deltaTime * transform.forward;
+            transform.position += scriptable_Object.moveStartSpeed * Global_Game_Speed.GetDeltaTime() * transform.forward;
         }
     }
     private void Rotate() // Rotate the projectile
@@ -58,11 +58,11 @@ public class Projectile_Enemy : BulletManager // By Samuel White
         {
             float speed = Mathf.Lerp(scriptable_Object.rotateStartSpeed, scriptable_Object.rotateEndSpeed,
                 scriptable_Object.rotateAccelerationCurve.Evaluate(time));
-            transform.Rotate(0, 0, speed * Time.deltaTime);
+            transform.Rotate(0, 0, speed * Global_Game_Speed.GetDeltaTime());
         }
         else
         {
-            transform.Rotate(0, 0, scriptable_Object.rotateStartSpeed * Time.deltaTime);
+            transform.Rotate(0, 0, scriptable_Object.rotateStartSpeed * Global_Game_Speed.GetDeltaTime());
         }
     }
     #endregion
@@ -71,6 +71,7 @@ public class Projectile_Enemy : BulletManager // By Samuel White
     private void OnTriggerEnter(Collider c)
     {
         c.GetComponent<Character_Health_Script>().Damage(scriptable_Object.projectileDamage); // Damage the target
+        AudioManager.PlayEnemySound(scriptable_Object.destroySound, 1); // Play the hit sound
         Deactivate();
     }
 

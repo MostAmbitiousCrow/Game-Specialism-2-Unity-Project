@@ -49,9 +49,9 @@ public class DEV_Test_Enemy_Manager : MonoBehaviour // By Samuel White
             case 3: selectedEnemy = Enemy.Oni; break;
             case 4: selectedEnemy = Enemy.Limb; break;
         }
-        selectedEnemydata.enemyMovement.movementData = enemyDatas[enemy].movementData;
-        selectedEnemydata.enemyShooting.attackData = enemyDatas[enemy].attackData;
-        selectedEnemydata.enemyShooting.projectileData = enemyDatas[enemy].projectileData;
+        selectedEnemydata.movementData = enemyDatas[enemy].movementData;
+        selectedEnemydata.attackData = enemyDatas[enemy].attackData;
+        selectedEnemydata.projectileData = enemyDatas[enemy].projectileData;
 
         if (selectedEnemydata != null)
         {
@@ -76,7 +76,7 @@ public class DEV_Test_Enemy_Manager : MonoBehaviour // By Samuel White
 
         selectedEnemydata.gameObject.SetActive(true);
         selectedEnemydata.spawnType = spawnType;
-        selectedEnemydata.enemyMovement.StartEnterance();
+        selectedEnemydata.StartEnterance();
     }
     public void UnSummonEnemy()
     {
@@ -90,13 +90,12 @@ public class DEV_Test_Enemy_Manager : MonoBehaviour // By Samuel White
     {
         if (selectedEnemydata == null) return;
 
-        selectedEnemydata.enemyShooting.StartAttacking(); // TODO Requires enemy shooting function
+        selectedEnemydata.ChangeState(selectedEnemydata.ShootState);
     }
 
     public void EnemyStopShoot()
     {
         if (selectedEnemydata == null) return;
-        selectedEnemydata.enemyShooting.StopAttacking();
-        // TODO
+        selectedEnemydata.ChangeState(selectedEnemydata.IdleState);
     }
 }

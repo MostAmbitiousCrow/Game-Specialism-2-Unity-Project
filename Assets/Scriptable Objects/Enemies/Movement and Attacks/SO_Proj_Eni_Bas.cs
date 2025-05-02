@@ -5,6 +5,10 @@ public class SO_Proj_Eni_Bas : ScriptableObject // By Samuel White
 {
     [Header("Projectile Settings")]
 
+    [Header("ID")]
+    [Tooltip("Player = 0, Imp = 1, Succubus = 2, Limb Demon = 3, LockJaw = 4, Chef Demon = 5.")]
+    [Range(0, 10)] public int ID = 0; // The ID of the projectile
+
     [Header("Movement")]
     public bool useMoveAcceleration = false; // If true, the projectile will start at a slower speed and Accelerate to the start speed, or the opposite
 
