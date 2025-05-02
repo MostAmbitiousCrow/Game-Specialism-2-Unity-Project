@@ -30,8 +30,21 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
     public static bool dyslexiaFont = false; // 0 = false, 1 = true
     public static bool playerAutoShoot = false; // 0 = false, 1 = true
     public static bool controllerVibration = true; // 0 = false, 1 = true
+    [Range(0, 1)] public static float damageFlashIntensity = 1f;
     
     [Space(10)]
+
+    /// <summary>
+    /// Gameplay Settings
+    /// These settings are used to determine how the player moves in the game.
+    /// Will be assigned automatically based on the player input.  
+    /// </summary>
+
+    [Header("Gameplay Settings")]
+    public static bool useCursorMovement = true; // 0 = false, 1 = true
+    public static bool useControllerMovement = true; // 0 = false, 1 = true
+    public static bool useKeyboardMovement = true; // 0 = false, 1 = true
+    public static bool useTouchMovement = true; // 0 = false, 1 = true
     
     // =========================================
     // Default Settings
@@ -52,6 +65,7 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
     public bool defaultDyslexiaFont = false; // 0 = false, 1 = true
     public bool defaultPlayerAutoShoot = false; // 0 = false, 1 = true
     public bool defaultControllerVibration = controllerVibration; // 0 = false, 1 = true
+    public float defaultDamageFlashIntensity = 1f;
 
     // =========================================
 
@@ -78,7 +92,13 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
             PlayerPrefs.SetFloat("GameSpeed", gameSpeed); // Global Gameplay Speed Multiplier. 1 = normal speed
             // Hearing
             PlayerPrefs.SetInt("ControllerVibration", controllerVibration ? 0 : 1); // 0 = false, 1 = true
+            PlayerPrefs.SetFloat("DamageFlashIntensity", damageFlashIntensity);
 
+        // // Save Gameplay Settings
+        //     PlayerPrefs.SetInt("CursorMovement", cursorMovement ? 1 : 0); // 0 = false, 1 = true
+        //     PlayerPrefs.SetInt("ControllerMovement", controllerMovement ? 1 : 0); // 0 = false, 1 = true
+        //     PlayerPrefs.SetInt("KeyboardMovement", keyboardMovement ? 1 : 0); // 0 = false, 1 = true
+        //     PlayerPrefs.SetInt("TouchMovement", touchMovement ? 1 : 0); // 0 = false, 1 = true
 
         // Save Settings
             PlayerPrefs.Save();
@@ -103,6 +123,7 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
             gameSpeed = PlayerPrefs.GetFloat("GameSpeed", defaultGameSpeed); // Global Gameplay Speed Multiplier. 1 = normal speed
             // Hearing
             controllerVibration = PlayerPrefs.GetInt("ControllerVibration", defaultControllerVibration ? 0 : 1) == 0; // 0 = false, 1 = true
+            damageFlashIntensity = PlayerPrefs.GetFloat("DamageFlashIntensity", defaultDamageFlashIntensity);
 
         Debug.Log("Settings loaded");
     }
@@ -171,6 +192,11 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
         controllerVibration = vibration;
     }
 
+    public static void SetDamageFlashIntensity(float intensity)
+    {
+        damageFlashIntensity = intensity;
+    }
+
     // ========================================
     // Reset Settings to Default
 
@@ -188,6 +214,7 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
         dyslexiaFont = instance.defaultDyslexiaFont;
         playerAutoShoot = instance.defaultPlayerAutoShoot;
         controllerVibration = instance.defaultControllerVibration;
+        damageFlashIntensity = instance.defaultDamageFlashIntensity;
 
         SaveSettings();
     }

@@ -177,6 +177,50 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &894459877439512404
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7146106763945457393}
+  - component: {fileID: 6276300016419336170}
+  m_Layer: 0
+  m_Name: Game Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7146106763945457393
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894459877439512404}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 525627110296230712}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6276300016419336170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894459877439512404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 230fe568770d10e4486f5a42b40893bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &966071542669099933
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,6 +339,12 @@ MonoBehaviour:
       sounds: []
     - listName: Enemy_Hit
       enemySoundType: 15
+      sounds: []
+    - listName: Enemy_Frozen
+      enemySoundType: 16
+      sounds: []
+    - listName: Enemy_Defeated
+      enemySoundType: 17
       sounds: []
   interfaceCategory:
     categoryName: 
@@ -453,7 +503,7 @@ GameObject:
   - component: {fileID: 522265568247151299}
   - component: {fileID: 1562080013446055536}
   m_Layer: 0
-  m_Name: New Enemy Pool
+  m_Name: New Enemy Pool System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -490,27 +540,27 @@ MonoBehaviour:
   - name: Imp
     prefab: {fileID: 2299222442817488691, guid: 0afe8d5c9961f4aa3b0c3ffa8886052b,
       type: 3}
-    poolSize: 12
+    poolSize: 10
     ECD: {fileID: 0}
   - name: Succubus
     prefab: {fileID: 2975323032995257158, guid: ef39e352d16784fada0fa04878db4e0a,
       type: 3}
-    poolSize: 4
+    poolSize: 10
     ECD: {fileID: 0}
   - name: Limb Demon
     prefab: {fileID: 6703112827038903964, guid: e16e026cabbc04fd4aaa0c06e58d4c0c,
       type: 3}
-    poolSize: 4
+    poolSize: 10
     ECD: {fileID: 0}
   - name: Lockjaw
     prefab: {fileID: 4973937793132772527, guid: 6342e1ec4c31744fbad2171c03c5c8b7,
       type: 3}
-    poolSize: 4
+    poolSize: 10
     ECD: {fileID: 0}
   - name: Chef Demon
     prefab: {fileID: 8976609478116218913, guid: 904fbb1e2c7984805a9bb6a0841985be,
       type: 3}
-    poolSize: 4
+    poolSize: 10
     ECD: {fileID: 0}
 --- !u!1 &2747125549563430186
 GameObject:
@@ -805,6 +855,7 @@ Transform:
   - {fileID: 6578524373407535887}
   - {fileID: 3187712963412964389}
   - {fileID: 5693786095780752664}
+  - {fileID: 7146106763945457393}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4355926136816337736
@@ -10574,6 +10625,26 @@ MonoBehaviour:
     prefab: {fileID: 6901041316425893539, guid: e6c4acdb352a14314894e950b3dc830f,
       type: 3}
     poolSize: 100
+  - name: Imp Bullet
+    prefab: {fileID: 3281167574738189479, guid: 25b49a56799e14330b5df89ca07de1da,
+      type: 3}
+    poolSize: 100
+  - name: Succubus Bullet
+    prefab: {fileID: 3281167574738189479, guid: 25b49a56799e14330b5df89ca07de1da,
+      type: 3}
+    poolSize: 100
+  - name: Limb Bullet
+    prefab: {fileID: 3281167574738189479, guid: 25b49a56799e14330b5df89ca07de1da,
+      type: 3}
+    poolSize: 100
+  - name: LockJaw Bullet
+    prefab: {fileID: 3281167574738189479, guid: 25b49a56799e14330b5df89ca07de1da,
+      type: 3}
+    poolSize: 100
+  - name: Chef Bullet
+    prefab: {fileID: 3281167574738189479, guid: 25b49a56799e14330b5df89ca07de1da,
+      type: 3}
+    poolSize: 100
 --- !u!1 &7332982067086239293
 GameObject:
   m_ObjectHideFlags: 0
@@ -10584,7 +10655,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5693786095780752664}
   - component: {fileID: 4660502572731449249}
-  - component: {fileID: 462147783948797543}
   m_Layer: 0
   m_Name: Settings Manager
   m_TagString: Untagged
@@ -10629,19 +10699,7 @@ MonoBehaviour:
   defaultDyslexiaFont: 0
   defaultPlayerAutoShoot: 0
   defaultControllerVibration: 1
---- !u!114 &462147783948797543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7332982067086239293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcdee695cf57f3545af7d3a3c6663677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  changeKey: 99
+  defaultDamageFlashIntensity: 1
 --- !u!1 &8087388078902123219
 GameObject:
   m_ObjectHideFlags: 0
@@ -10686,45 +10744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8498c4c9a1ed24be5bffce529dbe396a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waves:
-  - waveName: Wave 1
-    enemySpawnInfo:
-    - cloneAmount: 0
-      cloneSpawnDelay: 0.5
-      clonesOffset: {x: 1, y: 4}
-      enemyInfo:
-        name: Imp
-        enemyID: 0
-        movementData: {fileID: 11400000, guid: 7b751389b5f0149efac922887e62b43a, type: 2}
-        projectileData: {fileID: 11400000, guid: d16fe99ff41664036a6915330240cb18,
-          type: 2}
-        enemyFunctionalityData: {fileID: 11400000, guid: cac7c089a95df4b4297d6496c6cf9ed8,
-          type: 2}
-        timeOfAppearance: 3
-        targetSpawnPosition: {x: -4, y: 0, z: 10}
-        enterType: 1
-    - cloneAmount: 2
-      cloneSpawnDelay: 0.5
-      clonesOffset: {x: 4, y: 0}
-      enemyInfo:
-        name: Limb Demon
-        enemyID: 1
-        movementData: {fileID: 11400000, guid: 7b751389b5f0149efac922887e62b43a, type: 2}
-        projectileData: {fileID: 11400000, guid: d16fe99ff41664036a6915330240cb18,
-          type: 2}
-        enemyFunctionalityData: {fileID: 11400000, guid: cac7c089a95df4b4297d6496c6cf9ed8,
-          type: 2}
-        timeOfAppearance: 5
-        targetSpawnPosition: {x: -4, y: -5, z: 10}
-        enterType: 2
-    obstacleSpawnInfo: []
-    powerUpSpawnInfo: []
-    waveDuration: 0
-    waveStartTime: 0
-    defeatedEnemiesReqirement: 0
-    activeObjects: []
-    debugActive: 1
-    debugColour: {r: 1, g: 0, b: 0, a: 1}
+  waves: []
   portalPrefab: {fileID: 120605325564549474, guid: 2b9c5bb19184e4f2f94a9b9ee72253f2,
     type: 3}
   paused: 0

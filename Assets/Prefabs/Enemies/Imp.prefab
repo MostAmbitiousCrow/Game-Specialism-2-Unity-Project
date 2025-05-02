@@ -74,6 +74,24 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 53194b15389804f8b8b737286a624f6b, type: 2}
+    - target: {fileID: 8996980385874086482, guid: 530d275a1b61b49dda2842a814c35e19,
+        type: 3}
+      propertyPath: attackData
+      value: 
+      objectReference: {fileID: 11400000, guid: d16fe99ff41664036a6915330240cb18,
+        type: 2}
+    - target: {fileID: 8996980385874086482, guid: 530d275a1b61b49dda2842a814c35e19,
+        type: 3}
+      propertyPath: movementData
+      value: 
+      objectReference: {fileID: 11400000, guid: 7b751389b5f0149efac922887e62b43a,
+        type: 2}
+    - target: {fileID: 8996980385874086482, guid: 530d275a1b61b49dda2842a814c35e19,
+        type: 3}
+      propertyPath: projectileData
+      value: 
+      objectReference: {fileID: 11400000, guid: 7288fb8bbd9f12b4fb748c4f3a34a188,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

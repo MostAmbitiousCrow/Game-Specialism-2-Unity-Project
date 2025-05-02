@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static EnemyCategory;
 
-
-public class AudioManager : MonoBehaviour
+public class AudioManager : MonoBehaviour // By Samuel White
 {
+    //========================================
+    // The Audio Manager class.
+    // This class is used to play sounds and music.
+    //========================================
+    
     public static AudioManager instance;
     [SerializeField] private PlayerCategory playerCategory;
     [SerializeField] private EnemyCategory enemyCategory;
@@ -22,6 +24,7 @@ public class AudioManager : MonoBehaviour
     public static void PlayPlayerSound(PlayerCategory.PlayerSoundTypes type, float volume = 1)
     {
         AudioClip[] clips = instance.playerCategory.soundList[(int)type].sounds;
+        if (clips.Length == 0) return;
 
         AudioClip randomclip = clips[UnityEngine.Random.Range(0, clips.Length)];
         instance.playerCategory.audioSource.PlayOneShot(randomclip, volume);
@@ -30,6 +33,7 @@ public class AudioManager : MonoBehaviour
     public static void PlayEnemySound(EnemyCategory.EnemySoundTypes type, float volume = 1)
     {
         AudioClip[] clips = instance.enemyCategory.soundList[(int)type].sounds;
+        if (clips.Length == 0) return;
 
         AudioClip randomclip = clips[UnityEngine.Random.Range(0, clips.Length)];
         instance.enemyCategory.audioSource.PlayOneShot(randomclip, volume);
@@ -37,6 +41,7 @@ public class AudioManager : MonoBehaviour
     public static void PlayInterfaceSound(InterfaceCategory.InterfaceSoundTypes type, float volume = 1)
     {
         AudioClip[] clips = instance.interfaceCategory.soundList[(int)type].sounds;
+        if (clips.Length == 0) return;
 
         AudioClip randomclip = clips[UnityEngine.Random.Range(0, clips.Length)];
         instance.interfaceCategory.audioSource.PlayOneShot(randomclip, volume);
@@ -131,7 +136,8 @@ public struct EnemyCategory
     [HideInInspector] public string categoryName; //  Name of Sound Category
     public AudioSource audioSource;
     public enum EnemySoundTypes { Imp_Attack, Imp_Death, Imp_Spawn, Succubus_Attack, Succubus_Death, Succubus_Spawn,
-    Chef_Attack, Chef_Death, Chef_Spawn, Limb_Attack, Limb_Death, Limb_Spawn, Oni_Attack, Oni_Death, Oni_Spawn, Enemy_Hit }
+    Chef_Attack, Chef_Death, Chef_Spawn, Limb_Attack, Limb_Death, Limb_Spawn, Oni_Attack, Oni_Death, Oni_Spawn, 
+    Enemy_Hit, Enemy_Frozen, Enemy_Defeated }
     [SerializeField] public SoundList[] soundList; // List of Types of Sounds
     [Serializable]
     public struct SoundList

@@ -482,7 +482,6 @@ MonoBehaviour:
   shootPointA: {fileID: 2785143755135533972}
   shootPointB: {fileID: 5443200363664097008}
   gameCamera: {fileID: 0}
-  powerUpController: {fileID: 3132854657904378833}
   enemyDetectRings:
   - {fileID: 6283365587399571215}
   - {fileID: 3549791633836974634}
@@ -527,6 +526,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   health: 0
+  characterMeshRenderer: {fileID: 3552684547418893867}
+  damageFlashDuration: 0.1
+  damageFlashCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   deathEvent:
     m_PersistentCalls:
       m_Calls: []

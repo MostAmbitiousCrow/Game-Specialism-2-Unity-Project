@@ -16,8 +16,13 @@ public static class Global_Game_Speed // By Samuel White
         return Time.fixedDeltaTime * Settings_Manager.gameSpeed;
     }
 
-    public static float GetUnscaledDeltaTime()
+    public static float GeUnscaledtDeltaTime()
     {
         return Time.unscaledDeltaTime * Settings_Manager.gameSpeed;
+    }
+
+    public static float GetUnscaledFixedDeltaTime()
+    {
+        return Time.fixedUnscaledDeltaTime * Settings_Manager.gameSpeed;
     }
 }
