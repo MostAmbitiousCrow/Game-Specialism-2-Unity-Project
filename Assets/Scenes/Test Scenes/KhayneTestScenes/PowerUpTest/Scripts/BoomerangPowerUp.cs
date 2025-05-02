@@ -1,17 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BoomerangPowerUp : Player_Power_Up_Controller
+public class BoomerangPowerUp : MonoBehaviour
 {
     // This script is for the boomerang power-up.
-    public bool ready = true;
+    bool ready;
     
-    public void TriggerPowerUp()
+    public void PowerUpTrigger()
     {
         if (ready)
         {
 
         }
+    }
+
+    public void PowerUpDeactivate()
+    {
+        // Called as to end the power-up.
+        enabled = false;
+        ready = false;
     }
 }

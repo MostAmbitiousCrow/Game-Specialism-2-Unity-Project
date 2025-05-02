@@ -3,15 +3,11 @@ using UnityEngine.InputSystem;
 
 public class Player_Power_Up_Controller : MonoBehaviour // By Samuel White && Khayne Lutchmun
 {
-    // Add the PowerUp scripts here.
-
     [Header("Power Up Scripts")]
-    [SerializeField] private BubbleGumPowerUp bubbleGumPowerUp;
-    [SerializeField] private FlakePowerUp flakePowerUp;
-    [SerializeField] private BoomerangPowerUp boomerangPowerUp;
-    [SerializeField] private SprinklesPowerUp sprinklesPowerUp;
-
-    private Player_Power_Up_Controller selectedPowerUp;
+    [SerializeField] BubbleGumPowerUp bubbleGumPowerUp;
+    [SerializeField] FlakePowerUp flakePowerUp;
+    [SerializeField] BoomerangPowerUp boomerangPowerUp;
+    [SerializeField] SprinklesPowerUp sprinklesPowerUp;
 
     public enum PowerUpType
     {
@@ -21,40 +17,52 @@ public class Player_Power_Up_Controller : MonoBehaviour // By Samuel White && Kh
 
     public void SelectPowerUp(PowerUpType type)
     {
+        powerUpType = type;
         if (type == PowerUpType.None) return;
 
         switch (type)
         {
             case PowerUpType.BubbleGum:
-                selectedPowerUp = bubbleGumPowerUp;
+                bubbleGumPowerUp.enabled = true;
                 break;
 
             case PowerUpType.Flake:
-                selectedPowerUp = flakePowerUp;
+                flakePowerUp.enabled = true;
                 break;
 
             case PowerUpType.Boomerang:
-                selectedPowerUp = boomerangPowerUp;
+                boomerangPowerUp.enabled = true;
                 break;
 
             case PowerUpType.Sprinkles:
-                selectedPowerUp = sprinklesPowerUp;
+                sprinklesPowerUp.enabled = true;
                 break;
         }
     }
 
     public void TriggerPowerUp(InputAction.CallbackContext context)
     {
-        if (selectedPowerUp != null && context.ReadValueAsButton())
+        if (powerUpType != PowerUpType.None && context.ReadValueAsButton())
         {
-            // Check if the power-up is ready and can be triggered here:
-            // if (!selectedPowerUp.ready) return;
-
             // Trigger the power-up's trigger method here:
-            // selectedPowerUp.TriggerPowerUp();
+            switch (powerUpType)
+            {
+                case PowerUpType.BubbleGum:
+                    bubbleGumPowerUp.PowerUpTrigger();
+                    break;
 
-            // Trigger the power-up's trigger method here:
-            // selectedPowerUp.TriggerPowerUp();
+                case PowerUpType.Flake:
+                    flakePowerUp.PowerUpTrigger();
+                    break;
+
+                case PowerUpType.Boomerang:
+                    boomerangPowerUp.PowerUpTrigger();
+                    break;
+
+                case PowerUpType.Sprinkles:
+                    sprinklesPowerUp.PowerUpTrigger();
+                    break;
+            }
             Debug.Log("Power-up triggered");
         }
     }
@@ -62,6 +70,24 @@ public class Player_Power_Up_Controller : MonoBehaviour // By Samuel White && Kh
     public void DeactivatePowerUp()
     {
         // Deactivate the power-up here:
+        switch (powerUpType)
+        {
+            case PowerUpType.BubbleGum:
+                bubbleGumPowerUp.PowerUpDeactivate();
+                break;
+
+            case PowerUpType.Flake:
+                flakePowerUp.PowerUpDeactivate();
+                break;
+
+            case PowerUpType.Boomerang:
+                boomerangPowerUp.PowerUpDeactivate();
+                break;
+
+            case PowerUpType.Sprinkles:
+                sprinklesPowerUp.PowerUpDeactivate();
+                break;
+        }
 
         powerUpType = PowerUpType.None;
         Debug.Log("Power-up deactivated");

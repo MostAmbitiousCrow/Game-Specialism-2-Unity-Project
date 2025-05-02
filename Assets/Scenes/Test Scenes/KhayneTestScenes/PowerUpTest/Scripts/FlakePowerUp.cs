@@ -1,17 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class FlakePowerUp : Player_Power_Up_Controller
+public class FlakePowerUp : MonoBehaviour
 {
     // This script is for the flake power-up.
-    public bool ready = true;
+    bool ready = true;
     
-    public void TriggerPowerUp()
+    public void PowerUpTrigger()
     {
+        // Called when the power-up is triggered.
         if (ready)
         {
 
         }
+    }
+
+    public void PowerUpDeactivate()
+    {
+        // Called as to end the power-up.
+        enabled = false;
+        ready = false;
     }
 }
