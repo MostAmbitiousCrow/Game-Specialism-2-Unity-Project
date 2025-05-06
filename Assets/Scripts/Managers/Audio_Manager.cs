@@ -6,7 +6,7 @@ public class AudioManager : MonoBehaviour // By Samuel White
 {
     //========================================
     // The Audio Manager class.
-    // This class is used to play sounds and music.
+    // Used to play specific sounds and music.
     //========================================
     
     public static AudioManager instance;
@@ -83,6 +83,7 @@ public class AudioManager : MonoBehaviour // By Samuel White
     }
 
 #if UNITY_EDITOR
+    // Creates and names the sound lists in the inspector
     private void OnDrawGizmos()
     {
         string[] pNames = Enum.GetNames(typeof(PlayerCategory.PlayerSoundTypes));
@@ -119,7 +120,8 @@ public struct PlayerCategory
 {
     [HideInInspector] public string categoryName; //  Name of Sound Category
     public AudioSource audioSource;
-    public enum PlayerSoundTypes { Damage, Attack, Deaths, Indicators, Boomerang, }
+    public enum PlayerSoundTypes { Damage, Attacks, Deaths, Indicators, Powerup_Obtain, PU_Boomerang_Throw, PU_Boomerang_Hit,
+    PU_Boomerang_Catch, PU_Flake, PU_Sprinkles, PU_BubbleGum, }
     [SerializeField] public SoundList[] soundList; // List of Types of Sounds
     [Serializable]
     public struct SoundList
@@ -160,6 +162,22 @@ public struct InterfaceCategory
     {
         [HideInInspector] public string listName;
         [SerializeField] public InterfaceSoundTypes audioType;
+        [SerializeField] public AudioClip[] sounds;
+    }
+}
+
+[Serializable]
+public struct MusicCategory
+{
+    [HideInInspector] public string categoryName; //  Name of Sound Category
+    public AudioSource audioSource;
+    public enum MusicSoundTypes { MainMenu, Game, Boss, }
+    [SerializeField] public SoundList[] soundList; // List of Types of Sounds
+    [Serializable]
+    public struct SoundList
+    {
+        [HideInInspector] public string listName;
+        [SerializeField] public MusicSoundTypes musicType;
         [SerializeField] public AudioClip[] sounds;
     }
 }

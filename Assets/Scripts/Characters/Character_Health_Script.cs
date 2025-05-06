@@ -16,6 +16,7 @@ public class Character_Health_Script : MonoBehaviour // by Samuel White
     [Header("Visual Effects")]
     [SerializeField] Material characterMaterial;
     [SerializeField] MeshRenderer characterMeshRenderer;
+    [SerializeField] SpriteRenderer characterSpriteRenderer;
 
     [SerializeField] float damageFlashDuration = 0.1f;
     [SerializeField] AnimationCurve damageFlashCurve;
@@ -24,12 +25,11 @@ public class Character_Health_Script : MonoBehaviour // by Samuel White
     private float flashT;
     private bool flashing;
 
-    // Start is called before the first frame update
     void Awake()
     {
         health = maxHealth;
-        characterMaterial = characterMeshRenderer.material;
-        // characterMaterial = characterMeshRenderer.material = new Material(characterMeshRenderer.material);
+        if (characterMeshRenderer != null) characterMaterial = characterMeshRenderer.material;
+        else if (characterSpriteRenderer != null) characterMaterial = characterSpriteRenderer.material;
     }
 
     private void OnEnable()

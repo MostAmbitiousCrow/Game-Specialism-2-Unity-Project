@@ -28,8 +28,8 @@ public class SO_Standard_Enemy_Movement : ScriptableObject
     public float circleRadius = 1;
     public bool clockwise = true;
 
-    [Header("Cycles")]
-    [Tooltip("The amount of cycles the enemy will perform before leaving. Leave at 0 for infinite cycles.")]
-    public int cycles = 0;
+    // [Header("Cycles")]
+    // [Tooltip("The amount of cycles the enemy will perform before leaving. Leave at 0 for infinite cycles.")]
+    // public int cycles = 0;
 
 }
