@@ -61,7 +61,27 @@ PrefabInstance:
     - target: {fileID: 209576661767599461, guid: 530d275a1b61b49dda2842a814c35e19,
         type: 3}
       propertyPath: m_Name
-      value: Limb Demon Variant
+      value: Limb Demon
+      objectReference: {fileID: 0}
+    - target: {fileID: 876400505705890764, guid: 530d275a1b61b49dda2842a814c35e19,
+        type: 3}
+      propertyPath: data.Array.data[0].texture.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 876400505705890764, guid: 530d275a1b61b49dda2842a814c35e19,
+        type: 3}
+      propertyPath: data.Array.data[1].texture.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 876400505705890764, guid: 530d275a1b61b49dda2842a814c35e19,
+        type: 3}
+      propertyPath: data.Array.data[0].texture.Array.data[0]
+      value: 
+      objectReference: {fileID: 2800000, guid: e541f8bf58156484c9fde4cb185add6c, type: 3}
+    - target: {fileID: 876400505705890764, guid: 530d275a1b61b49dda2842a814c35e19,
+        type: 3}
+      propertyPath: data.Array.data[0].texture.Array.data[1]
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1670616134683000610, guid: 530d275a1b61b49dda2842a814c35e19,
         type: 3}
@@ -84,6 +104,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: e541f8bf58156484c9fde4cb185add6c,
         type: 3}
+    - target: {fileID: 4083772336272093710, guid: 530d275a1b61b49dda2842a814c35e19,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: daaf731c4bdcb4027aa0ea6eded21572, type: 2}
     - target: {fileID: 4400099293831257741, guid: 530d275a1b61b49dda2842a814c35e19,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -94,7 +119,15 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 589ca443eaad1446fb24309f7148d0ce, type: 2}
-    m_RemovedComponents: []
+    - target: {fileID: 7729920076737365686, guid: 530d275a1b61b49dda2842a814c35e19,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e541f8bf58156484c9fde4cb185add6c,
+        type: 3}
+    m_RemovedComponents:
+    - {fileID: 3782800105717502986, guid: 530d275a1b61b49dda2842a814c35e19, type: 3}
+    - {fileID: 4400099293831257741, guid: 530d275a1b61b49dda2842a814c35e19, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

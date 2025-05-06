@@ -69,11 +69,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 19cd00942111743de87f417a97a13644,
         type: 3}
+    - target: {fileID: 4083772336272093710, guid: 530d275a1b61b49dda2842a814c35e19,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: e46a84b106ab74e4b96f14998052ce17, type: 2}
     - target: {fileID: 4400099293831257741, guid: 530d275a1b61b49dda2842a814c35e19,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 53194b15389804f8b8b737286a624f6b, type: 2}
+    - target: {fileID: 7729920076737365686, guid: 530d275a1b61b49dda2842a814c35e19,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 19cd00942111743de87f417a97a13644,
+        type: 3}
     - target: {fileID: 8996980385874086482, guid: 530d275a1b61b49dda2842a814c35e19,
         type: 3}
       propertyPath: attackData

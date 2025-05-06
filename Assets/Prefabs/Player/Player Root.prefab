@@ -618,15 +618,16 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7817939184083779249}
+  - component: {fileID: 7336557552136249904}
   - component: {fileID: 8149993409331940106}
   - component: {fileID: 6833870661536184949}
   - component: {fileID: 7071102896247699362}
-  - component: {fileID: 4820013567105210480}
+  - component: {fileID: 7515385479982502315}
   - component: {fileID: 6976719119504901912}
   - component: {fileID: 3898760448339779657}
   - component: {fileID: 5130466670403997312}
   m_Layer: 6
-  m_Name: Player
+  m_Name: Player Root
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -652,6 +653,20 @@ Transform:
   - {fileID: 4017525469984394016}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7336557552136249904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6267928040471774471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7d73a9b40694eb59bac56b230b6964, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNumber: 0
+  view: {fileID: 0}
 --- !u!114 &8149993409331940106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -664,6 +679,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83aa7aa0a5c43426bae74f3f43fb7861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerNumber: 0
+  view: {fileID: 0}
   moveSpeed: 100
   minAcceleration: 0.2
   maxAcceleration: 1
@@ -688,12 +705,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d95945498512f044293d5db5b72fd494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerNumber: 0
+  view: {fileID: 0}
   projectileData: {fileID: 11400000, guid: 2be900a2ad936bc499a9396dcfb4d4b9, type: 2}
   isShooting: 0
   fireRate: 0.05
   shootPointA: {fileID: 2785143755135533972}
   shootPointB: {fileID: 5443200363664097008}
-  gameCamera: {fileID: 0}
   enemyDetectRings:
   - {fileID: 6283365587399571215}
   - {fileID: 3549791633836974634}
@@ -708,7 +726,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256
-  enableDebug: 0
+  enableDebug: 1
   mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
   debugAffectMaterial: 0
 --- !u!114 &7071102896247699362
@@ -728,7 +746,7 @@ MonoBehaviour:
   boomerangPowerUp: {fileID: 3969638880744986954}
   sprinklesPowerUp: {fileID: 5263577956795237558}
   powerUpType: 0
---- !u!114 &4820013567105210480
+--- !u!114 &7515385479982502315
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -737,23 +755,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 6267928040471774471}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62fa86376d22fdf458646c0a1f105c8d, type: 3}
+  m_Script: {fileID: 11500000, guid: 3347a9ab2ffd548b6afdb4cff384c684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerNumber: 0
   maxHealth: 5
   health: 0
   characterMaterial: {fileID: 0}
-  characterMeshRenderer: {fileID: 3552684547418893867}
+  characterMeshRenderer: {fileID: 0}
+  characterSpriteRenderer: {fileID: 0}
   damageFlashDuration: 0.1
+  respawnInvincibilityDuration: 3
   damageFlashCurve:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  deathEvent:
-    m_PersistentCalls:
-      m_Calls: []
+  respawnInvincibilityCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!54 &6976719119504901912
 Rigidbody:
   m_ObjectHideFlags: 0

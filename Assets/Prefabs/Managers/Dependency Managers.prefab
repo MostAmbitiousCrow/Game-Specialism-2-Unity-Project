@@ -187,6 +187,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7146106763945457393}
   - component: {fileID: 6276300016419336170}
+  - component: {fileID: 1239718237432272916}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -221,6 +222,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 230fe568770d10e4486f5a42b40893bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerOne: {fileID: 6221873141013438439, guid: ec27d3c27974c4b22ba5e20449f7c866,
+    type: 3}
+  playerTwo: {fileID: 3367035262126319381, guid: 6e2585c3babec46beb44fe01200eb5ff,
+    type: 3}
+  playerInputManager: {fileID: 1239718237432272916}
+--- !u!114 &1239718237432272916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894459877439512404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NotificationBehavior: 0
+  m_MaxPlayerCount: 2
+  m_AllowJoining: 1
+  m_JoinBehavior: 2
+  m_PlayerJoinedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_PlayerLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_JoinAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: b913f97b-263f-479f-942b-8040439aba2f
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  m_PlayerPrefab: {fileID: 0}
+  m_SplitScreen: 0
+  m_MaintainAspectRatioInSplitScreen: 0
+  m_FixedNumberOfSplitScreens: -1
+  m_SplitScreenRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1 &966071542669099933
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,7 +326,7 @@ MonoBehaviour:
     - listName: Damage
       playerSoundType: 0
       sounds: []
-    - listName: Attack
+    - listName: Attacks
       playerSoundType: 1
       sounds: []
     - listName: Deaths
@@ -285,7 +335,25 @@ MonoBehaviour:
     - listName: Indicators
       playerSoundType: 3
       sounds: []
-    - listName: Boomerang
+    - listName: Powerup_Obtain
+      playerSoundType: 0
+      sounds: []
+    - listName: PU_Boomerang_Throw
+      playerSoundType: 0
+      sounds: []
+    - listName: PU_Boomerang_Hit
+      playerSoundType: 0
+      sounds: []
+    - listName: PU_Boomerang_Catch
+      playerSoundType: 0
+      sounds: []
+    - listName: PU_Flake
+      playerSoundType: 0
+      sounds: []
+    - listName: PU_Sprinkles
+      playerSoundType: 0
+      sounds: []
+    - listName: PU_BubbleGum
       playerSoundType: 0
       sounds: []
   enemyCategory:
@@ -10620,31 +10688,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b5ff71a0bf7a4dc48b8436727c8b9b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletTypes:
-  - name: Player Bullet
+  enemyBulletTypes:
+  - name: Imp Projectiles
+    prefab: {fileID: 3281167574738189479, guid: 25b49a56799e14330b5df89ca07de1da,
+      type: 3}
+    poolSize: 100
+  - name: Succubus Projectiles
+    prefab: {fileID: 3281167574738189479, guid: 25b49a56799e14330b5df89ca07de1da,
+      type: 3}
+    poolSize: 100
+  - name: Limb Demon Projectiles
+    prefab: {fileID: 3281167574738189479, guid: 25b49a56799e14330b5df89ca07de1da,
+      type: 3}
+    poolSize: 100
+  - name: LockJaw Projectiles
+    prefab: {fileID: 3281167574738189479, guid: 25b49a56799e14330b5df89ca07de1da,
+      type: 3}
+    poolSize: 100
+  - name: Chef Demon Projectiles
+    prefab: {fileID: 3281167574738189479, guid: 25b49a56799e14330b5df89ca07de1da,
+      type: 3}
+    poolSize: 100
+  playerBullets:
+    name: Player Projectiles
     prefab: {fileID: 6901041316425893539, guid: e6c4acdb352a14314894e950b3dc830f,
       type: 3}
-    poolSize: 100
-  - name: Imp Bullet
-    prefab: {fileID: 3281167574738189479, guid: 25b49a56799e14330b5df89ca07de1da,
-      type: 3}
-    poolSize: 100
-  - name: Succubus Bullet
-    prefab: {fileID: 3281167574738189479, guid: 25b49a56799e14330b5df89ca07de1da,
-      type: 3}
-    poolSize: 100
-  - name: Limb Bullet
-    prefab: {fileID: 3281167574738189479, guid: 25b49a56799e14330b5df89ca07de1da,
-      type: 3}
-    poolSize: 100
-  - name: LockJaw Bullet
-    prefab: {fileID: 3281167574738189479, guid: 25b49a56799e14330b5df89ca07de1da,
-      type: 3}
-    poolSize: 100
-  - name: Chef Bullet
-    prefab: {fileID: 3281167574738189479, guid: 25b49a56799e14330b5df89ca07de1da,
-      type: 3}
-    poolSize: 100
+    poolSize: 200
 --- !u!1 &7332982067086239293
 GameObject:
   m_ObjectHideFlags: 0
