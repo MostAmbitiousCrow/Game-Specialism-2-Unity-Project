@@ -141,6 +141,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   health: 0
+  characterMaterial: {fileID: 2100000, guid: 5a059df2f77724f45a08ae6bf99d2606, type: 2}
+  characterMeshRenderer: {fileID: 5318938984199123105}
+  damageFlashDuration: 0.1
+  damageFlashCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   deathEvent:
     m_PersistentCalls:
       m_Calls:
