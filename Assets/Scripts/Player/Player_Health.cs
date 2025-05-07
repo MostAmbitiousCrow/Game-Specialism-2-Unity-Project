@@ -25,6 +25,10 @@ public class Player_Health : MonoBehaviour // by Samuel White
     [SerializeField] AnimationCurve damageFlashCurve;
     [SerializeField] AnimationCurve respawnInvincibilityCurve;
 
+    [Header("Player Character")]
+    [SerializeField] GameObject character;
+    [SerializeField] BoxCollider characterCollider;
+
     private float flashT;
     private bool flashing;
 
@@ -50,6 +54,7 @@ public class Player_Health : MonoBehaviour // by Samuel White
         if(health <= 0) 
         {
             GameManager.playerData[playerNumber].lives--;
+            StartCoroutine(DamageInvicibility());
             AudioManager.PlayPlayerSound(PlayerCategory.PlayerSoundTypes.Deaths, 1);
             if (GameManager.playerData[playerNumber].lives < 1 ) 
             {
@@ -93,6 +98,13 @@ public class Player_Health : MonoBehaviour // by Samuel White
 
     IEnumerator DamageInvicibility()
     {
+        character.SetActive(false);
+        yield return new WaitForSeconds(2f);
+        character.SetActive(true);
+        characterCollider.enabled = false;
+
+        flashing = true;
+
         float t = 0;
         while (t < 1)
         {
@@ -101,6 +113,7 @@ public class Player_Health : MonoBehaviour // by Samuel White
             yield return null;
         }
         flashing = false;
+        characterCollider.enabled = true;
         yield break;
     }
 }

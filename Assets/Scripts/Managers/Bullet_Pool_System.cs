@@ -92,11 +92,12 @@ public class Bullet_Pool_System : MonoBehaviour // By Samuel White // Add this s
         enemyBulletTypes[BID].pool.Enqueue(projectile);
     }
 
-    public Projectile_Player_Flight GetPlayerBullet() // Provide bullet to calling script from the pool
+    public Projectile_Player_Flight GetPlayerBullet(int playerID) // Provide bullet to calling script from the pool
     {
         if (playerBullets.pool.Count > 0)
         {
             Projectile_Player_Flight projectile = playerBullets.pool.Dequeue();
+            projectile.playerID = playerID; // Set the player ID for the projectile
             return projectile;
         }
         else
@@ -106,7 +107,7 @@ public class Bullet_Pool_System : MonoBehaviour // By Samuel White // Add this s
         }
     }
 
-    public void ReturnPlayerBullet(Projectile_Player_Flight projectile, int BID) // Recieved bullets are deactivated and returned to the pool
+    public void ReturnPlayerBullet(Projectile_Player_Flight projectile) // Recieved bullets are deactivated and returned to the pool
     {
         projectile.gameObject.SetActive(false);
         playerBullets.pool.Enqueue(projectile);

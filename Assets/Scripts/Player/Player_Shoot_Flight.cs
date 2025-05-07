@@ -2,8 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player_Shoot_Flight : Player_Data // By Samuel White
+public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
 {
+    [SerializeField] Player_Data playerData;
+
     [Header("Player Shoot Controls")]
     [SerializeField] private ScriptableObject projectileData;
     [SerializeField] private bool isShooting = false;
@@ -11,13 +13,15 @@ public class Player_Shoot_Flight : Player_Data // By Samuel White
     [SerializeField] Transform shootPointA, shootPointB;
     private float t = 0;
     private bool lG;
+    [Header("Player Character")]
+    public Transform Character;
 
     [Header("Ring")]
     [SerializeField] Transform[] enemyDetectRings;
     [SerializeField] Material enemyDetectRingMaterial;
 
     [Header("Enemy Detection")]
-    [Range(1, 9.9f)] [SerializeField] float detectRadius = 5;
+    [Range(1, 20f)] [SerializeField] float detectRadius = 5;
     [Range(1, 20)] [SerializeField] float detectRange = 10;
 
     [Range(0, 4)] [SerializeField] int closestEnemiesRange = 2;
@@ -34,7 +38,7 @@ public class Player_Shoot_Flight : Player_Data // By Samuel White
     void Start()
     {
         transform.GetChild(0).parent = null; // Unparent the rings
-        view = Camera.main.transform;
+        playerData.view = Camera.main.transform;
     }
 
     void Update()
@@ -48,12 +52,11 @@ public class Player_Shoot_Flight : Player_Data // By Samuel White
     {
         detectedEnemies.Clear();
         Vector3 pPos = transform.position;
-        Vector3 dir = (transform.position - view.position).normalized;
-        //Quaternion rot = Quaternion.LookRotation(dir);
+        Vector3 dir = (transform.position - playerData.view.position).normalized;
         Collider[] colliders = Physics.OverlapCapsule(pPos, transform.position + dir * detectRange, detectRadius / 2, enemyLayer);
         // https://roundwide.com/physics-overlap-capsule/
 
-        if (colliders.Length == 0) { targetEnemy = null; return; }
+        if (colliders.Length == 0) { targetEnemy = null; Character.rotation = Quaternion.identity;return; }
 
         foreach (var item in colliders)
         {
@@ -66,6 +69,7 @@ public class Player_Shoot_Flight : Player_Data // By Samuel White
                 .CompareTo(Vector3.Distance(t2.transform.position, transform.position));
         });
         targetEnemy = detectedEnemies?[0]; // Assign Target Enemy to Player Projectiles
+        Character.rotation = Quaternion.LookRotation(targetEnemy.position - transform.position); // Rotate player to face target enemy
     }
 
     void Shooting()
@@ -104,7 +108,7 @@ public class Player_Shoot_Flight : Player_Data // By Samuel White
         {
             for (int i = 0; i < Mathf.Clamp(detectedEnemies.Count, 0, closestEnemiesRange); i++)
             {
-                Projectile_Player_Flight p = Bullet_Pool_System.instance.GetPlayerBullet();
+                Projectile_Player_Flight p = Bullet_Pool_System.instance.GetPlayerBullet(playerData.playerNumber);
                 if (p != null)
                 {
                     Transform pos = lG ? shootPointA : shootPointB;
@@ -122,11 +126,11 @@ public class Player_Shoot_Flight : Player_Data // By Samuel White
         }
         else
         {
-            Projectile_Player_Flight p = Bullet_Pool_System.instance.GetPlayerBullet();
+            Projectile_Player_Flight p = Bullet_Pool_System.instance.GetPlayerBullet(playerData.playerNumber);
             if (p != null)
             {
                 Transform pos = lG ? shootPointA : shootPointB;
-                Vector3 dir = transform.position - view.position;
+                Vector3 dir = transform.position - playerData.view.position;
                 Quaternion rot = Quaternion.LookRotation(transform.forward);
                 p.transform.SetPositionAndRotation(pos.position, rot);
                 p.gameObject.SetActive(true);
@@ -149,11 +153,11 @@ public class Player_Shoot_Flight : Player_Data // By Samuel White
         if (enableDebug)
         {
             Gizmos.color = Color.green;
-            if (view == null) return;
+            if (playerData.view == null) return;
 
             // Calculate capsule parameters
             Vector3 pPos = transform.position;
-            Vector3 dir = (transform.position - view.position).normalized;
+            Vector3 dir = (transform.position - playerData.view.position).normalized;
             Vector3 pEnd = pPos + dir * detectRange;
             float radius = detectRadius / 2;
 
@@ -172,7 +176,7 @@ public class Player_Shoot_Flight : Player_Data // By Samuel White
             // }
 
             // Debug lines for direction
-            Debug.DrawLine(transform.position, view.position, Color.blue); // Line to camera
+            Debug.DrawLine(transform.position, playerData.view.position, Color.blue); // Line to camera
             Debug.DrawLine(transform.position, transform.position + dir * detectRange, Color.red); // Line to detection range
         }
     }

@@ -101,7 +101,7 @@ public class Enemy_Shooting_State : IEnemyState // By Samuel White
             Projectile_Enemy p = Bullet_Pool_System.instance.GetEnemyBullet(data.projectileData.ID); // Get Enemy Bullet
             if (p != null)
             {
-                Quaternion rot = Quaternion.LookRotation(data.attackData.aimAtTarget ? target.position : data.projectileSpawnPoints[0].forward);
+                Quaternion rot = Quaternion.LookRotation(data.attackData.aimAtTarget ? target.position : data.projectileSpawnPoints[0].forward * -1);
                 p.transform.SetPositionAndRotation(data.transform.position, rot);
                 p.scriptable_Object = data.projectileData;
                 p.Target = target;

@@ -6,6 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: c6b06744ba0dc4895b197c49ecf95387
+  - enabled: 1
+    path: Assets/Scenes/Level 1 - Hell.unity
+    guid: 6cc832c460d9144b4862140fbc04bb1d
+  - enabled: 1
+    path: Assets/Scenes/Level 2 - Frozen Hell.unity
+    guid: f00890665feea4b03ac81bbf79cdd934
+  - enabled: 1
+    path: Assets/Scenes/Level 3 - Devils Castle.unity
+    guid: 2d869516e7e504b7894ed1e54d8c79fb
+  - enabled: 1
+    path: Assets/Scenes/Endless Mode (Stretch Goal).unity
+    guid: 2c0ccbf58bac04592812819a5c764625
+  - enabled: 1
     path: Assets/Scenes/Test Scenes/KhayneTestScenes/MenuTest/MenuTest.unity
     guid: 1adab91da7950014da2f59a0fa745d31
   - enabled: 1

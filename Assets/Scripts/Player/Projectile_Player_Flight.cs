@@ -5,7 +5,7 @@ public class Projectile_Player_Flight : BulletManager // By Samuel White
     public PlayerProjectileData scriptable_Object;
     public Transform target;
     private float time = 0;
-    [SerializeField] private int ID;
+    public int playerID;
     [SerializeField] private int damage;
 
     #region Active States
@@ -75,7 +75,7 @@ public class Projectile_Player_Flight : BulletManager // By Samuel White
     {
         target = null;
         gameObject.SetActive(false);
-        Bullet_Pool_System.instance.ReturnPlayerBullet(this, ID);
+        Bullet_Pool_System.instance.ReturnPlayerBullet(this);
     }
     #endregion
 }
