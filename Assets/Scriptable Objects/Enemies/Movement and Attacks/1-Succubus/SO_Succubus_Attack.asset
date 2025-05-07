@@ -14,6 +14,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireInterval: 0.2
   initialDelay: 0.5
-  attackange: 20
-  shootSound: 0
-  deathSound: 0
+  attackDelay: 1
+  attackAmount: 1
+  infiniteAttack: 0
+  cycles: 0
+  aimAtTarget: 1
+  animateFirePoint: 1
+  aimRotationCurveX:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  aimRotationCurveY:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  aimRotationCurveZ:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  loopAttackAnimation: 0
+  animationDelay: 0.1
+  shootSound: 3
+  deathSound: 4

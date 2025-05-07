@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour // By Samuel White
     private void Awake()
     {
         instance = this;
+        DontDestroyOnLoad(transform.root);
         GameData.isMultiplayer = true;
     }
 

@@ -27,7 +27,11 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
 
                 [Header("Enemy Info")]
                 [Tooltip("The ID of the enemy, corresponding to the order in the list of the Enemy Pool")]
-                public int enemyID;
+                public Enemy enemyID;
+                public enum Enemy
+                {
+                    Imp, Succubus, Limb_Demon, LockJaw, Chef_Demon
+                }
 
                 [Tooltip("Enemy Movement Data, provided by its corresponding scriptable object data. Defines how the enemies will move.")]
                 public SO_Standard_Enemy_Movement movementData;
@@ -214,7 +218,7 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
     public void SpawnEnemy(Wave.EnemySpawn item, Vector3 offset)
     {
         Debug.Log("Activated");
-        Enemy_Character_Data ECD = New_Enemy_Pool_System.instance.GetEnemy(item.enemyInfo.enemyID);
+        Enemy_Character_Data ECD = New_Enemy_Pool_System.instance.GetEnemy((int)item.enemyInfo.enemyID);
         ECD.gameObject.SetActive(true);
         ECD.targetPosition = item.enemyInfo.targetSpawnPosition + offset;
 
@@ -222,7 +226,7 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
         ECD.movementData = item.enemyInfo.movementData;
         ECD.projectileData = item.enemyInfo.projectileData;
 
-        ECD.enemyID = item.enemyInfo.enemyID;
+        ECD.enemyID = (int)item.enemyInfo.enemyID;
         ECD.spawnType = item.enemyInfo.enterType;
         ECD.StartEnterance();
         Debug.Log($"{ECD.name} Spawned. Enter Type: {ECD.spawnType}");

@@ -68,7 +68,8 @@ public class Projectile_Player_Flight : BulletManager // By Samuel White
 
     private void OnTriggerEnter(Collider c)
     {
-        c.GetComponent<Enemy_Character_Data>().Damage(damage); // Damage the target
+        if (c.CompareTag("EnemyB")) c.GetComponent<Enemy_Character_Data>().Damage(damage); // Damage the target
+        else if (c.CompareTag("Box")) c.GetComponent<Character_Health_Script>().Damage(damage); // Damage the target
         Deactivate();
     }
     public void Deactivate() // Return the projectile to the pool and deactivate this bullet
