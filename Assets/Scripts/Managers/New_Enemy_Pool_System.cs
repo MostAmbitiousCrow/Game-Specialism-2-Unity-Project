@@ -28,6 +28,9 @@ public class New_Enemy_Pool_System : MonoBehaviour // By Samuel White
         instance = this;
         foreach (var item in enemyTypes)
         {
+            GameObject folder = new (item.name + " Folder");
+            Debug.Log($"Created {folder.name} folder");
+
             for (int i = 0; i < item.poolSize; i++)
             {
                 if (item.prefab == null) { Debug.LogError("Missing GameObject (Prefab)"); return; }
@@ -37,7 +40,7 @@ public class New_Enemy_Pool_System : MonoBehaviour // By Samuel White
                 enemy.SetActive(false);
 
                 Enemy_Character_Data ECD = enemy.GetComponent<Enemy_Character_Data>();
-                ECD.enemyMaterial = enemy.GetComponentInChildren<Renderer>().material;
+                ECD.transform.SetParent(folder.transform);
 
                 item.enemyPool.Enqueue(ECD);
             }

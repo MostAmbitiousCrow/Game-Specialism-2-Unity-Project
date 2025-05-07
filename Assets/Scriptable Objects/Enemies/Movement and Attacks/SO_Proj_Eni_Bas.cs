@@ -43,11 +43,19 @@ public class SO_Proj_Eni_Bas : ScriptableObject // By Samuel White
 
     public bool useAngularAcceleration = false; // If true, the projectile will start rotating at a slower speed and Accelerate to the start speed, or the opposite
 
-    [Range(-180f, 180f)] public float rotateStartSpeed = 0; // The speed at which the projectile starts
+    [Range(-180f, 180f)] public float rotateStartSpeedX = 0; // The speed at which the projectile starts
 
-    [Range(-180f, 180f)] public float rotateEndSpeed = 0; // The speed at which the projectile ends
+    [Range(-180f, 180f)] public float rotateEndSpeedX = 0; // The speed at which the projectile ends
 
-    public AnimationCurve rotateAccelerationCurve; // The Acceleration curve that the projectile will follow
+    public AnimationCurve rotateAccelerationCurveX; // The Acceleration curve that the projectile will follow
+
+    [Space(5)]
+
+    [Range(-180f, 180f)] public float rotateStartSpeedY = 0; // The speed at which the projectile starts
+
+    [Range(-180f, 180f)] public float rotateEndSpeedY = 0; // The speed at which the projectile ends
+
+    public AnimationCurve rotateAccelerationCurveY; // The Acceleration curve that the projectile will follow
 
     [Header("Audio")]
     public EnemyCategory.EnemySoundTypes destroySound; // The sound the projectile will play when returned to the pool

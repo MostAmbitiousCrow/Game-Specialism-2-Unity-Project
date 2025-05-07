@@ -5,7 +5,7 @@ public class Projectile_Player_Flight : BulletManager // By Samuel White
     public PlayerProjectileData scriptable_Object;
     public Transform target;
     private float time = 0;
-    [SerializeField] private int ID;
+    public int playerID;
     [SerializeField] private int damage;
 
     #region Active States
@@ -68,14 +68,14 @@ public class Projectile_Player_Flight : BulletManager // By Samuel White
 
     private void OnTriggerEnter(Collider c)
     {
-        c.GetComponent<Character_Health_Script>().Damage(damage); // Damage the target
+        c.GetComponent<Enemy_Character_Data>().Damage(damage); // Damage the target
         Deactivate();
     }
     public void Deactivate() // Return the projectile to the pool and deactivate this bullet
     {
         target = null;
         gameObject.SetActive(false);
-        Bullet_Pool_System.instance.ReturnBullet(gameObject, ID, GetType().GetField("scriptable_Object"));
+        Bullet_Pool_System.instance.ReturnPlayerBullet(this);
     }
     #endregion
 }

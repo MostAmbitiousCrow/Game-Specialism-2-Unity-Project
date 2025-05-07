@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Reflection;
 using UnityEngine;
 
 public class Enemy_Shooting_State : IEnemyState // By Samuel White
@@ -22,12 +21,17 @@ public class Enemy_Shooting_State : IEnemyState // By Samuel White
     public void OnEnter(Enemy_Character_Data data)
     {
         c = data.StartCoroutine(AttackProcess(data));
-        target = GameData.isMultiplayer ? GetClosestPlayer(data.transform) : GameData.playerOne;
+        target = GameData.isMultiplayer ? GetClosestPlayer(data.transform) : GameManager.playerData[0].playerObject.transform;
     }
 
     public void OnExit(Enemy_Character_Data data)
     {
-
+        if (c != null)
+        {
+            data.StopCoroutine(c);
+            c = null;
+        }
+        data.Animator.SetTrigger("Idle");
     }
 
     public void OnHurt(Enemy_Character_Data data)
@@ -35,32 +39,108 @@ public class Enemy_Shooting_State : IEnemyState // By Samuel White
 
     }
 
-    // Update is called once per frame
     IEnumerator AttackProcess(Enemy_Character_Data data)
     {
         yield return new WaitForSeconds(data.attackData.initialDelay);
-        while (true)
-        {
 
-            Attack(data);
-            yield return new WaitForSeconds(data.attackData.fireInterval);
+        while (data.attackData.cycles > 0 || data.attackData.infiniteAttack)
+        {
+            if (data.attackData.infiniteAttack)
+            {
+                if (data.attackData.attackDelay > 0)
+                yield return new WaitForSeconds(data.attackData.attackDelay);
+
+                data.Animator.SetTrigger("Attack");
+                data.Animator.SetBool("Looping", data.attackData.loopAttackAnimation);
+
+                for (int i = 0; i < data.attackData.attackAmount; i++)
+                {
+                    data.Animator.SetTrigger("Attack");
+                    if (data.attackData.animationDelay > 0 && !data.attackData.loopAttackAnimation)
+                    yield return new WaitForSeconds(data.attackData.animationDelay);
+                    Attack(data);
+                    if (data.attackData.fireInterval > 0)
+                    yield return new WaitForSeconds(data.attackData.fireInterval);
+                }
+                data.Animator.SetBool("Looping", false);
+                data.Animator.ResetTrigger("Attack");
+
+                yield return null;
+            }
+            else
+            {
+                for (int i = 0; i < data.attackData.cycles; i++)
+                {
+                    if (data.attackData.attackDelay > 0)
+                    yield return new WaitForSeconds(data.attackData.attackDelay);
+
+                    data.Animator.SetTrigger("Attack");
+                    data.Animator.SetBool("Looping", data.attackData.loopAttackAnimation);
+
+                    for (int a = 0; a < data.attackData.attackAmount; a++)
+                    {
+                        data.Animator.SetTrigger("Attack");
+                        if (data.attackData.animationDelay > 0 && !data.attackData.loopAttackAnimation)
+                        yield return new WaitForSeconds(data.attackData.animationDelay);
+                        Attack(data);
+                        if (data.attackData.fireInterval > 0)
+                        yield return new WaitForSeconds(data.attackData.fireInterval);
+                    }
+                    data.Animator.SetBool("Looping", false);
+
+                    yield return null;
+                }
+            }
         }
     }
 
-    private void Attack(Enemy_Character_Data data)
+    private void Attack(Enemy_Character_Data data) //TODO Simplify
     {
-        (GameObject GO, FieldInfo SO) = Bullet_Pool_System.instance.GetBullet(data.projectileData.ID); // Get Enemy Bullet
-        if (GO != null && SO != null)
+        if (data.projectileSpawnPoints.Length < 2)
         {
-            Quaternion rot = Quaternion.LookRotation(target.position);
-            GO.transform.SetPositionAndRotation(data.transform.position, rot);
-            SO.SetValue(GO.GetComponent(SO.DeclaringType), data.projectileData); //TODO Might need to update this!
-            GO.SetActive(true);
-            AudioManager.PlayEnemySound(data.attackData.shootSound, 1);
+            Projectile_Enemy p = Bullet_Pool_System.instance.GetEnemyBullet(data.projectileData.ID); // Get Enemy Bullet
+            if (p != null)
+            {
+                Quaternion rot = Quaternion.LookRotation(data.attackData.aimAtTarget ? target.position : data.projectileSpawnPoints[0].forward * -1);
+                p.transform.SetPositionAndRotation(data.transform.position, rot);
+                p.scriptable_Object = data.projectileData;
+                p.Target = target;
+                p.gameObject.SetActive(true);
+                AudioManager.PlayEnemySound(data.attackData.shootSound, 1);
+            }
+            else
+            {
+                Debug.LogWarning("Failed to get bullet from pool.");
+            }
         }
         else
         {
-            Debug.LogWarning("Failed to get bullet from pool.");
+            for (int i = 0; i < data.projectileSpawnPoints.Length; i++)
+            {
+                Projectile_Enemy p = Bullet_Pool_System.instance.GetEnemyBullet(data.projectileData.ID); // Get Enemy Bullet
+                if (p != null)
+                {
+                    Quaternion rot = Quaternion.LookRotation(data.attackData.aimAtTarget ? target.position : data.projectileSpawnPoints[i].forward);
+                    p.transform.SetPositionAndRotation(data.transform.position, rot);
+                    p.scriptable_Object = data.projectileData;
+                    p.gameObject.SetActive(true);
+                    AudioManager.PlayEnemySound(data.attackData.shootSound, 1);
+                }
+                else
+                {
+                    Debug.LogWarning("Failed to get bullet from pool.");
+                }
+            }
+        }
+    }
+
+    void RotatePoints(Enemy_Character_Data data)
+    {
+        for (int i = 0; i < data.projectileSpawnPoints.Length; i++)
+        {
+            Vector3 targetPos = data.projectileSpawnPoints[i].position;
+            targetPos.y = data.transform.position.y;
+            data.projectileSpawnPoints[i].LookAt(targetPos);
         }
     }
 

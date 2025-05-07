@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb67c33bf1e7043e0b94ff4fddc8d881, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptable_Object: {fileID: 0}
+  scriptable_Object: {fileID: 11400000, guid: 2be900a2ad936bc499a9396dcfb4d4b9, type: 2}
   target: {fileID: 0}
   ID: 0
   damage: 1

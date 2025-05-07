@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 
 public class Bullet_Pool_System : MonoBehaviour // By Samuel White // Add this script to the scene. It will create a pool of bullets that can be used and returned.
@@ -9,85 +8,108 @@ public class Bullet_Pool_System : MonoBehaviour // By Samuel White // Add this s
     public static Bullet_Pool_System instance; // Set instance to be acessed by other scripts
 
     [System.Serializable]
-    public class BulletType // Create a class for each type of bullet
+    public class EnemyBulletType // Create a class for each type of bullet
     {
         public string name = "Bullet"; // The name of the bullet type
 
         public GameObject prefab; // The prefab of the bullet type
         public int poolSize = 200; // The pool size of the bullet type
 
-        public Queue<GameObject> pool = new(); // The pool of the bullet type // https://discussions.unity.com/t/queues-in-unityscript/61623 < Thank you Unity Forums
-        public Queue<FieldInfo> fieldInfos = new(); // The Scriptable Object field infos of the bullet type
+        // The pool of the bullet type // https://discussions.unity.com/t/queues-in-unityscript/61623 < Thank you Unity Forums
+        public Queue<Projectile_Enemy> pool = new();
 
         public int PoolCount => pool.Count; // The count of the pool
     }
-    public List<BulletType> bulletTypes = new(); // The list of bullet types
+    public List<EnemyBulletType> enemyBulletTypes = new(); // The list of bullet types
+
+    [System.Serializable]
+    public class PlayerBullets
+    {
+        public string name = "Bullet"; // The name of the bullet type
+
+        public GameObject prefab; // The prefab of the bullet type
+        public int poolSize = 200; // The pool size of the bullet type
+
+        public Queue<Projectile_Player_Flight> pool = new();
+
+        public int PoolCount => pool.Count; // The count of the pool
+    }
+    public PlayerBullets playerBullets = new(); // The list of the player bullets
 
     void Start()
     {
         instance = this;
-        foreach (var item in bulletTypes)
+
+        // Create the enemy bullets
+        foreach (var item in enemyBulletTypes)
         {
-            GameObject folder = Instantiate(new GameObject(), new(), Quaternion.identity);
-            folder.name = item.name + " Folder";
+            GameObject folder = new (item.name + " Folder");
+            Debug.Log($"Created {folder.name} folder");
             for (int i = 0; i < item.poolSize; i++)
             {
                 GameObject bullet = Instantiate(item.prefab);
 
                 bullet.transform.SetParent(folder.transform);
                 
-                bullet.name = "Bullet " + i;
+                bullet.name = item.name + " Bullet " + i;
                 bullet.SetActive(false);
-                item.pool.Enqueue(bullet);
-                // Ensure the component at index 1 has the field "scriptable_Object"
-                var component = bullet.GetComponentAtIndex(1);
-                if (component != null)
-                {
-                    var fieldInfo = component.GetType().GetField("scriptable_Object");
-                    if (fieldInfo != null)
-                    {
-                        item.fieldInfos.Enqueue(fieldInfo);
-
-                    }
-                    else
-                    {
-                        Debug.LogWarning($"Field 'scriptable_Object' not found on component {component.GetType().Name}");
-                    }
-                }
-                else
-                {
-                    Debug.LogWarning("Component at index 1 not found on bullet prefab");
-                }
+                item.pool.Enqueue(bullet.GetComponent<Projectile_Enemy>());
             }
+        }
+
+        // Create the player bullets
+        GameObject folder2 = new (playerBullets.name + " Folder");
+        for (int i = 0; i < playerBullets.poolSize; i++)
+        {
+            GameObject bullet = Instantiate(playerBullets.prefab);
+            bullet.transform.SetParent(folder2.transform);
+            bullet.name = playerBullets.name + " Bullet " + i;
+            bullet.SetActive(false);
+            playerBullets.pool.Enqueue(bullet.GetComponent<Projectile_Player_Flight>());
         }
     }
 
-    public (GameObject, FieldInfo) GetBullet(int ID) // Provide bullet to calling script from the pool
+    public Projectile_Enemy GetEnemyBullet(int ID) // Provide bullet to calling script from the pool
     {
-        if (bulletTypes.Count > 0 && bulletTypes[ID].pool.Count > 0)
+        if (enemyBulletTypes.Count > 0 && enemyBulletTypes[ID].pool.Count > 0)
         {
-            GameObject bullet = bulletTypes[ID].pool.Dequeue();
-            FieldInfo fieldInfo = bulletTypes[ID].fieldInfos.Dequeue();
-            // bullet.SetActive(true);
-            //print($"{bullet} : {fieldInfo}");
-            return (bullet, fieldInfo);
+            Projectile_Enemy projectile = enemyBulletTypes[ID].pool.Dequeue();
+            return projectile;
         }
         else
         {
-            // Optionally expand the pool if needed
+            // Optionally expand the pool if really needed
             // GameObject bullet = Instantiate(bulletPrefab);
             // return bullet;
             Debug.LogWarning($"No bullets in the pool {ID}");
-            return (null, null);
+            return null;
         }
     }
 
-    public void ReturnBullet(GameObject bullet, int BID, FieldInfo BFI) // Recieved bullets are deactivated and returned to the pool
+    public void ReturnEnemyBullet(Projectile_Enemy projectile, int BID) // Recieved bullets are deactivated and returned to the pool
     {
-        bullet.SetActive(false);
-        bulletTypes[BID].pool.Enqueue(bullet);
-        if (BFI != null) bulletTypes[BID].fieldInfos.Enqueue(BFI);
-        else Debug.LogError("Field Info not found");
-        //print($"Items Remaining: {bulletTypes[BID].PoolCount}. Field Info: {BFI}");
+        projectile.gameObject.SetActive(false);
+        enemyBulletTypes[BID].pool.Enqueue(projectile);
+    }
+
+    public Projectile_Player_Flight GetPlayerBullet(int playerID) // Provide bullet to calling script from the pool
+    {
+        if (playerBullets.pool.Count > 0)
+        {
+            Projectile_Player_Flight projectile = playerBullets.pool.Dequeue();
+            projectile.playerID = playerID; // Set the player ID for the projectile
+            return projectile;
+        }
+        else
+        {
+            Debug.LogWarning($"No bullets in the pool");
+            return null;
+        }
+    }
+
+    public void ReturnPlayerBullet(Projectile_Player_Flight projectile) // Recieved bullets are deactivated and returned to the pool
+    {
+        projectile.gameObject.SetActive(false);
+        playerBullets.pool.Enqueue(projectile);
     }
 }

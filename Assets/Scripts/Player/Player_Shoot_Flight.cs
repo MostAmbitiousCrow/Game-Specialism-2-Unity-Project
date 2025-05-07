@@ -1,10 +1,11 @@
-using System.Reflection;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
 {
+    [SerializeField] Player_Data playerData;
+
     [Header("Player Shoot Controls")]
     [SerializeField] private ScriptableObject projectileData;
     [SerializeField] private bool isShooting = false;
@@ -12,15 +13,16 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
     [SerializeField] Transform shootPointA, shootPointB;
     private float t = 0;
     private bool lG;
-    [SerializeField] Transform gameCamera;
+    [Header("Player Character")]
+    public Transform Character;
 
     [Header("Ring")]
     [SerializeField] Transform[] enemyDetectRings;
     [SerializeField] Material enemyDetectRingMaterial;
 
     [Header("Enemy Detection")]
-    [Range(1, 9.9f)] [SerializeField] float detectRadius = 5;
-    [Range(1, 16)] [SerializeField] float detectRange = 10;
+    [Range(1, 20f)] [SerializeField] float detectRadius = 5;
+    [Range(1, 20)] [SerializeField] float detectRange = 10;
 
     [Range(0, 4)] [SerializeField] int closestEnemiesRange = 2;
 
@@ -36,6 +38,7 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
     void Start()
     {
         transform.GetChild(0).parent = null; // Unparent the rings
+        playerData.view = Camera.main.transform;
     }
 
     void Update()
@@ -45,16 +48,15 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
         UpdateRings();
     }
 
-    private void DetectEnemies()
+    void DetectEnemies()
     {
         detectedEnemies.Clear();
         Vector3 pPos = transform.position;
-        Vector3 dir = (transform.position - gameCamera.position).normalized;
-        //Quaternion rot = Quaternion.LookRotation(dir);
-        Collider[] colliders = Physics.OverlapCapsule(pPos, transform.position + dir * detectRange, detectRadius / 2, enemyLayer); 
+        Vector3 dir = (transform.position - playerData.view.position).normalized;
+        Collider[] colliders = Physics.OverlapCapsule(pPos, transform.position + dir * detectRange, detectRadius / 2, enemyLayer);
         // https://roundwide.com/physics-overlap-capsule/
 
-        if (colliders.Length == 0) { targetEnemy = null; return; }
+        if (colliders.Length == 0) { targetEnemy = null; Character.rotation = Quaternion.identity;return; }
 
         foreach (var item in colliders)
         {
@@ -67,9 +69,10 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
                 .CompareTo(Vector3.Distance(t2.transform.position, transform.position));
         });
         targetEnemy = detectedEnemies?[0]; // Assign Target Enemy to Player Projectiles
+        Character.rotation = Quaternion.LookRotation(targetEnemy.position - transform.position); // Rotate player to face target enemy
     }
 
-    private void Shooting()
+    void Shooting()
     {
         if (isShooting)
         {
@@ -83,7 +86,7 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
         }
     }
 
-    private void UpdateRings()
+    void UpdateRings()
     {
         int c = Mathf.Clamp(detectedEnemies.Count, 0, closestEnemiesRange); // Count of Targetted enemies from closest enemy range.
 
@@ -105,15 +108,14 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
         {
             for (int i = 0; i < Mathf.Clamp(detectedEnemies.Count, 0, closestEnemiesRange); i++)
             {
-                (GameObject GO, FieldInfo SO) = Bullet_Pool_System.instance.GetBullet(0);
-                if (GO != null && SO != null)
+                Projectile_Player_Flight p = Bullet_Pool_System.instance.GetPlayerBullet(playerData.playerNumber);
+                if (p != null)
                 {
                     Transform pos = lG ? shootPointA : shootPointB;
                     Quaternion look = detectedEnemies.Count == 0 ? Quaternion.LookRotation(transform.forward)
                         : Quaternion.LookRotation(detectedEnemies[i].position - pos.position);
-                    GO.transform.SetPositionAndRotation(pos.position, look);
-                    SO.SetValue(GO.GetComponent(SO.DeclaringType), projectileData);
-                    GO.SetActive(true);
+                    p.transform.SetPositionAndRotation(pos.position, look);
+                    p.gameObject.SetActive(true);
                     lG = !lG;
                 }
                 else
@@ -124,15 +126,14 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
         }
         else
         {
-            (GameObject GO, FieldInfo SO) = Bullet_Pool_System.instance.GetBullet(0);
-            if (GO != null && SO != null)
+            Projectile_Player_Flight p = Bullet_Pool_System.instance.GetPlayerBullet(playerData.playerNumber);
+            if (p != null)
             {
                 Transform pos = lG ? shootPointA : shootPointB;
-                Vector3 dir = transform.position - gameCamera.position;
+                Vector3 dir = transform.position - playerData.view.position;
                 Quaternion rot = Quaternion.LookRotation(transform.forward);
-                GO.transform.SetPositionAndRotation(pos.position, rot);
-                SO.SetValue(GO.GetComponent(SO.DeclaringType), projectileData);
-                GO.SetActive(true);
+                p.transform.SetPositionAndRotation(pos.position, rot);
+                p.gameObject.SetActive(true);
                 lG = !lG;
             }
             else
@@ -152,19 +153,31 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
         if (enableDebug)
         {
             Gizmos.color = Color.green;
-            Vector3 dir = (transform.position - gameCamera.position).normalized;
-            Quaternion rot = Quaternion.LookRotation(transform.position - gameCamera.position);
+            if (playerData.view == null) return;
 
-            //Gizmos.DrawWireMesh(mesh, 0, new(transform.position.x, transform.position.y, transform.position.z + detectRange /2 - (detectRange * .25f)),
-            //    Quaternion.Euler(rot.x + 90, rot.y, rot.z), new(detectRadius * 2, detectRange/2, detectRadius * 2));
-            Gizmos.DrawWireCube(transform.position, new(detectRadius, detectRadius, detectRange));
-            Gizmos.matrix = Matrix4x4.TRS(transform.localPosition, rot, transform.localScale);
+            // Calculate capsule parameters
+            Vector3 pPos = transform.position;
+            Vector3 dir = (transform.position - playerData.view.position).normalized;
+            Vector3 pEnd = pPos + dir * detectRange;
+            float radius = detectRadius / 2;
 
-            if (debugAffectMaterial) enemyDetectRingMaterial.SetFloat("_Radius", detectRadius * .05f);
+            // Draw the capsule
+            Gizmos.DrawWireSphere(pPos, radius); // Draw the start sphere
+            Gizmos.DrawWireSphere(pEnd, radius); // Draw the end sphere
+            Gizmos.DrawLine(pPos + Vector3.up * radius, pEnd + Vector3.up * radius); // Connect top edges
+            Gizmos.DrawLine(pPos - Vector3.up * radius, pEnd - Vector3.up * radius); // Connect bottom edges
+            Gizmos.DrawLine(pPos + Vector3.right * radius, pEnd + Vector3.right * radius); // Connect right edges
+            Gizmos.DrawLine(pPos - Vector3.right * radius, pEnd - Vector3.right * radius); // Connect left edges
 
-            Debug.DrawLine(transform.position, gameCamera.position);
-            Debug.DrawLine(transform.position, transform.position + dir * detectRange, Color.red);
-            //Debug.DrawRay(transform.position, dir + dir * detectRange, Color.cyan);
+            // // Debug material radius
+            // if (debugAffectMaterial)
+            // {
+            //     enemyDetectRingMaterial.SetFloat("_Radius", detectRadius * 0.05f);
+            // }
+
+            // Debug lines for direction
+            Debug.DrawLine(transform.position, playerData.view.position, Color.blue); // Line to camera
+            Debug.DrawLine(transform.position, transform.position + dir * detectRange, Color.red); // Line to detection range
         }
     }
 }

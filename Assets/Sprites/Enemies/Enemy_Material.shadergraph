@@ -1705,7 +1705,7 @@
     "m_DefaultRefNameVersion": 1,
     "m_RefNameGeneratedByDisplayName": "EnemyTexture",
     "m_DefaultReferenceName": "_EnemyTexture",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "_MainTex",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
@@ -3770,7 +3770,7 @@
     "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
     "m_ObjectId": "9574d7fbbb584a27af310bdaf2172e31",
     "m_Title": "Flash Effect",
-    "m_Content": "Write something here",
+    "m_Content": "",
     "m_TextSize": 0,
     "m_Theme": 0,
     "m_Position": {
@@ -3778,7 +3778,7 @@
         "x": -859.5,
         "y": 181.5,
         "width": 200.0,
-        "height": 100.0
+        "height": -164.5
     },
     "m_Group": {
         "m_Id": ""
@@ -3946,7 +3946,7 @@
     "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
     "m_ObjectId": "9d15db7daa7049c3809cc1407945ac0e",
     "m_Title": "By Samuel White",
-    "m_Content": "Write something here",
+    "m_Content": "",
     "m_TextSize": 2,
     "m_Theme": 0,
     "m_Position": {
@@ -3954,7 +3954,7 @@
         "x": -1093.0,
         "y": -95.5,
         "width": 504.5,
-        "height": 100.0
+        "height": 123.80500030517578
     },
     "m_Group": {
         "m_Id": ""
