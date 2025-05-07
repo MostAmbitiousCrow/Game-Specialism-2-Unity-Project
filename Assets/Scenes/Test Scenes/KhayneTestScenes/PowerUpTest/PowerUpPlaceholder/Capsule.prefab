@@ -181,3 +181,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b7852ff9b7fe474683924e43aadb694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SprinklesMinigun: {fileID: 0}
+  bullet: {fileID: 0}

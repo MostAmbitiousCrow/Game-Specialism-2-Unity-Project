@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3440353925219744885}
   m_Layer: 8
   m_Name: PowerUpBox
-  m_TagString: Untagged
+  m_TagString: Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -143,6 +143,7 @@ MonoBehaviour:
   health: 0
   characterMaterial: {fileID: 2100000, guid: 5a059df2f77724f45a08ae6bf99d2606, type: 2}
   characterMeshRenderer: {fileID: 5318938984199123105}
+  characterSpriteRenderer: {fileID: 0}
   damageFlashDuration: 0.1
   damageFlashCurve:
     serializedVersion: 2
