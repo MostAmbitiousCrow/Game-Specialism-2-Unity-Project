@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class SprinklesPowerUp : MonoBehaviour
+public class SprinklesPowerUp : MonoBehaviour // By Khayne Lutchmun.
 {
     // This script is for the sprinkles power-up.
-    bool ready = true; // Indicates if the power-up is ready to be used.
+    [Header("Sprinkles Power-Up data")] // Header for the power-up data.
+    [SerializeField] bool ready = true; // Indicates if the power-up is ready to be used.
+    [SerializeField] bool readValue = false; // The value of the fire input.
     [SerializeField] GameObject sprinklesGun; // The prefab for the sprinkles gun.
     [SerializeField] Transform shootPointMinigun; // The point from where the sprinkles will shoot.
     [SerializeField] GameObject bulletPrefab; // The prefab for the bullet.
@@ -20,7 +22,7 @@ public class SprinklesPowerUp : MonoBehaviour
     }
     private void Update()
     {
-
+        FireCheck(); // Check if the fire input is triggered.
     }
 
     public void PowerUpTrigger() // Called when the power-up is triggered.
@@ -40,8 +42,16 @@ public class SprinklesPowerUp : MonoBehaviour
         sprinklesGun.SetActive(false); // Deactivate the sprinkles gun.
     }
 
+    public void FireCheck() // Called to check if the fire input is triggered.
+    {
+        if (readValue) // Check if the fire input is triggered.
+        {
+            Fire(); // Call the Fire method.
+        }
+    }
     private void Fire()
     {
+
         if (currentBullets > 0) // Check if there are bullets left.
         {
             if (Time.time >= nextFireTime) // Check if it's time to fire again.
@@ -65,6 +75,8 @@ public class SprinklesPowerUp : MonoBehaviour
 
     public void FireInput(InputAction.CallbackContext context) // Called when the fire input is triggered.
     {
-        Fire(); // Trigger the power-up.
+        readValue = context.ReadValueAsButton(); // Get the value of the input.
     }
+
+
 }

@@ -11,10 +11,8 @@ GameObject:
   - component: {fileID: 7761518898823214049}
   - component: {fileID: 1506491928320372576}
   - component: {fileID: 921977145772111511}
-  - component: {fileID: 2119170847556722186}
   - component: {fileID: -4449035724316795218}
   - component: {fileID: -54095272275391303}
-  - component: {fileID: -8100185390804311103}
   m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
@@ -87,29 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &2119170847556722186
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 575410589969998064}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &-4449035724316795218
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -147,6 +122,7 @@ MonoBehaviour:
   health: 0
   characterMaterial: {fileID: 0}
   characterMeshRenderer: {fileID: 0}
+  characterSpriteRenderer: {fileID: 0}
   damageFlashDuration: 0.1
   damageFlashCurve:
     serializedVersion: 2
@@ -157,29 +133,16 @@ MonoBehaviour:
   deathEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
+      - m_Target: {fileID: 7071102896247699362, guid: 527c24504fc02d447ae0c723fece10a7,
+          type: 3}
+        m_TargetAssemblyTypeName: Player_Power_Up_Controller, Assembly-CSharp
+        m_MethodName: DeactivatePowerUp
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &-8100185390804311103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 575410589969998064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b7852ff9b7fe474683924e43aadb694, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SprinklesMinigun: {fileID: 0}
-  bullet: {fileID: 0}
