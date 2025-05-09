@@ -174,6 +174,7 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
 
     public static void SetColourBlindMode(ColourBlindMode mode)
     {
+        Debug.Log($"Set colour blind mode to {mode}");
         colourBlindMode = mode;
         //SOHNE.Accessibility.Colorblindness.Colorblindness.Instance.Change((int)mode); // Using the SOHNE Colorblindness package
         // ^ Was using the package.Turned out to be mega poopy.^
