@@ -916,6 +916,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNumber: 0
   view: {fileID: 0}
+  playerHealth: {fileID: 7515385479982502315}
+  playerShoot: {fileID: 6833870661536184949}
 --- !u!114 &8149993409331940106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -929,12 +931,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 100
-  minAcceleration: 0.2
-  maxAcceleration: 1
   screenWidth: 0
   screenHeight: 0
   useCursorMovement: 0
-  moving: 0
   worldXLimit: 4.5
   worldLowerYLimit: -2
   worldUpperYLimit: 2.75
@@ -973,9 +972,13 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256
+  freezeModeActive: 0
+  freezeMeter: 0
+  freezeMeterMax: 100
+  freezeMeterRate: 1
+  freezeMeterDecayRate: 1
   enableDebug: 1
   mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
-  debugAffectMaterial: 0
 --- !u!114 &7071102896247699362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1202,6 +1205,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 74263d01-8b88-45e1-af2d-e34a9cd7b639
     m_ActionName: Player Movement/Power-Up[/Mouse/leftButton,/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: becd10ff-7b9d-4755-bc5d-f0ce89480725
+    m_ActionName: Player Movement/PauseGame[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player Movement

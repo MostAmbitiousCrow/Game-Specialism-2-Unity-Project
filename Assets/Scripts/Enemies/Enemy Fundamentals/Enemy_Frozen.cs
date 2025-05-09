@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class Enemy_Frozen : IEnemyState // By Samuel White
 {
     //========================================
@@ -17,18 +15,12 @@ public class Enemy_Frozen : IEnemyState // By Samuel White
 
     public void OnExit(Enemy_Character_Data data)
     {
-        data.enemyMaterial.SetInt("_IsFrozen", 1);
+        data.enemyMaterial.SetInt("_IsFrozen", 0);
         data.gameObject.tag = "EnemyB";
-    }
-
-    public void OnHurt(Enemy_Character_Data data)
-    {
-        
     }
 
     public void OnDeath(Enemy_Character_Data data)
     {
-        data.gameObject.SetActive(false);
         data.ReturnEnemy();
         data.ChangeState(data.IdleState);
     }

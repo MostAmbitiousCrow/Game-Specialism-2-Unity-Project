@@ -15,15 +15,15 @@ public class Enemy_Movement_State : IEnemyState // By Samuel White
     {
         switch (data.spawnType)
         {
-            case New_Level_Manager.Wave.EnemySpawn.EnemyInfo.SpawnType.Portal:
+            case SO_Level_Data.Wave.EnemySpawn.EnemyInfo.SpawnType.Portal:
                 c = data.StartCoroutine(Portal(data));
                 Debug.Log($"{data.name} Spawned as Portal");
                 break;
-            case New_Level_Manager.Wave.EnemySpawn.EnemyInfo.SpawnType.Behind:
+            case SO_Level_Data.Wave.EnemySpawn.EnemyInfo.SpawnType.Behind:
                 c = data.StartCoroutine(Behind(data));
                 Debug.Log($"{data.name} Spawned from Behind");
                 break;
-            case New_Level_Manager.Wave.EnemySpawn.EnemyInfo.SpawnType.Front:
+            case SO_Level_Data.Wave.EnemySpawn.EnemyInfo.SpawnType.Front:
                 c = data.StartCoroutine(Front(data));
                 Debug.Log($"{data.name} Spawned at the Front");
                 break;
@@ -78,11 +78,6 @@ public class Enemy_Movement_State : IEnemyState // By Samuel White
         data.transform.SetPositionAndRotation(targetPos, Quaternion.identity);
         data.ChangeState(data.ShootState);
         yield break;
-    }
-
-    public void OnHurt(Enemy_Character_Data data)
-    {
-        throw new System.NotImplementedException();
     }
 
     public void OnDeath(Enemy_Character_Data data)

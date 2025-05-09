@@ -4133,6 +4133,8 @@ MonoBehaviour:
   defaultDyslexiaFont: 0
   defaultPlayerAutoShoot: 0
   defaultControllerVibration: 1
+  defaultEnableParticles: 1
+  defaultDamageFlashIntensity: 1
 --- !u!1 &889282060
 GameObject:
   m_ObjectHideFlags: 0
@@ -8911,7 +8913,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1926337421
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8994,7 +8996,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 1
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0

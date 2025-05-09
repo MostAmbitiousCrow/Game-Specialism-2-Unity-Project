@@ -34,11 +34,6 @@ public class Enemy_Shooting_State : IEnemyState // By Samuel White
         data.Animator.SetTrigger("Idle");
     }
 
-    public void OnHurt(Enemy_Character_Data data)
-    {
-
-    }
-
     IEnumerator AttackProcess(Enemy_Character_Data data)
     {
         yield return new WaitForSeconds(data.attackData.initialDelay);

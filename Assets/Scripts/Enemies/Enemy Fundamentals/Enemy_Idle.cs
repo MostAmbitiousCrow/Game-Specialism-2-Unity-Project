@@ -18,11 +18,6 @@ public class Enemy_Idle : IEnemyState // By Samuel White
 
     }
 
-    public void OnHurt(Enemy_Character_Data data)
-    {
-
-    }
-
     public void OnDeath(Enemy_Character_Data data)
     {
         data.ChangeState(data.IdleState);

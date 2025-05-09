@@ -12,8 +12,8 @@ public class Player_Health : MonoBehaviour // by Samuel White
     public int playerNumber = 0; // 0 = Player 1, 1 = Player 2
 
     [Header("Health Settings")]
-    [SerializeField] int maxHealth = 5;
-    [SerializeReference] float health;
+    public int maxHealth = 5;
+    public int health;
 
     [Header("Visual Effects")]
     [SerializeField] Material characterMaterial;

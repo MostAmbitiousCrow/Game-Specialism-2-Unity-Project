@@ -120,7 +120,7 @@ public struct PlayerCategory
 {
     [HideInInspector] public string categoryName; //  Name of Sound Category
     public AudioSource audioSource;
-    public enum PlayerSoundTypes { Damage, Attacks, Deaths, Indicators, Powerup_Obtain, PU_Boomerang_Throw, PU_Boomerang_Hit,
+    public enum PlayerSoundTypes { Damage, Shoot, Frozen_Shot, Shot_Hit, Frozen_Shot_Hit, Deaths, Indicators, Powerup_Obtain, PU_Boomerang_Throw, PU_Boomerang_Hit,
     PU_Boomerang_Catch, PU_Flake, PU_Sprinkles, PU_BubbleGum, }
     [SerializeField] public SoundList[] soundList; // List of Types of Sounds
     [Serializable]

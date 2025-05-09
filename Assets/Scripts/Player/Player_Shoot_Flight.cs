@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -30,10 +31,16 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
     public static Transform targetEnemy;
     [SerializeField] LayerMask enemyLayer;
 
+    [Header("Freeze Meter")]
+    public bool freezeModeActive = false;
+    public float freezeMeter = 0;
+    public float freezeMeterMax = 100;
+    [SerializeField] float freezeModeTime = 16;
+    [SerializeField] float freezeMeterDecayRate = 1;
+
     [Header("Debug")]
     [SerializeField] bool enableDebug = true;
     [SerializeField] Mesh mesh;
-    [SerializeField] bool debugAffectMaterial = false;
     
     void Start()
     {
@@ -148,6 +155,40 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
         isShooting = context.ReadValueAsButton();
     }
 
+    public void ActivateFreezeMode(InputAction.CallbackContext context)
+    {
+        if (context.performed && freezeMeter >= freezeMeterMax && !freezeModeActive)
+        {
+            freezeModeActive = true;
+            freezeMeter = freezeMeterMax;
+            StartCoroutine(FreezeModeTimer());
+            ParticleManager.instance.PlayPlayerParticle(ParticleManager.PlayerParticlesType.PlayerActivateFreezeMode, transform.position);
+        }
+    }
+
+    public void UpdateFreezeMeter()
+    {
+        if (!freezeModeActive)
+        {
+            freezeMeter += 1;
+        }
+    }
+
+    IEnumerator FreezeModeTimer()
+    {
+        while (freezeModeActive)
+        {
+            freezeMeter -=  Global_Game_Speed.GetDeltaTime() / freezeModeTime;
+            if (freezeMeter <= -.1f)
+            {
+                freezeModeActive = false;
+                freezeMeter = 0;
+                yield break;
+            }
+            yield return null;
+        }
+    }
+
     void OnDrawGizmos()
     {
         if (enableDebug)
@@ -168,12 +209,6 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
             Gizmos.DrawLine(pPos - Vector3.up * radius, pEnd - Vector3.up * radius); // Connect bottom edges
             Gizmos.DrawLine(pPos + Vector3.right * radius, pEnd + Vector3.right * radius); // Connect right edges
             Gizmos.DrawLine(pPos - Vector3.right * radius, pEnd - Vector3.right * radius); // Connect left edges
-
-            // // Debug material radius
-            // if (debugAffectMaterial)
-            // {
-            //     enemyDetectRingMaterial.SetFloat("_Radius", detectRadius * 0.05f);
-            // }
 
             // Debug lines for direction
             Debug.DrawLine(transform.position, playerData.view.position, Color.blue); // Line to camera

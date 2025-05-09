@@ -30,6 +30,7 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
     public static bool dyslexiaFont = false; // 0 = false, 1 = true
     public static bool playerAutoShoot = false; // 0 = false, 1 = true
     public static bool controllerVibration = true; // 0 = false, 1 = true
+    public static bool enableParticles = true; // 0 = false, 1 = true
     [Range(0, 1)] public static float damageFlashIntensity = 1f;
     
     [Space(10)]
@@ -65,7 +66,8 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
     public bool defaultDyslexiaFont = false; // 0 = false, 1 = true
     public bool defaultPlayerAutoShoot = false; // 0 = false, 1 = true
     public bool defaultControllerVibration = controllerVibration; // 0 = false, 1 = true
-    public float defaultDamageFlashIntensity = 1f;
+    public bool defaultEnableParticles = true; // 0 = false, 1 = true
+    [Range(0, 1)] public float defaultDamageFlashIntensity = 1f;
 
     // =========================================
 
@@ -215,6 +217,7 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
         playerAutoShoot = instance.defaultPlayerAutoShoot;
         controllerVibration = instance.defaultControllerVibration;
         damageFlashIntensity = instance.defaultDamageFlashIntensity;
+        enableParticles = instance.defaultEnableParticles;
 
         SaveSettings();
     }

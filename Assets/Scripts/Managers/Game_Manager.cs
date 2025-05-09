@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,6 +19,8 @@ public class GameManager : MonoBehaviour // By Samuel White
     public PlayerInputManager playerInputManager;
 
     [SerializeField] private Transform playerCamera;
+
+    public enum ScoreContext { Enemy_Hit, Enemy_Defeated, Player_Hit, Player_Defeated, PowerUp_Obtained, Powerup_Hit, Powerup_Crate_Smashed, Enemy_Frozen, Enemy_Frozen_Smashed, }
 
     private void Awake()
     {
@@ -60,12 +63,14 @@ public class GameManager : MonoBehaviour // By Samuel White
                 // Set Player Data
                 for (int i = 0; i < playerData.Count; i++)
                 {
+                    playerData[i].playerData = playerData[i].playerObject.GetComponent<Player_Data>();
                     playerData[i].score = 0;
                     playerData[i].highScore = PlayerPrefs.GetFloat($"P{i + 1}HighScore", 0);
                     playerData[i].lives = 3;
                     playerData[i].kills = 0;
                     playerData[i].deaths = 0;
                     playerData[i].isDead = false;
+                    playerData[i].playerData.playerNumber = i;
                 }  
                 Debug.Log($"Multiplayer detected: Created {playerData.Count} players");
             }
@@ -75,12 +80,15 @@ public class GameManager : MonoBehaviour // By Samuel White
                 playerData.Add(new PlayerData{ playerObject = Instantiate(playerOne)});
 
                 // Set Player Data
+                playerData[0].playerData = playerData[0].playerObject.GetComponent<Player_Data>();
                 playerData[0].score = 0;
                 playerData[0].highScore = PlayerPrefs.GetFloat("HighScore", 0);
                 playerData[0].lives = 3;
                 playerData[0].kills = 0;
                 playerData[0].deaths = 0;
                 playerData[0].isDead = false;
+                playerData[0].playerData.playerNumber = 0;
+                Debug.Log($"Singleplayer detected: Created {playerData.Count} player");
             }
 
         StartGame(); // Start the game (Temporary) // TODO remove once Khayne has implemented loading sequence
@@ -116,6 +124,42 @@ public class GameManager : MonoBehaviour // By Samuel White
                 // TODO - Update Variables based on Hard Difficulty
                 break;
             default:
+                break;
+        }
+    }
+    #endregion
+
+    #region Award Score
+    public void AwardScore(int playerID, ScoreContext context)
+    {
+        switch (context)
+        {
+            case ScoreContext.Enemy_Hit:
+                playerData[playerID].score += 10 * playerData[playerID].scoreMultiplier; // Add 10 points for hitting an enemy
+                break;
+            case ScoreContext.Enemy_Defeated:
+                playerData[playerID].score += 100 * playerData[playerID].scoreMultiplier; // Add 100 points for defeating an enemy
+                break;
+            case ScoreContext.Player_Hit:
+                playerData[playerID].score -= 20 * playerData[playerID].scoreMultiplier; // Subtract 20 points for hitting a player
+                break;
+            case ScoreContext.Player_Defeated:
+                playerData[playerID].score -= 200 * playerData[playerID].scoreMultiplier; // Subtract 200 points for player defeat
+                break;
+            case ScoreContext.PowerUp_Obtained:
+                playerData[playerID].score += 50 * playerData[playerID].scoreMultiplier; // Add 50 points for obtaining a power-up
+                break;
+            case ScoreContext.Powerup_Hit:
+                playerData[playerID].score += 20 * playerData[playerID].scoreMultiplier; // Add 20 points for hitting an enemy with a power-up
+                break;
+            case ScoreContext.Powerup_Crate_Smashed:
+                playerData[playerID].score += 50 * playerData[playerID].scoreMultiplier; // Add 50 points for smashing a power-up crate
+                break;
+            case ScoreContext.Enemy_Frozen:
+                playerData[playerID].score += 50 * playerData[playerID].scoreMultiplier; // Add 50 points for freezing an enemy
+                break;
+            case ScoreContext.Enemy_Frozen_Smashed:
+                playerData[playerID].score += 200 * playerData[playerID].scoreMultiplier; // Add 200 points for smashing a frozen enemy
                 break;
         }
     }
@@ -237,6 +281,8 @@ public class GameManager : MonoBehaviour // By Samuel White
     #endregion
 }
 
+#region Game Data
+
 public static class GameData
 {
     public static bool isMultiplayer;
@@ -251,16 +297,45 @@ public static class GameData
 
     public static float highScore;
     public static List<Transform> players = new();
+
+    public static int currentLevel = 0;
 }
+#endregion
+
+#region Player Data
 
 public class PlayerData
 {
     public GameObject playerObject;
+
+    public Player_Data playerData;
+
     public float score;
     public float highScore;
+    public float scoreMultiplier = 1;
+
     public int lives;
     public int kills;
     public int deaths;
+    
     public bool isDead;
     public bool isInvincible;
 }
+#endregion
+
+#region Global Text Data
+public static class GlobalTextData
+{
+    public static List<TextMeshProUGUI> textComponents;
+    public static TMP_FontAsset DyslexFont { get; set; }
+    public static TMP_FontAsset DefaultFont { get; set; }
+
+    public static void UpdateGlobalFonts()
+    {
+        foreach (var item in textComponents)
+        {
+            item.font = Settings_Manager.dyslexiaFont ? DyslexFont : DefaultFont;
+        }
+    }
+}
+#endregion

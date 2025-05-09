@@ -7,6 +7,7 @@ public class Projectile_Player_Flight : BulletManager // By Samuel White
     private float time = 0;
     public int playerID;
     [SerializeField] private int damage;
+    public bool Frozen { private get; set; }
 
     #region Active States
     void Awake() => gameObject.SetActive(false);
@@ -68,7 +69,7 @@ public class Projectile_Player_Flight : BulletManager // By Samuel White
 
     private void OnTriggerEnter(Collider c)
     {
-        if (c.CompareTag("EnemyB")) c.GetComponent<Enemy_Character_Data>().Damage(damage); // Damage the target
+        if (c.CompareTag("EnemyB")) c.GetComponent<Enemy_Character_Data>().Damage(damage, Frozen, playerID, GameManager.ScoreContext.Enemy_Hit); // Damage the target, freeze if frozen
         else if (c.CompareTag("Box")) c.GetComponent<Character_Health_Script>().Damage(damage); // Damage the target
         Deactivate();
     }

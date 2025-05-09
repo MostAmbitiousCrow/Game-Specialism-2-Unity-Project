@@ -71,6 +71,15 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PauseGame"",
+                    ""type"": ""Button"",
+                    ""id"": ""becd10ff-7b9d-4755-bc5d-f0ce89480725"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -412,6 +421,39 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Joystick"",
                     ""action"": ""Power-Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""89a27b9b-a86a-44f4-808a-c22e130da9c7"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Mouse and Keyboard"",
+                    ""action"": ""PauseGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c104cb6d-e51a-459c-b2ef-3241da619ab4"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""PauseGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9fe8479f-2250-4caa-b6e0-4e39cb0a58c2"",
+                    ""path"": ""<Joystick>/{Menu}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""PauseGame"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -942,6 +984,7 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
         m_PlayerMovement_Fire = m_PlayerMovement.FindAction("Fire", throwIfNotFound: true);
         m_PlayerMovement_FreezeMeter = m_PlayerMovement.FindAction("FreezeMeter", throwIfNotFound: true);
         m_PlayerMovement_PowerUp = m_PlayerMovement.FindAction("Power-Up", throwIfNotFound: true);
+        m_PlayerMovement_PauseGame = m_PlayerMovement.FindAction("PauseGame", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1018,6 +1061,7 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMovement_Fire;
     private readonly InputAction m_PlayerMovement_FreezeMeter;
     private readonly InputAction m_PlayerMovement_PowerUp;
+    private readonly InputAction m_PlayerMovement_PauseGame;
     public struct PlayerMovementActions
     {
         private @UserInput m_Wrapper;
@@ -1027,6 +1071,7 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
         public InputAction @Fire => m_Wrapper.m_PlayerMovement_Fire;
         public InputAction @FreezeMeter => m_Wrapper.m_PlayerMovement_FreezeMeter;
         public InputAction @PowerUp => m_Wrapper.m_PlayerMovement_PowerUp;
+        public InputAction @PauseGame => m_Wrapper.m_PlayerMovement_PauseGame;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1051,6 +1096,9 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
             @PowerUp.started += instance.OnPowerUp;
             @PowerUp.performed += instance.OnPowerUp;
             @PowerUp.canceled += instance.OnPowerUp;
+            @PauseGame.started += instance.OnPauseGame;
+            @PauseGame.performed += instance.OnPauseGame;
+            @PauseGame.canceled += instance.OnPauseGame;
         }
 
         private void UnregisterCallbacks(IPlayerMovementActions instance)
@@ -1070,6 +1118,9 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
             @PowerUp.started -= instance.OnPowerUp;
             @PowerUp.performed -= instance.OnPowerUp;
             @PowerUp.canceled -= instance.OnPowerUp;
+            @PauseGame.started -= instance.OnPauseGame;
+            @PauseGame.performed -= instance.OnPauseGame;
+            @PauseGame.canceled -= instance.OnPauseGame;
         }
 
         public void RemoveCallbacks(IPlayerMovementActions instance)
@@ -1232,6 +1283,7 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
         void OnFire(InputAction.CallbackContext context);
         void OnFreezeMeter(InputAction.CallbackContext context);
         void OnPowerUp(InputAction.CallbackContext context);
+        void OnPauseGame(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

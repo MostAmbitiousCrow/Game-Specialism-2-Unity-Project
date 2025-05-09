@@ -5,12 +5,9 @@ public class Player_Controls_Flight : MonoBehaviour // By Samuel White
 {
     [Header("Player Controls")]
     [SerializeField] private float moveSpeed = 10f;
-    [SerializeField] private float minAcceleration = .2f;
-    [SerializeField] private float maxAcceleration = 1;
 
     public float screenWidth, screenHeight;
     public bool useCursorMovement = false;
-    [SerializeField] private bool moving;
 
     [SerializeField] float worldXLimit, worldLowerYLimit, worldUpperYLimit;
     [SerializeField] Vector2 cursorPosition;
@@ -65,7 +62,6 @@ public class Player_Controls_Flight : MonoBehaviour // By Samuel White
     public void MoveInput(InputAction.CallbackContext context)
     {
         inputDirection = context.ReadValue<Vector2>();
-        moving = context.performed;
     }
 
     public void CursorPosition(InputAction.CallbackContext context)
