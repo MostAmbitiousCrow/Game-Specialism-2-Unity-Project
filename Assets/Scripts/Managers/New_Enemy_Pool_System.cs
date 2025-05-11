@@ -29,7 +29,7 @@ public class New_Enemy_Pool_System : MonoBehaviour // By Samuel White
         foreach (var item in enemyTypes)
         {
             GameObject folder = new (item.name + " Folder");
-            Debug.Log($"Created {folder.name} folder");
+            // Debug.Log($"Created {folder.name} folder");
 
             for (int i = 0; i < item.poolSize; i++)
             {

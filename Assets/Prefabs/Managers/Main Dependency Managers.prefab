@@ -47,16 +47,16 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 495
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -139,7 +139,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7146106763945457393}
   - component: {fileID: 6276300016419336170}
-  - component: {fileID: 1239718237432272916}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -174,56 +173,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 230fe568770d10e4486f5a42b40893bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerOne: {fileID: 6221873141013438439, guid: ec27d3c27974c4b22ba5e20449f7c866,
-    type: 3}
-  playerTwo: {fileID: 3367035262126319381, guid: 6e2585c3babec46beb44fe01200eb5ff,
-    type: 3}
-  playerInputManager: {fileID: 1239718237432272916}
+  playerPrefabs:
+  - {fileID: 6221873141013438439, guid: ec27d3c27974c4b22ba5e20449f7c866, type: 3}
+  - {fileID: 3367035262126319381, guid: 6e2585c3babec46beb44fe01200eb5ff, type: 3}
+  eventSystem: {fileID: 4208982557254803757}
   playerCamera: {fileID: 0}
---- !u!114 &1239718237432272916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 894459877439512404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_NotificationBehavior: 0
-  m_MaxPlayerCount: 2
-  m_AllowJoining: 1
-  m_JoinBehavior: 2
-  m_PlayerJoinedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_PlayerLeftEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_JoinAction:
-    m_UseReference: 0
-    m_Action:
-      m_Name: 
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: b913f97b-263f-479f-942b-8040439aba2f
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 0}
-  m_SplitScreen: 0
-  m_MaintainAspectRatioInSplitScreen: 0
-  m_FixedNumberOfSplitScreens: -1
-  m_SplitScreenRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
+  playersFolder: {fileID: 0}
+  textComponents: []
+  DyslexFont: {fileID: 11400000, guid: c6fb3aa4c83b06347ae70f1a10de3841, type: 2}
+  DefaultFont: {fileID: 11400000, guid: d533dac5a32e14b67bbf337ed03753c8, type: 2}
 --- !u!1 &966071542669099933
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,10 +234,10 @@ MonoBehaviour:
     categoryName: 
     audioSource: {fileID: 9077029849183834523}
     soundList:
-    - listName: Damage
+    - listName: Took_Damage
       playerSoundType: 0
       sounds: []
-    - listName: Shoot
+    - listName: Fire_Bullet
       playerSoundType: 1
       sounds: []
     - listName: Frozen_Shot
@@ -333,13 +291,18 @@ MonoBehaviour:
       sounds: []
     - listName: Succubus_Attack
       enemySoundType: 3
-      sounds: []
+      sounds:
+      - {fileID: 8300000, guid: 1610c819196f34e01acce312ee5f032f, type: 3}
     - listName: Succubus_Death
       enemySoundType: 4
-      sounds: []
+      sounds:
+      - {fileID: 8300000, guid: 392cdc326fcda4e1b85232880b59e716, type: 3}
+      - {fileID: 8300000, guid: 2ba67b9b68329430ea4ba078d609035e, type: 3}
+      - {fileID: 8300000, guid: 9ea76c3631ff14ba5a55244258b80689, type: 3}
     - listName: Succubus_Spawn
       enemySoundType: 5
-      sounds: []
+      sounds:
+      - {fileID: 8300000, guid: d7aaf2e3d51824ad1a97efe9ca407fc9, type: 3}
     - listName: Chef_Attack
       enemySoundType: 6
       sounds: []
@@ -351,48 +314,100 @@ MonoBehaviour:
       sounds: []
     - listName: Limb_Attack
       enemySoundType: 9
-      sounds: []
-    - listName: Limb_Death
+      sounds:
+      - {fileID: 8300000, guid: e86b296874bc6476fa7cdb30996b5332, type: 3}
+      - {fileID: 8300000, guid: fff78d21b2c824a489e7023b62121a3a, type: 3}
+      - {fileID: 8300000, guid: 0cd7dd8baccbc4d1981411076f6b3763, type: 3}
+    - listName: Limb_Spin
       enemySoundType: 10
-      sounds: []
-    - listName: Limb_Spawn
+      sounds:
+      - {fileID: 8300000, guid: 46c71d3511c684020b0fb5ca1e26836d, type: 3}
+    - listName: Limb_Death
       enemySoundType: 11
       sounds: []
-    - listName: Oni_Attack
+    - listName: Limb_Spawn
       enemySoundType: 12
       sounds: []
-    - listName: Oni_Death
+    - listName: Oni_Attack
       enemySoundType: 13
       sounds: []
-    - listName: Oni_Spawn
+    - listName: Oni_Death
       enemySoundType: 14
       sounds: []
-    - listName: Enemy_Hit
+    - listName: Oni_Spawn
       enemySoundType: 15
       sounds: []
-    - listName: Enemy_Frozen
+    - listName: Enemy_Hit
       enemySoundType: 16
       sounds: []
-    - listName: Enemy_Defeated
+    - listName: Enemy_Frozen
       enemySoundType: 17
+      sounds: []
+    - listName: Enemy_Defeated
+      enemySoundType: 0
       sounds: []
   interfaceCategory:
     categoryName: 
     audioSource: {fileID: 7425752141743195490}
     soundList:
-    - listName: Buttons
+    - listName: Button_Hover
       audioType: 0
-      sounds: []
-    - listName: Exit
+      sounds:
+      - {fileID: 8300000, guid: 674a9636b41ac49fab0f35d77b55f28f, type: 3}
+      - {fileID: 8300000, guid: bb4b83b7328a44fc9a495a64abff57ec, type: 3}
+      - {fileID: 8300000, guid: 8213a11acd1cb4844b88d0728b4f2456, type: 3}
+      - {fileID: 8300000, guid: 280a6d4f9b21e400fa9a69989e060aa0, type: 3}
+    - listName: Button_Press
       audioType: 1
-      sounds: []
-    - listName: Pause
+      sounds:
+      - {fileID: 8300000, guid: 0731cda8b0c714c48a4b784d18fee583, type: 3}
+      - {fileID: 8300000, guid: dc4418160e91747ec8ed3d591cde7fff, type: 3}
+      - {fileID: 8300000, guid: fe1682691055a448a9f2ba93ecf40884, type: 3}
+      - {fileID: 8300000, guid: 7af30d7fc58954f70a16ca9b8ca4f9e3, type: 3}
+    - listName: Button_Back
       audioType: 2
       sounds: []
-    - listName: Unpause
+    - listName: Pause
       audioType: 3
       sounds: []
+    - listName: Unpause
+      audioType: 0
+      sounds: []
+    - listName: Button_GameStart
+      audioType: 5
+      sounds:
+      - {fileID: 8300000, guid: 3c10c3c267e324a0ebf03674d80ac3a4, type: 3}
+    - listName: Player_Joined
+      audioType: 6
+      sounds:
+      - {fileID: 8300000, guid: 35ede79a4ec5040ad90b434951d790e5, type: 3}
+    - listName: Player_Left
+      audioType: 7
+      sounds:
+      - {fileID: 8300000, guid: bea603bab43964e89936802126b1b4d2, type: 3}
+  musicCategory:
+    categoryName: 
+    audioSource: {fileID: 6579145245743203193}
+    soundList:
+    - listName: 
+      musicType: 0
+      music: {fileID: 8300000, guid: 996e29a3e3a1d4cef9d106d4fe67a05e, type: 3}
+    - listName: 
+      musicType: 1
+      music: {fileID: 8300000, guid: f3e7c9adcaefecd4994f493ea4debaeb, type: 3}
+    - listName: 
+      musicType: 2
+      music: {fileID: 8300000, guid: 67e625a457eb62645ba3c7e1d22ca267, type: 3}
+    - listName: 
+      musicType: 3
+      music: {fileID: 0}
   musicAudioSource: {fileID: 6579145245743203193}
+  audioMixer: {fileID: 24100000, guid: a28f884f9e1091a439662ebba969555c, type: 2}
+  masterAudioGroup: {fileID: 0}
+  playerAudioGroup: {fileID: 0}
+  enemyAudioGroup: {fileID: 0}
+  interfaceAudioGroup: {fileID: 0}
+  musicAudioGroup: {fileID: 0}
 --- !u!1 &2307188494550785423
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,10 +461,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 495
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -575,10 +590,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 495
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -704,10 +719,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 495
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -948,7 +963,7 @@ MonoBehaviour:
     type: 3}
   m_TrackedDevicePositionAction: {fileID: 0}
   m_TrackedDeviceOrientationAction: {fileID: 0}
-  m_DeselectOnBackgroundClick: 1
+  m_DeselectOnBackgroundClick: 0
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
 --- !u!1 &7332982067086239293

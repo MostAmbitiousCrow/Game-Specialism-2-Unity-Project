@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
 {
-    [SerializeField] Player_Data playerData;
+    [SerializeField] Player_Character_Data playerData;
 
     [Header("Player Shoot Controls")]
     [SerializeField] private ScriptableObject projectileData;
@@ -150,14 +150,15 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
         }
     }
 
-    public void Shooting(InputAction.CallbackContext context)
+    public void OnFire(InputValue context)
     {
-        isShooting = context.ReadValueAsButton();
+        isShooting = context.isPressed;
+        // isShooting = context.ReadValueAsButton();
     }
 
-    public void ActivateFreezeMode(InputAction.CallbackContext context)
+    public void OnFreezeMeter(InputValue context)
     {
-        if (context.performed && freezeMeter >= freezeMeterMax && !freezeModeActive)
+        if (context.isPressed && freezeMeter >= freezeMeterMax && !freezeModeActive)
         {
             freezeModeActive = true;
             freezeMeter = freezeMeterMax;

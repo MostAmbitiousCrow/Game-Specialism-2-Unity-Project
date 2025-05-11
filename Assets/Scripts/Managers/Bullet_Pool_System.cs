@@ -44,7 +44,7 @@ public class Bullet_Pool_System : MonoBehaviour // By Samuel White // Add this s
         foreach (var item in enemyBulletTypes)
         {
             GameObject folder = new (item.name + " Folder");
-            Debug.Log($"Created {folder.name} folder");
+            // Debug.Log($"Created {folder.name} folder");
             for (int i = 0; i < item.poolSize; i++)
             {
                 GameObject bullet = Instantiate(item.prefab);

@@ -50,7 +50,7 @@ public class Player_Health : MonoBehaviour // by Samuel White
 
         health -= value;
         DamageFlash();
-        AudioManager.PlayPlayerSound(PlayerCategory.PlayerSoundTypes.Damage, 1);
+        AudioManager.PlayPlayerSound(PlayerCategory.PlayerSoundTypes.Took_Damage, 1);
         if(health <= 0) 
         {
             GameManager.playerData[playerNumber].lives--;

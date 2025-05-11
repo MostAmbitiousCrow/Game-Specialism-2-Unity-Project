@@ -46,10 +46,10 @@ public class Scene_Loader_Transition : MonoBehaviour // Made by Samuel White
             Debug.LogError("Scene not found in the array of scenes.");
             return;
         }
-        Instance.StartCoroutine(Instance.LoadSceneCoroutine(SceneManager.GetSceneByBuildIndex((int)sceneName))); // Start the coroutine to load the scene.
+        Instance.StartCoroutine(Instance.LoadSceneCoroutine((int)sceneName)); // Start the coroutine to load the scene.
     }
 
-    private IEnumerator LoadSceneCoroutine(Scene scene)
+    private IEnumerator LoadSceneCoroutine(int sceneNum)
     {
         FadeObject.SetActive(true);
         fadeImage.raycastTarget = true;
@@ -61,8 +61,9 @@ public class Scene_Loader_Transition : MonoBehaviour // Made by Samuel White
             SetFadeAlpha(alpha);
             yield return null;
         }
+        fadeImage.color = Color.black;
 
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene.buildIndex);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneNum);
         asyncLoad.allowSceneActivation = false;
 
         // Load Scene
@@ -75,6 +76,19 @@ public class Scene_Loader_Transition : MonoBehaviour // Made by Samuel White
             yield return null;
         }
 
+        if (sceneNum == 0)
+        {
+            AudioManager.LoadAudioData(false, AudioManager.AudioDataTypes.MainMenu_Sounds);
+            AudioManager.LoadAudioData(true, AudioManager.AudioDataTypes.Gameplay_Sounds);
+        }
+        else
+        {
+            AudioManager.LoadAudioData(true, AudioManager.AudioDataTypes.MainMenu_Sounds);
+            AudioManager.LoadAudioData(false, AudioManager.AudioDataTypes.Gameplay_Sounds);
+        }
+
+        yield return new WaitForSeconds(.5f);
+
         // Fade out
         for (float t = 0; t < fadeTime; t += Time.deltaTime)
         {
@@ -83,8 +97,11 @@ public class Scene_Loader_Transition : MonoBehaviour // Made by Samuel White
             yield return null;
         }
         fadeImage.raycastTarget = false;
+        fadeImage.color = Color.clear;
 
         FadeObject.SetActive(false); // Hide the fade object after fading in.
+
+        if (sceneNum > 0) GameManager.instance.StartGame(); // Start The Game // TODO Temporary
     }
 
     // Update the image transparency
@@ -92,5 +109,6 @@ public class Scene_Loader_Transition : MonoBehaviour // Made by Samuel White
     {
         Color color = fadeImage.color; // Get the current color of the fade object.
         color.a = alpha; // Set the alpha value.
+        fadeImage.color = color;
     }
 }

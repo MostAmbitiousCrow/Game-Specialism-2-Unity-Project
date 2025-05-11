@@ -183,6 +183,7 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
     public static void SetDyslexiaFont(bool dyslexia)
     {
         dyslexiaFont = dyslexia;
+        GameManager.UpdateGlobalFonts(); // Update the font for all text components
     }
 
     public static void SetPlayerAutoShoot(bool autoShoot)
@@ -215,6 +216,7 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
         gameSpeed = instance.defaultGameSpeed;
         colourBlindMode = instance.defaultColourBlindMode;
         dyslexiaFont = instance.defaultDyslexiaFont;
+        GameManager.UpdateGlobalFonts();
         playerAutoShoot = instance.defaultPlayerAutoShoot;
         controllerVibration = instance.defaultControllerVibration;
         damageFlashIntensity = instance.defaultDamageFlashIntensity;

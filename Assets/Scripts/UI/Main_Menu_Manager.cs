@@ -1,66 +1,75 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using UnityEngine.InputSystem;
+using System;
 using TMPro;
 
-public class Main_Menu_Manager : MonoBehaviour
+public class Main_Menu_Manager : MonoBehaviour // By Samuel White
 {
+    //========================================
+    // Main Menu Manager:
+    // Manages the main menu, including the settings menu, credits menu, and multiplayer menu.
+    // Also triggers the Start Game Functions
+    //========================================
+
+    #region Variables
+    [Header("Transition Components")]
     [SerializeField] private RectTransform shutter;
-
-    [Header("Volume Scrollers")]
-    [SerializeField] private Slider masterVolumeSlider;
-    [SerializeField] private Slider musicVolumeSlider;
-    [SerializeField] private Slider enemyVolumeSlider;
-    [SerializeField] private Slider playerVolumeSlider;
-    [SerializeField] private Slider interfaceVolumeSlider;
-
-    [Header("Accessibility Components")]
-    [SerializeField] private Slider gameSpeedSlider;
-    [SerializeField] private Toggle gamepadVibrationToggle;
-    [SerializeField] private Toggle autoshootToggle;
-    [SerializeField] private Toggle dyslexiaFontToggle;
-    [SerializeField] private TMP_Dropdown colourblindDropDown;
-
-
+    [SerializeField] private float shutterTransitionTime = 1f;
     private Vector3 shutterStartPos;
     private Vector3 shutterEndPos;
+    [Space(10)]
+    [SerializeField] private Image clickBlocker;
+    [Space(10)]
+    [SerializeField] Settings_Menu_Manager settingsMenuManager;
 
-    [SerializeField] private GameObject settingsMenu;
-    [SerializeField] private GameObject settingsAudioMenu;
-    [SerializeField] private GameObject settingsAccessibilityMenu;
+    [Header("Menu Components")]
+
+    [SerializeField] MenuData[] menuDatas; // 0 = Settings | 1 = Credits | 2 = Multiplayer | 3 = Main | 4 = none
+    [Serializable]
+    public struct MenuData
+    {
+        public string name;
+        public GameObject menu;
+        public GameObject enterButton;
+    }
+    [Space(10)]
     [SerializeField] private GameObject creditsMenu;
     [SerializeField] private GameObject multiplayerMenu;
 
-    // Start is called before the first frame update
+    #endregion
+
     void Start()
     {
         shutterStartPos = shutter.anchoredPosition;
-        shutterEndPos = new Vector3(shutterStartPos.x, shutterStartPos.y + 200, shutterStartPos.z); // Move up by 200
+        shutterEndPos = new Vector3(shutterStartPos.x, 0, shutterStartPos.z); // Move up by 200
+        GameManager.instance.eventSystem.SetSelectedGameObject(menuDatas[3].enterButton);
+        playerInputManager.JoinPlayer();
+        AudioManager.PlayMusic(AudioManager.MusicOptions.Play, 1, 2, MusicCategory.MusicSoundTypes.MainMenu);
+        settingsMenuManager.UpdateUI();
+        GameManager.UpdateGlobalFonts();
     }
 
-    public void PlayGame()
-    {
-        // Load the game scene
-        Scene_Loader_Transition.LoadScene(Scene_Loader_Transition.SceneNames.Level_1);
-    }
+    #region Menu Navigation
+    // ============================= Menu Navigation =============================
+    // 0 = Settings | 1 = Credits | 2 = Multiplayer | 3 = Main | 4 = none
 
-    // Show Menus
-    public void ShowSettingsMenu()
+    public void OpenMainMenu(int oldMenu) 
     {
-        settingsMenu.SetActive(true);
-        creditsMenu.SetActive(false);
-        multiplayerMenu.SetActive(false);
+        StartCoroutine(ShutterTransition(3, oldMenu));
     }
-    public void ShowCreditsMenu()
+    public void OpenSettingsMenu()
     {
-        settingsMenu.SetActive(false);
-        creditsMenu.SetActive(true);
-        multiplayerMenu.SetActive(false);
+        StartCoroutine(ShutterTransition(0, 3));
     }
-    public void ShowMultiplayerMenu()
+    public void OpenCreditsMenu()
     {
-        settingsMenu.SetActive(false);
-        creditsMenu.SetActive(false);
-        multiplayerMenu.SetActive(true);
+        StartCoroutine(ShutterTransition(1, 3));
+    }
+    public void OpenMultiplayerMenu()
+    {
+        StartCoroutine(ShutterTransition(2, 3));
     }
 
     // Quit Game
@@ -69,89 +78,141 @@ public class Main_Menu_Manager : MonoBehaviour
         Application.Quit(); // Quit the game
         Debug.Log("Player has quit the game.");
     }
+    #endregion
+    #region Multiplayer Menu Content
+    // ============================= Multiplayer Menu Content=============================
 
-    // Multiplayer Menu Content
+    [Header("Multiplayer Menu Components")]
+    [SerializeField] private GameObject[] playerBoxes; // 0 = Player 1, 1 = Player 2
+    [SerializeField] private bool multiplayerMenuOpen;
+    [SerializeField] private Button startButton;
+    [SerializeField] TMP_Dropdown difficultyDropDown;
+
+    [Header("Player Input")]
+    [SerializeField] PlayerInputManager playerInputManager;
+    [SerializeField] int playerCount = 0;
+
+    public void OnPlayerJoined(PlayerInput playerInput)
+    {
+        Debug.Log("Player Joined");
+        AudioManager.PlayInterfaceSound(InterfaceCategory.InterfaceSoundTypes.Player_Joined);
+        playerBoxes[Mathf.Clamp(playerCount, 0, 1)].SetActive(true);
+        playerInput.ActivateInput();
+        GameData.playerInputs.Add(playerInput);
+        playerInput.transform.SetParent(GameManager.instance.playersFolder.transform);
+        playerCount = GameData.playerInputs.Count;
+        playerInput.gameObject.name = $"Player {playerCount}";
+        playerInput.neverAutoSwitchControlSchemes = true;
+        if (playerCount >= 1) startButton.interactable = true;
+    }
+
+    public void DisconnectAllPlayers()
+    {
+        int loops = playerCount;
+        Debug.Log($"Disconnected All PLayers");
+        for (int i = 0; i < loops; i++)
+        {
+            Debug.Log(i);
+            Debug.Log($"Destroyed { GameData.playerInputs[0].gameObject }");
+            Destroy(GameData.playerInputs[0].gameObject);
+            playerBoxes[i].SetActive(false);
+        }
+        GameData.playerInputs.Clear();
+        playerCount = 0;
+        GameManager.instance.eventSystem.SetSelectedGameObject(menuDatas[2].enterButton);
+    }
+
+    public void OnPlayerLeft(PlayerInput playerInput)
+    {
+        Debug.Log("Player Disconnected");
+        AudioManager.PlayInterfaceSound(InterfaceCategory.InterfaceSoundTypes.Player_Left);
+        playerBoxes[Mathf.Clamp(playerCount, 0, 1)].SetActive(false);
+        Destroy(playerInput.gameObject);
+        GameData.playerInputs.Remove(playerInput);
+        playerCount = GameData.playerInputs.Count;
+        if (playerCount < 1) startButton.interactable = false;
+    }
+
+    public void PlayGame()
+    {
+        if (!multiplayerMenuOpen) return;
+        if (playerCount > 1) GameData.isMultiplayer = true;
+        else GameData.isMultiplayer = false;
+
+        // Load the game scene
+        AudioManager.PlayMusic(AudioManager.MusicOptions.Stop, 1, 0, MusicCategory.MusicSoundTypes.None);
+        Scene_Loader_Transition.LoadScene(Scene_Loader_Transition.SceneNames.Level_1);
+    }
+
     public void AddPlayer()
     {
-
+        if (!multiplayerMenuOpen) return;
+        playerCount++;
+        playerBoxes[Mathf.Clamp(playerCount - 1, 0, 1)].SetActive(true);
+        if (playerCount >= 1) startButton.interactable = true;
     }
 
-    // Settings Menu Content
+    #endregion
 
-        // Volume Control
+    #region Difficulty Select
 
-    public void ToggleVolumeMenu(bool state)
+    public void SelectDifficulty()
     {
-        settingsAudioMenu.SetActive(state);
-        settingsAccessibilityMenu.SetActive(!state);
+        GameManager.instance.SetGameDifficulty((GameData.Difficulty)difficultyDropDown.value);
     }
 
-        public void MasterVolumeSlider()
-        {
-            Settings_Manager.masterVolume = masterVolumeSlider.value;
-        }
+    #endregion
 
-        public void MusicVolumeSlider()
-        {
-            Settings_Manager.musicVolume = musicVolumeSlider.value;
-        }
+    #region Transition Function
+    // ============================= Transition Function =============================
 
-        public void EnemyVolumeSlider()
-        {
-            Settings_Manager.enemyVolume = enemyVolumeSlider.value;
-        }
-
-        public void PlayerVolumeSlider()
-        {
-        Settings_Manager.playerVolume = playerVolumeSlider.value;
-        }
-
-        public void InterfaceVolumeSlider()
-        {
-        Settings_Manager.interfaceVolume = interfaceVolumeSlider.value;
-        }
-
-    // Accessiblity Triggers
-
-    public void ToggleAccessibilityMenu(bool state)
+    IEnumerator ShutterTransition(int newMenu, int oldMenu)
     {
-        settingsAccessibilityMenu.SetActive(state);
-        settingsAudioMenu.SetActive(!state);
+        clickBlocker.raycastTarget = true;
+        GameManager.instance.eventSystem.SetSelectedGameObject(null);
+
+        for (float t = 0; t < shutterTransitionTime; t += Time.deltaTime)
+        {
+            float alpha = Mathf.Clamp01(t / shutterTransitionTime);
+            shutter.anchoredPosition = Vector3.Lerp(shutterStartPos, shutterEndPos, alpha);
+            yield return null;
+        }
+        shutter.anchoredPosition = shutterEndPos; // Set the shutter position to the end position
+        yield return new WaitForSeconds(0.5f);
+
+        if (newMenu != 4) menuDatas[newMenu].menu.SetActive(true);
+        if (oldMenu != 4) menuDatas[oldMenu].menu.SetActive(false);
+
+        if (newMenu == 2) // 0 = Settings | 1 = Credits | 2 = Multiplayer | 3 = Main | 4 = none
+        {
+            multiplayerMenuOpen = true;
+            playerInputManager.EnableJoining();
+        }
+        else
+        {
+            multiplayerMenuOpen = false;
+            playerInputManager.DisableJoining();
+            // RemoveAllPlayers();
+        }
+
+        for (float t = 0; t < shutterTransitionTime; t += Time.deltaTime)
+        {
+            float alpha = Mathf.Clamp01(t / shutterTransitionTime);
+            shutter.anchoredPosition = Vector3.Lerp(shutterEndPos, shutterStartPos, alpha);
+            yield return null;
+        }
+        shutter.anchoredPosition = shutterStartPos; // Reset the shutter position
+        clickBlocker.raycastTarget = false;
+        GameManager.instance.eventSystem.SetSelectedGameObject(menuDatas[newMenu].enterButton);
+        yield break;
     }
+    #endregion
 
-        public void GameSpeedSlider()
-        {
-            Settings_Manager.gameSpeed = gameSpeedSlider.value;
-        }
+    #region Play Sounds
+    public void PlaySound_UIHover() => AudioManager.PlayInterfaceSound(InterfaceCategory.InterfaceSoundTypes.Button_Hover, .5f);
+    public void PlaySound_UIPress() => AudioManager.PlayInterfaceSound(InterfaceCategory.InterfaceSoundTypes.Button_Press, .5f);
+    public void PlaySound_UIBack() => AudioManager.PlayInterfaceSound(InterfaceCategory.InterfaceSoundTypes.Button_Back, .5f);
+    public void PlaySound_UIStartGame() => AudioManager.PlayInterfaceSound(InterfaceCategory.InterfaceSoundTypes.Button_GameStart, .5f);
 
-        public void ControllerVibration()
-        {
-            Settings_Manager.controllerVibration = gamepadVibrationToggle.isOn;
-        }
-
-        public void AutoShoot()
-        {
-            Settings_Manager.playerAutoShoot = autoshootToggle.isOn;
-        }
-
-        public void DyslexiaFont()
-        {
-            Settings_Manager.SetDyslexiaFont(dyslexiaFontToggle.isOn);
-        }
-
-        public void SelectColourBlindMode()
-        {
-            Settings_Manager.SetColourBlindMode((Settings_Manager.ColourBlindMode)colourblindDropDown.value);
-        }
-
-    // Reset Options
-    
-    public void ResetSettings()
-    {
-        Settings_Manager.SetDefaultSettings();
-
-        masterVolumeSlider.value = Settings_Manager.masterVolume;
-
-    }
-
+    #endregion
 }

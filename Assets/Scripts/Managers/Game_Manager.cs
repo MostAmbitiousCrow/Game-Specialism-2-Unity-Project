@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour // By Samuel White
@@ -13,14 +14,15 @@ public class GameManager : MonoBehaviour // By Samuel White
     public static GameManager instance;
     public static List<PlayerData> playerData = new();
 
-    public GameObject playerOne;
-    public GameObject playerTwo;
+    public GameObject[] playerPrefabs;
 
-    public PlayerInputManager playerInputManager;
+    public EventSystem eventSystem;
 
     [SerializeField] private Transform playerCamera;
 
     public enum ScoreContext { Enemy_Hit, Enemy_Defeated, Player_Hit, Player_Defeated, PowerUp_Obtained, Powerup_Hit, Powerup_Crate_Smashed, Enemy_Frozen, Enemy_Frozen_Smashed, }
+
+    public GameObject playersFolder;
 
     private void Awake()
     {
@@ -31,83 +33,118 @@ public class GameManager : MonoBehaviour // By Samuel White
 
     private void Start()
     {
-        if(playerCamera == null) playerCamera = Camera.main.transform;
-        CreateInitialPlayers();
+        playersFolder = new()
+        {
+            name = "----Players Folder----"
+        };
+        playersFolder.transform.parent = transform.root;
+        Settings_Manager.instance.LoadSettings();
     }
 
     #region Create Players
+    // ======================================== Create Players ========================================
     public void CreateInitialPlayers()
     {
         playerData.Clear();
 
         // Create Player Data
+        Vector3[] spawnPositions = new Vector3[]
+        {
+            new (-4, 0, 0),
+            new (4, 0, 0)
+        };
 
-            // Create Players - Add to playerData list
-            if (GameData.isMultiplayer && playerInputManager.playerCount > 1)
+        // Create Players - Add to playerData list
+        if (GameData.isMultiplayer)
+        {
+            // Create the 2 Players
+            for (int i = 0; i < 2; i++)
             {
-                // Create 2 Players | Add to player list
-                GameObject o = new PlayerData{ playerObject = Instantiate(playerOne)}.playerObject;
-                o.name = "Player 1";
-                Player_Data c = o.GetComponent<Player_Data>();
-                c.playerNumber = 0;
-                c.view = playerCamera;
-                GameData.players.Add(o.transform);
+                PlayerData data = new();
+                GameObject o = Instantiate(playerPrefabs[i]);
+                data.playerObject = o;
+                o.name = $"Player {i + 1}";
+                o.transform.position = spawnPositions[i];
+                DontDestroyOnLoad(o);
 
-                o = new PlayerData{ playerObject = Instantiate(playerTwo)}.playerObject;
-                o.name = "Player 2";
-                c = o.GetComponent<Player_Data>();
-                c.playerNumber = 0;
-                c.view = playerCamera;
+                Player_Character_Data character_Data = o.GetComponent<Player_Character_Data>();
+                character_Data.playerNumber = i;
+                character_Data.view = playerCamera;
+
+                PlayerInput playerInput = GameData.playerInputs[i];
+                o.transform.SetParent(playerInput.transform);
+                // newPlayerInput.actions = playerInput.actions;
+                // newPlayerInput.defaultControlScheme = playerInput.defaultControlScheme;
+                playerInput.notificationBehavior = PlayerNotifications.BroadcastMessages;
+                playerInput.SwitchCurrentActionMap("Player Movement");
+                data.playerInput = playerInput;
+                data.playerInput.neverAutoSwitchControlSchemes = true;
+
                 GameData.players.Add(o.transform);
+                playerData.Add(data);
 
                 // Set Player Data
-                for (int i = 0; i < playerData.Count; i++)
-                {
-                    playerData[i].playerData = playerData[i].playerObject.GetComponent<Player_Data>();
-                    playerData[i].score = 0;
-                    playerData[i].highScore = PlayerPrefs.GetFloat($"P{i + 1}HighScore", 0);
-                    playerData[i].lives = 3;
-                    playerData[i].kills = 0;
-                    playerData[i].deaths = 0;
-                    playerData[i].isDead = false;
-                    playerData[i].playerData.playerNumber = i;
-                }  
-                Debug.Log($"Multiplayer detected: Created {playerData.Count} players");
+                playerData[i].characterData = playerData[i].playerObject.GetComponent<Player_Character_Data>();
+                playerData[i].score = 0;
+                playerData[i].highScore = PlayerPrefs.GetFloat($"P{i + 1}HighScore", 0);
+                playerData[i].lives = 3;
+                playerData[i].kills = 0;
+                playerData[i].deaths = 0;
+                playerData[i].isDead = false;
+                playerData[i].characterData.playerNumber = i;
+                playerData[i].playerInput = GameData.playerInputs[i];
             }
-            else
-            {
-                // Create 1 Player
-                playerData.Add(new PlayerData{ playerObject = Instantiate(playerOne)});
+            Debug.Log($"Multiplayer detected: Created {playerData.Count} players");
+        }
+        else
+        {
+            // Create 1 Player
+            PlayerData data = new();
+            GameObject o = Instantiate(playerPrefabs[0]);
+            data.playerObject = o;
+            o.name = $"Player 1";
+            playerData.Add(data);
 
-                // Set Player Data
-                playerData[0].playerData = playerData[0].playerObject.GetComponent<Player_Data>();
-                playerData[0].score = 0;
-                playerData[0].highScore = PlayerPrefs.GetFloat("HighScore", 0);
-                playerData[0].lives = 3;
-                playerData[0].kills = 0;
-                playerData[0].deaths = 0;
-                playerData[0].isDead = false;
-                playerData[0].playerData.playerNumber = 0;
-                Debug.Log($"Singleplayer detected: Created {playerData.Count} player");
-            }
+            Player_Character_Data pData = o.GetComponent<Player_Character_Data>();
+            pData.playerNumber = 0;
+            pData.view = playerCamera;
 
-        StartGame(); // Start the game (Temporary) // TODO remove once Khayne has implemented loading sequence
+            PlayerInput playerInput = GameData.playerInputs[0];
+            PlayerInput newPlayerInput = o.AddComponent<PlayerInput>();
+            newPlayerInput.actions = playerInput.actions;
+            newPlayerInput.defaultControlScheme = playerInput.defaultControlScheme;
+            newPlayerInput.SwitchCurrentActionMap("Player Movement");
+            playerData[0].playerInput = newPlayerInput;
+
+            GameData.players.Add(o.transform);
+
+            // Set Player Data
+            playerData[0].characterData = playerData[0].playerObject.GetComponent<Player_Character_Data>();
+            playerData[0].score = 0;
+            playerData[0].highScore = PlayerPrefs.GetFloat("HighScore", 0);
+            playerData[0].lives = 3;
+            playerData[0].kills = 0;
+            playerData[0].deaths = 0;
+            playerData[0].isDead = false;
+            playerData[0].characterData.playerNumber = 0;
+            playerData[0].playerInput = GameData.playerInputs[0];
+            Debug.Log($"Singleplayer detected: Created {playerData.Count} player");
+        }
     }
     #endregion
 
-    #region Player Join Event
-    // public void PlayerJoinEvent()
-    // {
-
-    // }
-
-    public void OnPlayerJoined()
+    #region Reset Players
+    public void DestroyPlayers()
     {
-        Debug.Log("Player Joined");
+        for (int i = 0; i < GameData.playerInputs.Count; i++)
+        {
+            Destroy(GameData.playerInputs[0].gameObject);
+        }
     }
     #endregion
 
     #region Set Game Difficulty
+    // ======================================== Set Game Difficulty ========================================
     public void SetGameDifficulty(GameData.Difficulty difficulty)
     {
         GameData.gameDifficulty = difficulty;
@@ -129,7 +166,23 @@ public class GameManager : MonoBehaviour // By Samuel White
     }
     #endregion
 
+    #region Global Text Data
+    // ======================================== Global Text Data ========================================
+    public List<TextMeshProUGUI> textComponents = new();
+    public TMP_FontAsset DyslexFont;
+    public TMP_FontAsset DefaultFont;
+
+    public static void UpdateGlobalFonts()
+    {
+        foreach (var item in instance.textComponents)
+        {
+            item.font = Settings_Manager.dyslexiaFont ? instance.DyslexFont : instance.DefaultFont;
+        }
+    }
+#endregion
+
     #region Award Score
+    // ======================================== Award Score ========================================
     public void AwardScore(int playerID, ScoreContext context)
     {
         switch (context)
@@ -141,7 +194,7 @@ public class GameManager : MonoBehaviour // By Samuel White
                 playerData[playerID].score += 100 * playerData[playerID].scoreMultiplier; // Add 100 points for defeating an enemy
                 break;
             case ScoreContext.Player_Hit:
-                playerData[playerID].score -= 20 * playerData[playerID].scoreMultiplier; // Subtract 20 points for hitting a player
+                playerData[playerID].score -= 20 * playerData[playerID].scoreMultiplier; // Subtract 20 points for player getting hit
                 break;
             case ScoreContext.Player_Defeated:
                 playerData[playerID].score -= 200 * playerData[playerID].scoreMultiplier; // Subtract 200 points for player defeat
@@ -166,6 +219,7 @@ public class GameManager : MonoBehaviour // By Samuel White
     #endregion
 
     #region Set High Scores
+    // ======================================== Set High Scores ========================================
     public void SetHighScore()
     {
         if (GameData.isMultiplayer)
@@ -191,6 +245,7 @@ public class GameManager : MonoBehaviour // By Samuel White
     #endregion
 
     #region Reset High Scores
+    // ======================================== Reset High Scores ========================================
     public void ResetHighScores()
     {
         if (GameData.isMultiplayer)
@@ -210,34 +265,43 @@ public class GameManager : MonoBehaviour // By Samuel White
     #endregion
 
     #region Start Game
+    // ======================================== Start Game ========================================
     public void StartGame()
     {
         GameData.isGameStarted = true;
         GameData.isGameOver = false;
         GameData.isGameFinished = false;
         GameData.isPaused = false;
+        GameData.canPause = true;
+        CreateInitialPlayers();
+        AudioManager.PlayMusic(AudioManager.MusicOptions.Play, 1, .5f, MusicCategory.MusicSoundTypes.Game_Intro);
     }
     #endregion
 
     #region Pause Game
+    // ======================================== Pause Game ========================================
     public void PauseGame(bool pause)
     {
+        if (!GameData.canPause) return;
         if (!pause)
         {
             GameData.isPaused = false;
             Time.timeScale = 1;
             // TODO - Toggle Pause Menu
-            // UIManager.instance.PauseMenu();
+            // UIManager.instance.OpenPauseMenu(false);
         }
         else
         {
             GameData.isPaused = true;
             Time.timeScale = 0;
+            // TODO - Toggle Pause Menu
+            // UIManager.instance.OpenPauseMenu(true);
         }
     }
     #endregion
 
     #region Game Over
+    // ======================================== Game Over ========================================
     public void GameOver()
     {
         GameData.isGameOver = true;
@@ -249,6 +313,7 @@ public class GameManager : MonoBehaviour // By Samuel White
     #endregion
 
     #region Restart Game
+    // ======================================== Restart Game ========================================
     public void RestartGame()
     {
         GameData.isGameOver = false;
@@ -279,6 +344,14 @@ public class GameManager : MonoBehaviour // By Samuel White
         // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     #endregion
+
+    #region UI Button Select
+
+    public void EventSystem_SelectUIButton(GameObject button)
+    {
+        eventSystem.SetSelectedGameObject(button);
+    }
+    #endregion
 }
 
 #region Game Data
@@ -289,6 +362,7 @@ public static class GameData
 
     public static bool isGameOver;
     public static bool isPaused;
+    public static bool canPause;
     public static bool isGameStarted;
     public static bool isGameFinished;
 
@@ -298,7 +372,10 @@ public static class GameData
     public static float highScore;
     public static List<Transform> players = new();
 
-    public static int currentLevel = 0;
+    public static Scene_Loader_Transition.SceneNames currentLevel;
+    public static int playerCount = 0;
+
+    public static List<PlayerInput> playerInputs = new();
 }
 #endregion
 
@@ -308,7 +385,8 @@ public class PlayerData
 {
     public GameObject playerObject;
 
-    public Player_Data playerData;
+    public Player_Character_Data characterData;
+    public PlayerInput playerInput;
 
     public float score;
     public float highScore;
@@ -320,22 +398,5 @@ public class PlayerData
     
     public bool isDead;
     public bool isInvincible;
-}
-#endregion
-
-#region Global Text Data
-public static class GlobalTextData
-{
-    public static List<TextMeshProUGUI> textComponents;
-    public static TMP_FontAsset DyslexFont { get; set; }
-    public static TMP_FontAsset DefaultFont { get; set; }
-
-    public static void UpdateGlobalFonts()
-    {
-        foreach (var item in textComponents)
-        {
-            item.font = Settings_Manager.dyslexiaFont ? DyslexFont : DefaultFont;
-        }
-    }
 }
 #endregion

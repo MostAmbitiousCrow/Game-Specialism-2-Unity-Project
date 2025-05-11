@@ -11,9 +11,10 @@ public class Text_Detector : MonoBehaviour // By Samuel White
     {
         TextMeshProUGUI textComponent = GetComponent<TextMeshProUGUI>();
         Debug.Log($"Text_Detector: {textComponent} detected.");
-        if (GlobalTextData.textComponents.Contains(textComponent)) return;
+        if (GameManager.instance.textComponents.Contains(textComponent)) return;
         
-        GlobalTextData.textComponents.Add(textComponent);
+        textComponent.font = Settings_Manager.dyslexiaFont ? GameManager.instance.DyslexFont : GameManager.instance.DefaultFont;
+        GameManager.instance.textComponents.Add(textComponent);
         Debug.Log($"Text_Detector: {GetComponent<TextMeshProUGUI>()} added to GlobalTextData list.");
         Destroy(this);
     }
