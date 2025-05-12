@@ -15,7 +15,7 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
     private void Awake()
     {
         paused = true;
-        if(instance = null) instance = this;
+        instance = this;
     }
     public void StartWaves()
     {
@@ -23,10 +23,10 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
         StartCoroutine(WaveTimer());
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        if (paused) return;
-        playTime += Time.deltaTime;
+        if (GameData.isPaused) return;
+        playTime += Global_Game_Speed.GetDeltaTime();
     }
 
 

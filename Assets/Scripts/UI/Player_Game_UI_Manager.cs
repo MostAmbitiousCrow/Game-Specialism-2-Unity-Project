@@ -12,9 +12,13 @@ public class Player_Game_UI_Manager : MonoBehaviour // By Samuel White
     public static Player_Game_UI_Manager instance;
 
     [Header("===========Player UI Content===========")]
+    [SerializeField] GameObject[] playerGameUI;
+
+    [Space(10)]
+
     [SerializeField] Image[] playerHealthBars; // 0 = Player 1, 1 = Player 2
     [SerializeField] Image[] playerFreezeBars; // 0 = Player 1, 1 = Player 2
-    [SerializeField] Image[] playerPowerUpIcons;
+    [SerializeField] Image[] playerPowerUpIcons; // 0 = Player 1, 1 = Player 2
     
     [Space(10)]
     
@@ -36,6 +40,9 @@ public class Player_Game_UI_Manager : MonoBehaviour // By Samuel White
     [SerializeField] GameObject settingsMenu;
 
     [Space(10)]
+
+    [Header("===========Settings UI Content===========")]
+    [SerializeField] GameObject settingsExitButton;
 
     [Header("Player Stats")]
     public PlayerStatContent[] playerStats = new PlayerStatContent[2]; // 0 = Player 1, 1 = Player 2
@@ -174,6 +181,12 @@ public class Player_Game_UI_Manager : MonoBehaviour // By Samuel White
     }
     #endregion
 
+    public void ShowSettings(bool show) //TODO
+    {
+        settingsMenu.SetActive(show);
+        GameManager.instance.EventSystem_SelectUIButton(settingsExitButton);
+    }
+
     #region Reset UI
 
     public void ResetGameUI()
@@ -192,6 +205,8 @@ public class Player_Game_UI_Manager : MonoBehaviour // By Samuel White
         {
             powerUpIcon.sprite = null;
         }
+
+        playerGameUI[1].SetActive(GameData.isMultiplayer);
     }
     #endregion
 

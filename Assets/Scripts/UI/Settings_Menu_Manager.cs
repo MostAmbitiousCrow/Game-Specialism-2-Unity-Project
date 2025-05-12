@@ -29,7 +29,11 @@ public class Settings_Menu_Manager : MonoBehaviour // By Samuel White
     [SerializeField] private GameObject settingsAccessibilityMenu;
     [SerializeField] private GameObject settingsButtonMappingMenu;
 
-    void Start() => UpdateUI();
+    void Start()
+    {
+        UpdateUI();
+        gameObject.SetActive(false);
+    }
 
     #region Settings Menu Content
     // ============================= Settings Menu Content =============================
@@ -86,7 +90,7 @@ public class Settings_Menu_Manager : MonoBehaviour // By Samuel White
 
         public void GameSpeedSlider()
         {
-            Settings_Manager.gameSpeed = gameSpeedSlider.value;
+            Settings_Manager.gameSpeed = gameSpeedSlider.value / 10;
         }
 
         public void ControllerVibration()

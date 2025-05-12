@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour // By Samuel White
 
     [SerializeField] private Transform playerCamera;
 
+    [SerializeField] private SO_Difficulty_Data[] difficulty_Datas;
+
     public enum ScoreContext { Enemy_Hit, Enemy_Defeated, Player_Hit, Player_Defeated, PowerUp_Obtained, Powerup_Hit, Powerup_Crate_Smashed, Enemy_Frozen, Enemy_Frozen_Smashed, }
 
     public GameObject playersFolder;
@@ -39,6 +41,7 @@ public class GameManager : MonoBehaviour // By Samuel White
         };
         playersFolder.transform.parent = transform.root;
         Settings_Manager.instance.LoadSettings();
+        SetGameDifficulty(GameData.Difficulty.Easy);
     }
 
     #region Create Players
@@ -87,7 +90,7 @@ public class GameManager : MonoBehaviour // By Samuel White
                 playerData[i].characterData = playerData[i].playerObject.GetComponent<Player_Character_Data>();
                 playerData[i].score = 0;
                 playerData[i].highScore = PlayerPrefs.GetFloat($"P{i + 1}HighScore", 0);
-                playerData[i].lives = 3;
+                playerData[i].lives = GameData.current_DifficultyData.difficultyData.playerLives;
                 playerData[i].kills = 0;
                 playerData[i].deaths = 0;
                 playerData[i].isDead = false;
@@ -122,7 +125,7 @@ public class GameManager : MonoBehaviour // By Samuel White
             playerData[0].characterData = playerData[0].playerObject.GetComponent<Player_Character_Data>();
             playerData[0].score = 0;
             playerData[0].highScore = PlayerPrefs.GetFloat("HighScore", 0);
-            playerData[0].lives = 3;
+            playerData[0].lives = GameData.current_DifficultyData.difficultyData.playerLives;
             playerData[0].kills = 0;
             playerData[0].deaths = 0;
             playerData[0].isDead = false;
@@ -149,20 +152,7 @@ public class GameManager : MonoBehaviour // By Samuel White
     {
         GameData.gameDifficulty = difficulty;
 
-        switch (difficulty)
-        {
-            case GameData.Difficulty.Easy:
-                // TODO - Update Variables based on Easy Difficulty
-                break;
-            case GameData.Difficulty.Normal:
-                // TODO - Update Variables based on Normal Difficulty
-                break;
-            case GameData.Difficulty.Hard:
-                // TODO - Update Variables based on Hard Difficulty
-                break;
-            default:
-                break;
-        }
+        GameData.current_DifficultyData = instance.difficulty_Datas[(int)difficulty];
     }
     #endregion
 
@@ -275,6 +265,8 @@ public class GameManager : MonoBehaviour // By Samuel White
         GameData.canPause = true;
         CreateInitialPlayers();
         AudioManager.PlayMusic(AudioManager.MusicOptions.Play, 1, .5f, MusicCategory.MusicSoundTypes.Game_Intro);
+        if (New_Level_Manager.instance != null) New_Level_Manager.instance.StartWaves();
+        else Debug.LogError("Level Manager is Missing");
     }
     #endregion
 
@@ -283,20 +275,9 @@ public class GameManager : MonoBehaviour // By Samuel White
     public void PauseGame(bool pause)
     {
         if (!GameData.canPause) return;
-        if (!pause)
-        {
-            GameData.isPaused = false;
-            Time.timeScale = 1;
-            // TODO - Toggle Pause Menu
-            // UIManager.instance.OpenPauseMenu(false);
-        }
-        else
-        {
-            GameData.isPaused = true;
-            Time.timeScale = 0;
-            // TODO - Toggle Pause Menu
-            // UIManager.instance.OpenPauseMenu(true);
-        }
+        GameData.isPaused = pause;
+        Time.timeScale = pause ? 0 : 1;
+        Player_Game_UI_Manager.instance.ShowPauseMenu(pause);
     }
     #endregion
 
@@ -308,7 +289,7 @@ public class GameManager : MonoBehaviour // By Samuel White
         GameData.isGameFinished = true;
         GameData.isPaused = true;
         // TODO - Toggle Game Over Menu
-        // UIManager.instance.GameOverMenu();
+         Player_Game_UI_Manager.instance.ShowResultsMenu(true);
     }
     #endregion
 
@@ -325,7 +306,7 @@ public class GameManager : MonoBehaviour // By Samuel White
             foreach (var item in playerData)
             {
                 item.score = 0;
-                item.lives = 3;
+                item.lives = GameData.current_DifficultyData.difficultyData.playerLives;
                 item.kills = 0;
                 item.deaths = 0;
                 item.isDead = false;
@@ -334,14 +315,14 @@ public class GameManager : MonoBehaviour // By Samuel White
         else
         {
             playerData[0].score = 0;
-            playerData[0].lives = 3;
+            playerData[0].lives = GameData.current_DifficultyData.difficultyData.playerLives;
             playerData[0].kills = 0;
             playerData[0].deaths = 0;
             playerData[0].isDead = false;
         }
 
         // TODO - Restart the game
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+         Scene_Loader_Transition.LoadScene(GameData.currentLevel);
     }
     #endregion
 
@@ -368,6 +349,7 @@ public static class GameData
 
     public enum Difficulty { Easy, Normal, Hard }
     public static Difficulty gameDifficulty;
+    public static SO_Difficulty_Data current_DifficultyData;
 
     public static float highScore;
     public static List<Transform> players = new();
@@ -376,6 +358,12 @@ public static class GameData
     public static int playerCount = 0;
 
     public static List<PlayerInput> playerInputs = new();
+    public class WorldLimits
+    {
+        public static float worldXLimit = 4.5f;
+        public static float worldUpperYLimit = 2.75f;
+        public static float worldLowerLimit = -2;
+    }
 }
 #endregion
 

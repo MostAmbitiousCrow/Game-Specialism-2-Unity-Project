@@ -178,6 +178,10 @@ MonoBehaviour:
   - {fileID: 3367035262126319381, guid: 6e2585c3babec46beb44fe01200eb5ff, type: 3}
   eventSystem: {fileID: 4208982557254803757}
   playerCamera: {fileID: 0}
+  difficulty_Datas:
+  - {fileID: 11400000, guid: 1929af56e950ab149870122e5b0e8385, type: 2}
+  - {fileID: 11400000, guid: 31c37efd026f63c4a860942c53049e4c, type: 2}
+  - {fileID: 11400000, guid: a5ef71888440cd746aee18dc0e554d4c, type: 2}
   playersFolder: {fileID: 0}
   textComponents: []
   DyslexFont: {fileID: 11400000, guid: c6fb3aa4c83b06347ae70f1a10de3841, type: 2}
