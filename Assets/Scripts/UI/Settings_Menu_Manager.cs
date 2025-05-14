@@ -19,6 +19,7 @@ public class Settings_Menu_Manager : MonoBehaviour // By Samuel White
 
     [Header("Accessibility Components")]
     [SerializeField] private Slider gameSpeedSlider;
+    [SerializeField] private Slider damageFlashSlider;
     [SerializeField] private Toggle gamepadVibrationToggle;
     [SerializeField] private Toggle autoshootToggle;
     [SerializeField] private Toggle dyslexiaFontToggle;
@@ -51,7 +52,7 @@ public class Settings_Menu_Manager : MonoBehaviour // By Samuel White
 
     public void MasterVolumeSlider()
     {
-        Settings_Manager.masterVolume = masterVolumeSlider.value / 10;
+        Settings_Manager.masterVolume = Mathf.Clamp(masterVolumeSlider.value / 10, .0001f, 1);
         AudioManager.UpdateAudioManagerVolume();
     }
 
@@ -90,17 +91,22 @@ public class Settings_Menu_Manager : MonoBehaviour // By Samuel White
 
         public void GameSpeedSlider()
         {
-            Settings_Manager.gameSpeed = gameSpeedSlider.value / 10;
+            Settings_Manager.SetGameSpeed(Mathf.Clamp(gameSpeedSlider.value / 10, .1f, 1f));
+        }
+
+        public void DamageFlashSlider()
+        {
+            Settings_Manager.SetDamageFlashIntensity(Mathf.Clamp(damageFlashSlider.value / 10, 0.001f, 1f));
         }
 
         public void ControllerVibration()
         {
-            Settings_Manager.controllerVibration = gamepadVibrationToggle.isOn;
+            Settings_Manager.SetControllerVibration(gamepadVibrationToggle.isOn);
         }
 
         public void AutoShoot()
         {
-            Settings_Manager.playerAutoShoot = autoshootToggle.isOn;
+            Settings_Manager.SetPlayerAutoShoot(autoshootToggle.isOn);
         }
 
         public void DyslexiaFont()
@@ -116,7 +122,7 @@ public class Settings_Menu_Manager : MonoBehaviour // By Samuel White
     #region Settings Menu Content
     // ============================= Settings Menu Content =============================
 
-    public void ToggleInputMappingMenu(bool state)
+    public void ToggleInputMappingMenu(bool state) // TODO Unfinished
     {
         settingsButtonMappingMenu.SetActive(state);
         settingsAccessibilityMenu.SetActive(!state);
@@ -143,7 +149,8 @@ public class Settings_Menu_Manager : MonoBehaviour // By Samuel White
         playerVolumeSlider.value = (int)Settings_Manager.playerVolume * 10;
         interfaceVolumeSlider.value = (int)Settings_Manager.interfaceVolume * 10;
 
-        gameSpeedSlider.value = (int)Settings_Manager.gameSpeed * 10;
+        gameSpeedSlider.value = Mathf.Clamp((int)Settings_Manager.gameSpeed * 10, 1f, 10f);
+        damageFlashSlider.value = Mathf.Clamp((int)Settings_Manager.damageFlashIntensity * 10, 1f, 10f);
         gamepadVibrationToggle.isOn = Settings_Manager.controllerVibration;
         autoshootToggle.isOn = Settings_Manager.playerAutoShoot;
         dyslexiaFontToggle.isOn = Settings_Manager.dyslexiaFont;

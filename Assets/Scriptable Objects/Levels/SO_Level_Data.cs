@@ -82,9 +82,6 @@ public class SO_Level_Data : ScriptableObject // By Samuel White
         public float waveStartTime;
         public int defeatedEnemiesReqirement = 0;
 
-        [Header("Detection")]
-        public List<GameObject> activeObjects;
-
         [Header("Debug")]
         public bool debugActive = true;
         public Color debugColour = Color.red;

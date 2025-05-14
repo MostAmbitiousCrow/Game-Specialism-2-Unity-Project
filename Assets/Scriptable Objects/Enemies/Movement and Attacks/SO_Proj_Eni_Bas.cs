@@ -60,5 +60,8 @@ public class SO_Proj_Eni_Bas : ScriptableObject // By Samuel White
     [Header("Audio")]
     public EnemyCategory.EnemySoundTypes destroySound; // The sound the projectile will play when returned to the pool
     public EnemyCategory.EnemySoundTypes travelSound; // The sound the projectile will make while traveling
+
+    [Header("Sprite")]
+    public Sprite sprite;
 }
 

@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26f573d66f5d841099d8518f7ef39358, type: 3}
-  m_Name: SO_Test_Limb_Demon_Attack_Data
+  m_Name: SO_Imp_Attack_Data
   m_EditorClassIdentifier: 
-  fireInterval: 0.1
-  initialDelay: 0
+  fireInterval: 1
+  initialDelay: 0.5
   attackDelay: 1
-  attackAmount: 10
+  attackAmount: 1
   infiniteAttack: 1
-  cycles: 1
-  aimAtTarget: 0
-  animateFirePoint: 0
+  cycles: 0
+  aimAtTarget: 1
+  animateFirePoint: 1
   aimRotationCurveX:
     serializedVersion: 2
     m_Curve: []
@@ -38,7 +38,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  loopAttackAnimation: 1
-  animationDelay: 0.2
+  loopAttackAnimation: 0
+  animationDelay: 0.4
   shootSound: 0
-  deathSound: 0
+  deathSound: 1

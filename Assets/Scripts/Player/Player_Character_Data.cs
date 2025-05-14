@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player_Character_Data : MonoBehaviour
 {
@@ -12,9 +13,20 @@ public class Player_Character_Data : MonoBehaviour
     public Player_Health playerHealth;
     public Player_Shoot_Flight playerShoot;
 
-    public void OnPause()
+    public void OnPause(InputAction.CallbackContext context)
     {
-        Player_Game_UI_Manager.instance.ShowPauseMenu(true);
-        Debug.Log($"{name} Paused Game");
+        if (context.performed)
+        {
+            if (!GameData.isPaused)
+            {
+                Player_Game_UI_Manager.instance.ShowPauseMenu(true);
+                Debug.Log($"{name} Paused Game");   
+            }
+            else
+            {
+                Player_Game_UI_Manager.instance.ShowPauseMenu(false);
+                Debug.Log($"{name} Unpaused Game");  
+            }
+        }
     }
 }

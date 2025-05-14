@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class New_Level_Manager : MonoBehaviour // By Samuel White
@@ -11,6 +12,11 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
 
     public bool paused;
     public float playTime = 0;
+    [SerializeField] float waveTime;
+    [SerializeField] int currentWave;
+
+    [Header("Detection")]
+    public List<Enemy_Character_Data> activeObjects;
 
     private void Awake()
     {
@@ -29,17 +35,19 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
         playTime += Global_Game_Speed.GetDeltaTime();
     }
 
-
+    #region Wave Timer
     private IEnumerator WaveTimer()
     {
         bool waveActive = false;
-        float waveTime = 0;
-        int currentWave = 0;
+        waveTime = 0;
+        currentWave = 0;
         int waveCount = levelData.waves.Count;
         SO_Level_Data.Wave wave = levelData.waves[currentWave];
 
         while (true)
         {
+            yield return new WaitUntil(() => !GameData.isPaused); // Return when the game is paused
+
             if (waveTime >= wave.waveStartTime && !waveActive)
             {
                 wave = levelData.waves[currentWave];
@@ -65,37 +73,55 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
                 {
                     StartCoroutine(SpawnPowerUps(wave));
                 }
-                currentWave++;
+                waveCount++;
                 waveActive = true;
             }
-
-            if (currentWave >= waveCount) break;
-            //if (GetActiveObjects(wave))
-            //{
-            //    waveActive = false;
-            //    wave.activeObjects.Clear();
-            //}
-            yield return new WaitForFixedUpdate();
-            waveTime+= Time.fixedDeltaTime;
-            print(waveTime);
+            if (GetActiveObjects(wave) && waveTime > wave.waveDuration)
+            {
+               waveActive = false;
+               foreach (var item in activeObjects)
+                {
+                    if(item.isActiveAndEnabled) item.TriggerLeave();
+                }
+               activeObjects.Clear();
+            }
+            if (!waveActive)
+            {
+                waveTime = 0;
+                currentWave++;
+                Debug.Log($"Wave {waveCount} completed.");
+            }
+            if (currentWave >= waveCount)
+            {
+                yield return new WaitForSeconds(2);
+                Player_Game_UI_Manager.instance.ShowResultsMenu(true);
+                Debug.Log($"Wave {waveCount} completed. Stopping Wave Spawner, Showing Results Menu.");
+                break;
+            }
+            waveTime+= Global_Game_Speed.GetDeltaTime();
             yield return null;
         }
     }
+    #endregion
 
     private bool GetActiveObjects(SO_Level_Data.Wave wave)
     {
         int c = 0;
-        foreach (var item in wave.activeObjects)
+        foreach (var item in activeObjects)
         {
-            if (!item.activeSelf) c++;
+            if (!item.gameObject.activeSelf) c++;
         }
         return c >= wave.defeatedEnemiesReqirement;
     }
 
     private IEnumerator SpawnEnemyTimer(SO_Level_Data.Wave.EnemySpawn ES)
     {
-        if (ES.enemyInfo.timeOfAppearance > 0) 
-            yield return new WaitForSeconds(ES.enemyInfo.timeOfAppearance);
+        float t = 0;
+        while (t < ES.enemyInfo.timeOfAppearance)
+        {
+            yield return new WaitUntil(() => !GameData.isPaused);
+            t += Global_Game_Speed.GetDeltaTime();
+        }
         SpawnEnemy(ES, new());
         yield break;
     }
@@ -144,8 +170,9 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
 
         ECD.enemyID = (int)item.enemyInfo.enemyID;
         ECD.spawnType = item.enemyInfo.enterType;
+        activeObjects.Add(ECD);
         ECD.StartEnterance();
-        Debug.Log($"{ECD.name} Spawned. Enter Type: {ECD.spawnType}");
+        // Debug.Log($"{ECD.name} Spawned. Enter Type: {ECD.spawnType}");
     }
     #endregion
 

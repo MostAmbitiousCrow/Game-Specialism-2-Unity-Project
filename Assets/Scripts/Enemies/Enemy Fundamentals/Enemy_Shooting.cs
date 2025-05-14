@@ -36,10 +36,13 @@ public class Enemy_Shooting_State : IEnemyState // By Samuel White
 
     IEnumerator AttackProcess(Enemy_Character_Data data)
     {
+        // Debug.Log($"{data.name} Started Attack Process");
+
         yield return new WaitForSeconds(data.attackData.initialDelay);
 
         while (data.attackData.cycles > 0 || data.attackData.infiniteAttack)
         {
+            yield return new WaitUntil(() => !GameData.isPaused);
             if (data.attackData.infiniteAttack)
             {
                 if (data.attackData.attackDelay > 0)
@@ -96,9 +99,15 @@ public class Enemy_Shooting_State : IEnemyState // By Samuel White
             Projectile_Enemy p = Bullet_Pool_System.instance.GetEnemyBullet(data.projectileData.ID); // Get Enemy Bullet
             if (p != null)
             {
-                Quaternion rot = Quaternion.LookRotation(data.attackData.aimAtTarget ? target.position : data.projectileSpawnPoints[0].forward * -1);
-                p.transform.SetPositionAndRotation(data.transform.position, rot);
-                p.scriptable_Object = data.projectileData;
+                p.data = data.projectileData;
+
+                // Calculate direction and rotation
+                Vector3 direction = data.attackData.aimAtTarget
+                    ? (target.position - data.projectileSpawnPoints[0].position).normalized
+                    : data.projectileSpawnPoints[0].forward * -1;
+                Quaternion rot = Quaternion.LookRotation(direction);
+
+                p.transform.SetPositionAndRotation(data.projectileSpawnPoints[0].position, rot);
                 p.Target = target;
                 p.gameObject.SetActive(true);
                 AudioManager.PlayEnemySound(data.attackData.shootSound, 1);
@@ -115,9 +124,15 @@ public class Enemy_Shooting_State : IEnemyState // By Samuel White
                 Projectile_Enemy p = Bullet_Pool_System.instance.GetEnemyBullet(data.projectileData.ID); // Get Enemy Bullet
                 if (p != null)
                 {
-                    Quaternion rot = Quaternion.LookRotation(data.attackData.aimAtTarget ? target.position : data.projectileSpawnPoints[i].forward);
-                    p.transform.SetPositionAndRotation(data.transform.position, rot);
-                    p.scriptable_Object = data.projectileData;
+                    p.data = data.projectileData;
+
+                    // Calculate direction and rotation for each spawn point
+                    Vector3 direction = data.attackData.aimAtTarget
+                        ? (target.position - data.projectileSpawnPoints[i].position).normalized
+                        : data.projectileSpawnPoints[i].forward;
+                    Quaternion rot = Quaternion.LookRotation(direction);
+
+                    p.transform.SetPositionAndRotation(data.projectileSpawnPoints[i].position, rot);
                     p.gameObject.SetActive(true);
                     AudioManager.PlayEnemySound(data.attackData.shootSound, 1);
                 }

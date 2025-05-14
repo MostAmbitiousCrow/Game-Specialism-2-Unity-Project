@@ -13,6 +13,7 @@ public class Scene_Loader_Transition : MonoBehaviour // Made by Samuel White
     [SerializeField] private Image fadeImage;
     [SerializeField] private float fadeTime = 1f;
     public static Scene_Loader_Transition Instance;
+    private bool isLoading;
     
     public enum SceneNames
     {
@@ -41,21 +42,23 @@ public class Scene_Loader_Transition : MonoBehaviour // Made by Samuel White
     // Load Scene Function
     public static void LoadScene(SceneNames sceneName)
     {
+        GameManager.ClearGlobalFonts();
         if (SceneManager.sceneCountInBuildSettings < (int)sceneName)
         {
             Debug.LogError("Scene not found in the array of scenes.");
             return;
         }
-        Instance.StartCoroutine(Instance.LoadSceneCoroutine((int)sceneName)); // Start the coroutine to load the scene.
+        if(!Instance.isLoading) Instance.StartCoroutine(Instance.LoadSceneCoroutine((int)sceneName)); // Start the coroutine to load the scene.
     }
 
     private IEnumerator LoadSceneCoroutine(int sceneNum)
     {
         FadeObject.SetActive(true);
         fadeImage.raycastTarget = true;
+        isLoading = true;
 
         // Fade in
-        for (float t = 0; t < fadeTime; t += Time.deltaTime)
+        for (float t = 0; t < fadeTime; t += Time.unscaledDeltaTime)
         {
             float alpha = Mathf.Clamp01(t / fadeTime);
             SetFadeAlpha(alpha);
@@ -76,8 +79,9 @@ public class Scene_Loader_Transition : MonoBehaviour // Made by Samuel White
             yield return null;
         }
 
-        if (sceneNum == 0)
+        if (sceneNum == (int)SceneNames.Main_Menu) // If Loaded MainMenu
         {
+            GameManager.instance.DestroyPlayers();
             AudioManager.LoadAudioData(false, AudioManager.AudioDataTypes.MainMenu_Sounds);
             AudioManager.LoadAudioData(true, AudioManager.AudioDataTypes.Gameplay_Sounds);
         }
@@ -87,10 +91,10 @@ public class Scene_Loader_Transition : MonoBehaviour // Made by Samuel White
             AudioManager.LoadAudioData(false, AudioManager.AudioDataTypes.Gameplay_Sounds);
         }
 
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSecondsRealtime(1f);
 
         // Fade out
-        for (float t = 0; t < fadeTime; t += Time.deltaTime)
+        for (float t = 0; t < fadeTime; t += Time.unscaledDeltaTime)
         {
             float alpha = Mathf.Clamp01(1 - (t / fadeTime));
             SetFadeAlpha(alpha); // Set the alpha value of the fade object.

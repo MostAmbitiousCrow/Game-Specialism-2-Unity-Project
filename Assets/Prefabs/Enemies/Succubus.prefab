@@ -115,6 +115,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: c031ae72cc6414826b2343111d486567, type: 2}
+    - target: {fileID: 8996980385874086482, guid: 530d275a1b61b49dda2842a814c35e19,
+        type: 3}
+      propertyPath: maxHealth
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

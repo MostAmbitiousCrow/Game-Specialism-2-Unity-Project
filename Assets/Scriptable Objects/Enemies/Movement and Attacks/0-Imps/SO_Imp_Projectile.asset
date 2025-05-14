@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95f5f889b062fe345878dda7409cceda, type: 3}
   m_Name: SO_Imp_Projectile
   m_EditorClassIdentifier: 
+  ID: 0
   useMoveAcceleration: 0
   moveStartSpeed: 8
   moveEndSpeed: 0
@@ -36,9 +37,17 @@ MonoBehaviour:
   projectileSize: 0.5
   useRotation: 0
   useAngularAcceleration: 0
-  rotateStartSpeed: 0
-  rotateEndSpeed: 0
-  rotateAccelerationCurve:
+  rotateStartSpeedX: 0
+  rotateEndSpeedX: 0
+  rotateAccelerationCurveX:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  rotateStartSpeedY: 0
+  rotateEndSpeedY: 0
+  rotateAccelerationCurveY:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
@@ -46,3 +55,4 @@ MonoBehaviour:
     m_RotationOrder: 4
   destroySound: 0
   travelSound: 0
+  sprite: {fileID: 21300000, guid: c0d041e07fd5e4c48ac1ee65db2f6d92, type: 3}

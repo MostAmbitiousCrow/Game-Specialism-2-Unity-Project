@@ -21,15 +21,10 @@ public class AudioManager : MonoBehaviour // By Samuel White
     [Space(10)]
 
     [SerializeField] private AudioMixer audioMixer;
-    [SerializeField] private AudioMixerGroup masterAudioGroup;
-    [SerializeField] private AudioMixerGroup playerAudioGroup;
-    [SerializeField] private AudioMixerGroup enemyAudioGroup;
-    [SerializeField] private AudioMixerGroup interfaceAudioGroup;
-    [SerializeField] private AudioMixerGroup musicAudioGroup;
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null) instance = this;
     }
     #region Play Sounds
 
@@ -74,7 +69,7 @@ public class AudioManager : MonoBehaviour // By Samuel White
     [HideInInspector]
     public enum MusicOptions
     {
-        Play, Pause, Stop
+        Play, Pause, Stop, Resume
     }
     public static void PlayMusic(MusicOptions option , float volume, float volumeTime, MusicCategory.MusicSoundTypes music)
     {
@@ -107,7 +102,30 @@ public class AudioManager : MonoBehaviour // By Samuel White
                 case MusicOptions.Stop:
                 a.Stop();
                 break;
+                case MusicOptions.Resume:
+                a.UnPause();
+                break;
             }
+        }
+    }
+
+    public static void UpdateMusic(MusicOptions option)
+    {
+        AudioSource a = instance.musicAudioSource;
+        switch (option)
+        {
+            case MusicOptions.Play:
+            a.Play();
+            break;
+            case MusicOptions.Pause:
+            a.Pause();
+            return;
+            case MusicOptions.Stop:
+            a.Stop();
+            break;
+            case MusicOptions.Resume:
+            a.UnPause();
+            break;
         }
     }
 
@@ -162,6 +180,7 @@ public class AudioManager : MonoBehaviour // By Samuel White
             {
                 foreach (var sound in item.sounds)
                 {
+                    if (sound == null) return;
                     if (!unload)sound.LoadAudioData();
                     else sound.UnloadAudioData();
                 }
@@ -274,8 +293,9 @@ public class AudioManager : MonoBehaviour // By Samuel White
             break;
         }
     }
-    #endregion
+#endregion
 
+#region Display Inspector Sounds
 #if UNITY_EDITOR
     // Creates and names the sound lists in the inspector
     private void OnDrawGizmos()
@@ -333,7 +353,7 @@ public struct EnemyCategory
     public AudioSource audioSource;
     public enum EnemySoundTypes { Imp_Attack, Imp_Death, Imp_Spawn, Succubus_Attack, Succubus_Death, Succubus_Spawn,
     Chef_Attack, Chef_Death, Chef_Spawn, Limb_Attack, Limb_Spin, Limb_Death, Limb_Spawn, Oni_Attack, Oni_Death, Oni_Spawn, 
-    Enemy_Hit, Enemy_Frozen, Enemy_Defeated }
+    Enemy_Hit, Enemy_Frozen, Enemy_Frozen_Smashed, Enemy_Defeated }
     [SerializeField] public SoundList[] soundList; // List of Types of Sounds
     [Serializable]
     public struct SoundList
@@ -374,4 +394,5 @@ public struct MusicCategory
         [SerializeField] public MusicSoundTypes musicType;
         [SerializeField] public AudioClip music;
     }
+    #endregion
 }
