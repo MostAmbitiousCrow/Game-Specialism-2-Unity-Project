@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 
 public class GameManager : MonoBehaviour // By Samuel White
 {
@@ -74,7 +75,7 @@ public class GameManager : MonoBehaviour // By Samuel White
                 data.playerObject = o;
                 o.name = $"Player {i + 1}";
                 o.transform.position = spawnPositions[i];
-                // DontDestroyOnLoad(o);
+                o.transform.parent.GetComponent<MultiplayerEventSystem>().enabled = true;
 
                 Player_Character_Data character_Data = o.GetComponent<Player_Character_Data>();
                 character_Data.playerNumber = i;
@@ -116,7 +117,7 @@ public class GameManager : MonoBehaviour // By Samuel White
             data.playerObject = o;
             o.name = $"Player 1";
             o.transform.position = spawnPositions[0];
-            // DontDestroyOnLoad(o.transform.parent.gameObject); //TODO Find a cleaner solution to this (Don't have time...)
+            o.transform.parent.GetComponent<MultiplayerEventSystem>().enabled = false;
 
             Player_Character_Data character_Data = o.GetComponent<Player_Character_Data>();
             character_Data.playerNumber = 0;
@@ -293,6 +294,7 @@ public class GameManager : MonoBehaviour // By Samuel White
     // ======================================== Pause Game ========================================
     public void PauseGame(bool pause)
     {
+        Debug.Log($"Game Paused: {pause}");
         if (!GameData.canPause) return;
         GameData.isPaused = pause;
         Time.timeScale = pause ? 0 : Settings_Manager.gameSpeed;
@@ -354,6 +356,14 @@ public class GameManager : MonoBehaviour // By Samuel White
     public void EventSystem_SelectUIButton(GameObject button)
     {
         eventSystem.SetSelectedGameObject(button);
+    }
+    #endregion
+
+    #region Scene Loaded
+
+    public void SceneLoaded()
+    {
+        eventSystem = GameObject.FindWithTag("EventSystem").GetComponent<EventSystem>();
     }
     #endregion
 }

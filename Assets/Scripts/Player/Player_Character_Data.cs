@@ -20,7 +20,7 @@ public class Player_Character_Data : MonoBehaviour
             if (!GameData.isPaused)
             {
                 Player_Game_UI_Manager.instance.ShowPauseMenu(true);
-                Debug.Log($"{name} Paused Game");   
+                Debug.Log($"{name} Paused Game");
             }
             else
             {

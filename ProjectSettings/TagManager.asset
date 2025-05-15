@@ -8,6 +8,7 @@ TagManager:
   - EnemyB
   - FrozenEnemy
   - PlayerCamera
+  - EventSystem
   layers:
   - Default
   - TransparentFX

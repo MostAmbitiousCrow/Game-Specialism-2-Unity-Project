@@ -91,6 +91,8 @@ public class Scene_Loader_Transition : MonoBehaviour // Made by Samuel White
             AudioManager.LoadAudioData(false, AudioManager.AudioDataTypes.Gameplay_Sounds);
         }
 
+        GameManager.instance.SceneLoaded();
+
         yield return new WaitForSecondsRealtime(1f);
 
         // Fade out

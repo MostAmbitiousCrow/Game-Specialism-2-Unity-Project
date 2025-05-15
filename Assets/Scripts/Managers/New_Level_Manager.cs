@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class New_Level_Manager : MonoBehaviour // By Samuel White
@@ -44,9 +45,11 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
         int waveCount = levelData.waves.Count;
         SO_Level_Data.Wave wave = levelData.waves[currentWave];
 
+        //yield return new WaitForSeconds(wave.waveStartTime);
+
         while (true)
         {
-            yield return new WaitUntil(() => !GameData.isPaused); // Return when the game is paused
+            yield return new WaitUntil(() => !GameData.isPaused); // Resume when the game is paused
 
             if (waveTime >= wave.waveStartTime && !waveActive)
             {
@@ -76,14 +79,21 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
                 waveCount++;
                 waveActive = true;
             }
+            
+            if (waveTime < wave.waveStartTime)
+            {
+                Debug.Log("Poo");
+                yield return null;
+            }
+            
             if (GetActiveObjects(wave) && waveTime > wave.waveDuration)
             {
-               waveActive = false;
-               foreach (var item in activeObjects)
+                waveActive = false;
+                foreach (var item in activeObjects)
                 {
-                    if(item.isActiveAndEnabled) item.TriggerLeave();
+                    if (item.isActiveAndEnabled) item.TriggerLeave();
                 }
-               activeObjects.Clear();
+                activeObjects.Clear();
             }
             if (!waveActive)
             {

@@ -44,7 +44,7 @@ public class SO_Level_Data : ScriptableObject // By Samuel White
                 [Tooltip("The time of which the enemy spawns, from the duration of the beginning of the wave.")]
                 public float timeOfAppearance = 1f;
 
-                public Vector3 targetSpawnPosition = new(0, 0, 10);
+                public Vector3 targetSpawnPosition = new(0, 0, -20);
                 public enum SpawnType { Portal, Behind, Front }
                 [Tooltip("The way the enemy/enemies will spawn into the scene. Portal: A portal will appear directly in the scene under the Target Position, the enemy/enemies will emerge from the portal based on the appearance rate. Behind: the Enemy/Enemies will appear behind the player camera and move in towards the assigned Target Position. Front: Enemy/Enemies will appear from the distance and move towards their Target Position.")]
                 public SpawnType enterType;
@@ -71,7 +71,7 @@ public class SO_Level_Data : ScriptableObject // By Samuel White
             public string powerUpName;
             public GameObject powerUpPrefab;
             // Insert Powerup EnumSelect Here //TODO
-            public Vector3 spawnPosition = new(0, 0, 20); // Where the power-up box will spawn
+            public Vector3 spawnPosition = new(0, 0, -20); // Where the power-up box will spawn
             public float timeOfAppearance = 1f; // Time from the start of the wave when this object will spawn
         }
         [Header("Power-Up Spawn")]

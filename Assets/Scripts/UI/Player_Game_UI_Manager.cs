@@ -259,7 +259,10 @@ public class Player_Game_UI_Manager : MonoBehaviour // By Samuel White
 
     public void NextLevel()
     {
-        Scene_Loader_Transition.LoadScene(GameData.currentLevel++);
+        //Scene_Loader_Transition.SceneNames scene = GameData.currentLevel++;
+        GameData.currentLevel = GameData.currentLevel++;
+        Scene_Loader_Transition.LoadScene(GameData.currentLevel);
+        Debug.Log($"Next Level: {GameData.currentLevel}");
     }
 
     public void ReturnToMainMenu()
