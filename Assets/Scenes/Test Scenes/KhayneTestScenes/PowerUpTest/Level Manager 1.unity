@@ -974,12 +974,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!4 &395876716 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5110803421767551358, guid: 527c24504fc02d447ae0c723fece10a7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1708830200}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &418273534
 GameObject:
   m_ObjectHideFlags: 0
@@ -1956,6 +1950,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 718118956}
   m_Mesh: {fileID: 6894428203817054813, guid: 3447e728d1316cd43bdf7bf76f9e5087, type: 3}
+--- !u!114 &746038639 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3969638880744986954, guid: 527c24504fc02d447ae0c723fece10a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1708830200}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3366203d0c4251f408cea8eba9147a3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &783072062
 GameObject:
   m_ObjectHideFlags: 0
@@ -7106,6 +7112,12 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!4 &987905855 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5110803421767551358, guid: 527c24504fc02d447ae0c723fece10a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1708830200}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1029526112
 GameObject:
   m_ObjectHideFlags: 0
@@ -12398,12 +12410,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &1167644654 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4191927614416822776, guid: 527c24504fc02d447ae0c723fece10a7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1708830200}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1176225344
 GameObject:
   m_ObjectHideFlags: 0
@@ -13146,6 +13152,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 103245723191453437, guid: 527c24504fc02d447ae0c723fece10a7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 806998032213236699, guid: 527c24504fc02d447ae0c723fece10a7,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -13156,10 +13167,36 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.782
       objectReference: {fileID: 0}
+    - target: {fileID: 3969638880744986954, guid: 527c24504fc02d447ae0c723fece10a7,
+        type: 3}
+      propertyPath: firePoint
+      value: 
+      objectReference: {fileID: 987905855}
+    - target: {fileID: 3969638880744986954, guid: 527c24504fc02d447ae0c723fece10a7,
+        type: 3}
+      propertyPath: boomerangPrefab
+      value: 
+      objectReference: {fileID: 6901041316425893539, guid: c54266f308ecb3d44a21b665f72287a1,
+        type: 3}
     - target: {fileID: 4191927614416822776, guid: 527c24504fc02d447ae0c723fece10a7,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4316083624683849377, guid: 527c24504fc02d447ae0c723fece10a7,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 746038639}
+    - target: {fileID: 4316083624683849377, guid: 527c24504fc02d447ae0c723fece10a7,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: FireInput
+      objectReference: {fileID: 0}
+    - target: {fileID: 4316083624683849377, guid: 527c24504fc02d447ae0c723fece10a7,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BoomerangPowerUp, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5263577956795237558, guid: 527c24504fc02d447ae0c723fece10a7,
         type: 3}
@@ -13168,19 +13205,9 @@ PrefabInstance:
       objectReference: {fileID: 1733249315}
     - target: {fileID: 5263577956795237558, guid: 527c24504fc02d447ae0c723fece10a7,
         type: 3}
-      propertyPath: sprinklesGun
-      value: 
-      objectReference: {fileID: 1167644654}
-    - target: {fileID: 5263577956795237558, guid: 527c24504fc02d447ae0c723fece10a7,
-        type: 3}
       propertyPath: SprinklesMinigun
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 5263577956795237558, guid: 527c24504fc02d447ae0c723fece10a7,
-        type: 3}
-      propertyPath: shootPointMinigun
-      value: 
-      objectReference: {fileID: 395876716}
     - target: {fileID: 5263577956795237558, guid: 527c24504fc02d447ae0c723fece10a7,
         type: 3}
       propertyPath: SprinkleGunBullets
@@ -13197,6 +13224,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Root
       objectReference: {fileID: 0}
+    - target: {fileID: 6703820836805870522, guid: 527c24504fc02d447ae0c723fece10a7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6833870661536184949, guid: 527c24504fc02d447ae0c723fece10a7,
         type: 3}
       propertyPath: gameCamera
@@ -13205,7 +13237,7 @@ PrefabInstance:
     - target: {fileID: 7071102896247699362, guid: 527c24504fc02d447ae0c723fece10a7,
         type: 3}
       propertyPath: powerUpType
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7817939184083779249, guid: 527c24504fc02d447ae0c723fece10a7,
         type: 3}
@@ -15813,8 +15845,8 @@ SceneRoots:
   - {fileID: 681690075}
   - {fileID: 109711120}
   - {fileID: 1498847725}
-  - {fileID: 1708830200}
   - {fileID: 1060960480}
   - {fileID: 1924722590}
   - {fileID: 717715355}
+  - {fileID: 1708830200}
   - {fileID: 1322012521}
