@@ -7,6 +7,8 @@ public class Projectile_Player_Flight : BulletManager // By Samuel White
     private float time = 0;
     public int playerID;
     [SerializeField] private int damage;
+    public SpriteRenderer spriteRenderer;
+    public bool Frozen { private get; set; }
 
     #region Active States
     void Awake() => gameObject.SetActive(false);
@@ -30,12 +32,14 @@ public class Projectile_Player_Flight : BulletManager // By Samuel White
     #region Update Bullet Functions
     public override void UpdateBullet() // Updated by the Bullet Manager
     {
+        if (GameData.isPaused) return;
+
         Move();
         if (scriptable_Object.canHome && target != null) Home();
         
         if (time > 1) 
         Deactivate();
-        else time += Time.deltaTime / scriptable_Object.projectileLifeTime;
+        else time += Global_Game_Speed.GetDeltaTime() / scriptable_Object.projectileLifeTime;
     }
 
     private void Move() // Move the projectile
@@ -68,7 +72,7 @@ public class Projectile_Player_Flight : BulletManager // By Samuel White
 
     private void OnTriggerEnter(Collider c)
     {
-        if (c.CompareTag("EnemyB")) c.GetComponent<Enemy_Character_Data>().Damage(damage); // Damage the target
+        if (c.CompareTag("EnemyB")) c.GetComponent<Enemy_Character_Data>().Damage(damage, Frozen, playerID); // Damage the target, freeze if frozen
         else if (c.CompareTag("Box")) c.GetComponent<Character_Health_Script>().Damage(damage); // Damage the target
         Deactivate();
     }

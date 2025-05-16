@@ -5,14 +5,11 @@ public class Player_Controls_Flight : MonoBehaviour // By Samuel White
 {
     [Header("Player Controls")]
     [SerializeField] private float moveSpeed = 10f;
-    [SerializeField] private float minAcceleration = .2f;
-    [SerializeField] private float maxAcceleration = 1;
 
     public float screenWidth, screenHeight;
     public bool useCursorMovement = false;
-    [SerializeField] private bool moving;
 
-    [SerializeField] float worldXLimit, worldLowerYLimit, worldUpperYLimit;
+    //[SerializeField] float worldXLimit, worldLowerYLimit, worldUpperYLimit;
     [SerializeField] Vector2 cursorPosition;
 
     [SerializeField] Vector2 inputDirection;
@@ -58,17 +55,16 @@ public class Player_Controls_Flight : MonoBehaviour // By Samuel White
         Vector2 pos = transform.position;
         Vector2 direction = moveSpeed * Global_Game_Speed.GetDeltaTime() * inputDirection;
         Vector2 newPos = Vector2.Lerp(pos, pos + direction, .1f);
-        transform.position = new Vector2(Mathf.Clamp(newPos.x, -worldXLimit, worldXLimit),
-            Mathf.Clamp(newPos.y, worldLowerYLimit, worldUpperYLimit));
+        transform.position = new Vector2(Mathf.Clamp(newPos.x, -GameData.WorldLimits.worldXLimit, GameData.WorldLimits.worldXLimit),
+            Mathf.Clamp(newPos.y, GameData.WorldLimits.worldLowerLimit, GameData.WorldLimits.worldUpperYLimit));
     }
 
-    public void MoveInput(InputAction.CallbackContext context)
+    public void OnMove(InputAction.CallbackContext context)
     {
         inputDirection = context.ReadValue<Vector2>();
-        moving = context.performed;
     }
 
-    public void CursorPosition(InputAction.CallbackContext context)
+    public void OnPoint(InputAction.CallbackContext context)
     {
         cursorPosition = context.ReadValue<Vector2>();
     }

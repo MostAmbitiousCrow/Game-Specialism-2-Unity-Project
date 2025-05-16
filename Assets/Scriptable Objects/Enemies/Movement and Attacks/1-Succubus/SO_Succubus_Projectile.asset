@@ -25,7 +25,7 @@ MonoBehaviour:
   useHoming: 1
   useHomingAcceleration: 0
   homeStartStrength: 10
-  homeEndStrength: 1
+  homeEndStrength: 10
   homeAccelerationCurve:
     serializedVersion: 2
     m_Curve: []
@@ -53,5 +53,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  destroySound: 0
-  travelSound: 0
+  destroySound: 3
+  travelSound: 3
+  sprite: {fileID: 21300000, guid: 4013c78628e77470ca7d1b16ab4667b9, type: 3}

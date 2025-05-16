@@ -1,18 +1,25 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
 {
-    [SerializeField] Player_Data playerData;
+    [SerializeField] Player_Character_Data playerData;
 
     [Header("Player Shoot Controls")]
     [SerializeField] private ScriptableObject projectileData;
     [SerializeField] private bool isShooting = false;
     [SerializeField] float fireRate = .2f;
-    [SerializeField] Transform shootPointA, shootPointB;
+    [SerializeField] private Transform shootPointA, shootPointB;
     private float t = 0;
     private bool lG;
+    [Space(10)]
+    [SerializeField] Sprite[] bullet_Sprites;
+    private int spriteCount;
+    private int currentBullet;
+
     [Header("Player Character")]
     public Transform Character;
 
@@ -30,19 +37,28 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
     public static Transform targetEnemy;
     [SerializeField] LayerMask enemyLayer;
 
+    [Header("Freeze Meter")]
+    public bool freezeModeActive = false;
+    public float freezeMeter = 0;
+    public float freezeMeterMax = 100;
+    [SerializeField] float freezeModeTime = 16;
+    [SerializeField] float freezeMeterDecayRate = 1;
+    [Space(10)]
+    [SerializeField] Sprite[] frozenBullet_Sprites;
+
     [Header("Debug")]
     [SerializeField] bool enableDebug = true;
-    [SerializeField] Mesh mesh;
-    [SerializeField] bool debugAffectMaterial = false;
     
     void Start()
     {
         transform.GetChild(0).parent = null; // Unparent the rings
         playerData.view = Camera.main.transform;
+        spriteCount = bullet_Sprites.Length;
     }
 
     void Update()
     {
+        if(GameData.isPaused) return;
         Shooting();
         DetectEnemies();
         UpdateRings();
@@ -74,15 +90,14 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
 
     void Shooting()
     {
-        if (isShooting)
+        if (isShooting || Settings_Manager.playerAutoShoot) 
         {
             t += Global_Game_Speed.GetDeltaTime();
             if (t >= fireRate)
             {
                 Shoot();
-
                 t = 0;
-            }   
+            }
         }
     }
 
@@ -115,13 +130,14 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
                     Quaternion look = detectedEnemies.Count == 0 ? Quaternion.LookRotation(transform.forward)
                         : Quaternion.LookRotation(detectedEnemies[i].position - pos.position);
                     p.transform.SetPositionAndRotation(pos.position, look);
+
+                    p.spriteRenderer.sprite = freezeModeActive ? frozenBullet_Sprites[currentBullet] : bullet_Sprites[currentBullet];
+                    currentBullet = (currentBullet + 1) % spriteCount; // Damn that's cool! (if current bullet is modular to the spritecount, set as zero) https://discussions.unity.com/t/c-what-is/505394/4
+
                     p.gameObject.SetActive(true);
                     lG = !lG;
                 }
-                else
-                {
-                    Debug.LogWarning("Failed to get bullet from pool.");
-                }   
+                else Debug.LogWarning("Failed to get bullet from pool.");
             }
         }
         else
@@ -130,9 +146,13 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
             if (p != null)
             {
                 Transform pos = lG ? shootPointA : shootPointB;
-                Vector3 dir = transform.position - playerData.view.position;
+                // Vector3 dir = transform.position - playerData.view.position;
                 Quaternion rot = Quaternion.LookRotation(transform.forward);
                 p.transform.SetPositionAndRotation(pos.position, rot);
+
+                p.spriteRenderer.sprite = freezeModeActive ? frozenBullet_Sprites[currentBullet] : bullet_Sprites[currentBullet];
+                currentBullet = (currentBullet + 1) % spriteCount;
+
                 p.gameObject.SetActive(true);
                 lG = !lG;
             }
@@ -143,9 +163,52 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
         }
     }
 
-    public void Shooting(InputAction.CallbackContext context)
+    public void OnFire(InputAction.CallbackContext context)
     {
-        isShooting = context.ReadValueAsButton();
+        if (context.performed) // Button pressed
+        {
+            isShooting = true;
+            Debug.Log("Shooting started.");
+        }
+        else if (context.canceled) // Button released
+        {
+            isShooting = false;
+            Debug.Log("Shooting stopped.");
+        }
+    }
+
+    public void OnFreezeMeter(InputAction.CallbackContext  context)
+    {
+        if (context.performed && freezeMeter >= freezeMeterMax && !freezeModeActive)
+        {
+            freezeModeActive = true;
+            freezeMeter = freezeMeterMax;
+            StartCoroutine(FreezeModeTimer());
+            ParticleManager.instance.PlayPlayerParticle(ParticleManager.PlayerParticlesType.PlayerActivateFreezeMode, transform.position);
+        }
+    }
+
+    public void UpdateFreezeMeter()
+    {
+        if (!freezeModeActive)
+        {
+            freezeMeter += 1;
+        }
+    }
+
+    IEnumerator FreezeModeTimer()
+    {
+        while (freezeModeActive)
+        {
+            freezeMeter -=  Global_Game_Speed.GetDeltaTime() / freezeModeTime;
+            if (freezeMeter <= -.1f)
+            {
+                freezeModeActive = false;
+                freezeMeter = 0;
+                yield break;
+            }
+            yield return null;
+        }
     }
 
     void OnDrawGizmos()
@@ -168,12 +231,6 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
             Gizmos.DrawLine(pPos - Vector3.up * radius, pEnd - Vector3.up * radius); // Connect bottom edges
             Gizmos.DrawLine(pPos + Vector3.right * radius, pEnd + Vector3.right * radius); // Connect right edges
             Gizmos.DrawLine(pPos - Vector3.right * radius, pEnd - Vector3.right * radius); // Connect left edges
-
-            // // Debug material radius
-            // if (debugAffectMaterial)
-            // {
-            //     enemyDetectRingMaterial.SetFloat("_Radius", detectRadius * 0.05f);
-            // }
 
             // Debug lines for direction
             Debug.DrawLine(transform.position, playerData.view.position, Color.blue); // Line to camera

@@ -21,16 +21,23 @@ public class Enemy_Character_Data : MonoBehaviour //  By Samuel White
     [HideInInspector] public ScriptableObject enemyFunctionalityData;
     [HideInInspector] public SO_Standard_Enemy_Attack attackData;
     [HideInInspector] public SO_Proj_Eni_Bas projectileData;
+    public bool reverseMovement;
 
-    public New_Level_Manager.Wave.EnemySpawn.EnemyInfo.SpawnType spawnType;
+    public SO_Level_Data.Wave.EnemySpawn.EnemyInfo.SpawnType spawnType;
     public Vector3 targetPosition;
 
     [HideInInspector] public Material enemyMaterial;
     public Animator Animator;
+    public GameObject character;
+    public Animator portalAnimator;
 
     [Header("Shooting")]
     public Transform[] projectileSpawnPoints;
     public Transform spawnPointRoot;
+
+    [Header("Status")]
+    public bool isFrozen = false;
+    [SerializeField] float frozenValue = 0;
 
     void Awake()
     {
@@ -92,11 +99,51 @@ public class Enemy_Character_Data : MonoBehaviour //  By Samuel White
         health = maxHealth;
     }
 
-    public void Damage(int value)
+    public void TriggerLeave()
     {
-        health -= value;
+        reverseMovement = true;
+        ChangeState(MoveState);
+    }
+
+
+    public void Damage(int damage, bool bulletFrozen, int playerNumber)
+    {
+        if (isFrozen) return; // If the enemy is frozen, do not take damage
+
+        if (bulletFrozen)
+        {
+            frozenValue += .1f;
+            AudioManager.PlayPlayerSound(PlayerCategory.PlayerSoundTypes.Frozen_Shot_Hit, 1);
+            ParticleManager.instance.PlayEnemyParticle(ParticleManager.EnemyParticlesType.EnemyFreeze_Hit, transform.position);
+            if (frozenValue >= 1)
+            {
+                ParticleManager.instance.PlayEnemyParticle(ParticleManager.EnemyParticlesType.EnemyFreeze, transform.position);
+                GameManager.instance.AwardScore(playerNumber, GameManager.ScoreContext.Enemy_Frozen);
+                frozenValue = 1;
+                isFrozen = true;
+                frozenValue = 0;
+                ChangeState(FrozenState);
+            }
+        }
+        else
+        {
+            health -= damage;
+            GameManager.playerData[playerNumber].characterData.playerShoot.UpdateFreezeMeter(); // Add Freeze Meter Points to Player
+            
+            AudioManager.PlayEnemySound(EnemyCategory.EnemySoundTypes.Enemy_Hit, 1);
+            ParticleManager.instance.PlayEnemyParticle(ParticleManager.EnemyParticlesType.EnemyCharacter_Hit, transform.position);
+            GameManager.instance.AwardScore(playerNumber, GameManager.ScoreContext.Enemy_Hit);
+        }
         DamageFlash();
-        if(health <= 0) ReturnEnemy();
+        if(health <= 0) 
+        {
+            GameManager.instance.AwardScore(playerNumber, GameManager.ScoreContext.Enemy_Defeated);
+            ParticleManager.instance.PlayEnemyParticle(ParticleManager.EnemyParticlesType.EnemyDeath, transform.position);
+            AudioManager.PlayEnemySound(attackData.deathSound, 1);
+            reverseMovement = false;
+            isFrozen = false;
+            ReturnEnemy();
+        }
     }
 
     public void Heal(int value)
@@ -130,6 +177,5 @@ public interface IEnemyState
 {
     void OnEnter(Enemy_Character_Data enemy_Character_Data);
     void OnExit(Enemy_Character_Data enemy_Character_Data);
-    void OnHurt(Enemy_Character_Data enemy_Character_Data);
     void OnDeath(Enemy_Character_Data enemy_Character_Data);
 }

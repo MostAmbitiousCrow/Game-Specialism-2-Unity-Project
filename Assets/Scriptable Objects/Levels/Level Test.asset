@@ -1,0 +1,163 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1679001d1fdd44da698a6f93aca1d3c1, type: 3}
+  m_Name: Level Test
+  m_EditorClassIdentifier: 
+  waves:
+  - waveName: Wave 1
+    enemySpawnInfo:
+    - cloneAmount: 0
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 0, y: 0}
+      enemyInfo:
+        name: Imp
+        enemyID: 0
+        movementData: {fileID: 11400000, guid: d0b600601c1ac614dad751a8f055d348, type: 2}
+        projectileData: {fileID: 11400000, guid: 7288fb8bbd9f12b4fb748c4f3a34a188,
+          type: 2}
+        attackData: {fileID: 11400000, guid: fe68fffb57a77e44f9e932790bc0a082, type: 2}
+        timeOfAppearance: 0
+        targetSpawnPosition: {x: -8, y: -5, z: 20}
+        enterType: 0
+    - cloneAmount: 0
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 0, y: 0}
+      enemyInfo:
+        name: Succubus
+        enemyID: 1
+        movementData: {fileID: 11400000, guid: eb150b6da9e5545f4bbf70f5633cec20, type: 2}
+        projectileData: {fileID: 11400000, guid: 5bac7052cf37a42f8b6bf21bdcab8ed2,
+          type: 2}
+        attackData: {fileID: 11400000, guid: d0d35b75cd9e54d13abbb507f6a6592a, type: 2}
+        timeOfAppearance: 0
+        targetSpawnPosition: {x: -4, y: -5, z: 20}
+        enterType: 0
+    - cloneAmount: 0
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 0, y: 0}
+      enemyInfo:
+        name: Limb Demon
+        enemyID: 2
+        movementData: {fileID: 11400000, guid: e754e159561194503b8c08daff547e5a, type: 2}
+        projectileData: {fileID: 11400000, guid: ba933030ea26446fe9169ee6a0794470,
+          type: 2}
+        attackData: {fileID: 11400000, guid: a25bff27bfdb74a9aabccd4899171ef2, type: 2}
+        timeOfAppearance: 0
+        targetSpawnPosition: {x: 0, y: 5, z: 20}
+        enterType: 0
+    - cloneAmount: 0
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 0, y: 0}
+      enemyInfo:
+        name: LockJaw
+        enemyID: 3
+        movementData: {fileID: 11400000, guid: b110d997ddccb4a829dda2b4c02897ad, type: 2}
+        projectileData: {fileID: 11400000, guid: 2eec61bcd4d334d2ebbaac630ff35855,
+          type: 2}
+        attackData: {fileID: 11400000, guid: d49883c92b45444cb9a9d3801810e656, type: 2}
+        timeOfAppearance: 0
+        targetSpawnPosition: {x: 4, y: -5, z: 20}
+        enterType: 0
+    - cloneAmount: 0
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 0, y: 0}
+      enemyInfo:
+        name: Chef Demon
+        enemyID: 4
+        movementData: {fileID: 11400000, guid: 7353fbc5faee34d39b58a9294d83d357, type: 2}
+        projectileData: {fileID: 11400000, guid: 82e6dc2808dc1416c8cf51065434ec88,
+          type: 2}
+        attackData: {fileID: 11400000, guid: c0d00a5fe3bbc462f820727e5c3e0de4, type: 2}
+        timeOfAppearance: 0
+        targetSpawnPosition: {x: 8, y: -5, z: 20}
+        enterType: 0
+    obstacleSpawnInfo: []
+    powerUpSpawnInfo: []
+    waveDuration: 10
+    waveStartTime: 0
+    defeatedEnemiesReqirement: 0
+    debugActive: 1
+    debugColour: {r: 0, g: 1, b: 1, a: 1}
+  - waveName: Wave 2
+    enemySpawnInfo:
+    - cloneAmount: 0
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 0, y: 0}
+      enemyInfo:
+        name: Imp
+        enemyID: 0
+        movementData: {fileID: 11400000, guid: d0b600601c1ac614dad751a8f055d348, type: 2}
+        projectileData: {fileID: 11400000, guid: 7288fb8bbd9f12b4fb748c4f3a34a188,
+          type: 2}
+        attackData: {fileID: 11400000, guid: fe68fffb57a77e44f9e932790bc0a082, type: 2}
+        timeOfAppearance: 0
+        targetSpawnPosition: {x: -8, y: -5, z: 20}
+        enterType: 2
+    - cloneAmount: 0
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 0, y: 0}
+      enemyInfo:
+        name: Succubus
+        enemyID: 1
+        movementData: {fileID: 11400000, guid: eb150b6da9e5545f4bbf70f5633cec20, type: 2}
+        projectileData: {fileID: 11400000, guid: 5bac7052cf37a42f8b6bf21bdcab8ed2,
+          type: 2}
+        attackData: {fileID: 11400000, guid: d0d35b75cd9e54d13abbb507f6a6592a, type: 2}
+        timeOfAppearance: 0
+        targetSpawnPosition: {x: -4, y: -5, z: 20}
+        enterType: 2
+    - cloneAmount: 0
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 0, y: 0}
+      enemyInfo:
+        name: Limb Demon
+        enemyID: 2
+        movementData: {fileID: 11400000, guid: e754e159561194503b8c08daff547e5a, type: 2}
+        projectileData: {fileID: 11400000, guid: ba933030ea26446fe9169ee6a0794470,
+          type: 2}
+        attackData: {fileID: 11400000, guid: a25bff27bfdb74a9aabccd4899171ef2, type: 2}
+        timeOfAppearance: 0
+        targetSpawnPosition: {x: 0, y: 5, z: 20}
+        enterType: 2
+    - cloneAmount: 0
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 0, y: 0}
+      enemyInfo:
+        name: LockJaw
+        enemyID: 3
+        movementData: {fileID: 11400000, guid: b110d997ddccb4a829dda2b4c02897ad, type: 2}
+        projectileData: {fileID: 11400000, guid: 2eec61bcd4d334d2ebbaac630ff35855,
+          type: 2}
+        attackData: {fileID: 11400000, guid: d49883c92b45444cb9a9d3801810e656, type: 2}
+        timeOfAppearance: 0
+        targetSpawnPosition: {x: 4, y: -5, z: 20}
+        enterType: 2
+    - cloneAmount: 0
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 0, y: 0}
+      enemyInfo:
+        name: Chef Demon
+        enemyID: 4
+        movementData: {fileID: 11400000, guid: 7353fbc5faee34d39b58a9294d83d357, type: 2}
+        projectileData: {fileID: 11400000, guid: 82e6dc2808dc1416c8cf51065434ec88,
+          type: 2}
+        attackData: {fileID: 11400000, guid: c0d00a5fe3bbc462f820727e5c3e0de4, type: 2}
+        timeOfAppearance: 0
+        targetSpawnPosition: {x: 8, y: -5, z: 20}
+        enterType: 2
+    obstacleSpawnInfo: []
+    powerUpSpawnInfo: []
+    waveDuration: 10
+    waveStartTime: 15
+    defeatedEnemiesReqirement: 0
+    debugActive: 1
+    debugColour: {r: 1, g: 0, b: 0, a: 1}

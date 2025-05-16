@@ -5,101 +5,23 @@ using UnityEngine;
 public class New_Level_Manager : MonoBehaviour // By Samuel White
 {
     public static New_Level_Manager instance;
+    [SerializeField] SO_Level_Data levelData; // Level data used to spawn enemies and obstacles
+    [Space(10)]
 
-    [System.Serializable]
-    public class Wave
-    {
-        public string waveName;
-
-        [System.Serializable]
-        public class EnemySpawn
-        {
-            [Header("Clone Controls")]
-            public int cloneAmount = 0;
-            public float cloneSpawnDelay = .5f;
-            public Vector2 clonesOffset = new();
-
-            [Tooltip("Enemy Info")]
-            [System.Serializable]
-            public class EnemyInfo
-            {
-                public string name;
-
-                [Header("Enemy Info")]
-                [Tooltip("The ID of the enemy, corresponding to the order in the list of the Enemy Pool")]
-                public Enemy enemyID;
-                public enum Enemy
-                {
-                    Imp, Succubus, Limb_Demon, LockJaw, Chef_Demon
-                }
-
-                [Tooltip("Enemy Movement Data, provided by its corresponding scriptable object data. Defines how the enemies will move.")]
-                public SO_Standard_Enemy_Movement movementData;
-
-                [Tooltip("Enemy Projectile Data, provided by its corresponding scriptable object data. Defines how the enemies projectiles will act.")]
-                public SO_Proj_Eni_Bas projectileData;
-
-                [Tooltip("Enemy Attack Data, provided by its corresponding scriptable object data. Defines how the enemies will attack.")]
-                public SO_Standard_Enemy_Attack attackData;
-
-                [Tooltip("The time of which the enemy spawns, from the duration of the beginning of the wave.")]
-                public float timeOfAppearance = 1f;
-
-                public Vector3 targetSpawnPosition = new(0, 0, 10);
-                public enum SpawnType { Portal, Behind, Front }
-                [Tooltip("The way the enemy/enemies will spawn into the scene. Portal: A portal will appear directly in the scene under the Target Position, the enemy/enemies will emerge from the portal based on the appearance rate. Behind: the Enemy/Enemies will appear behind the player camera and move in towards the assigned Target Position. Front: Enemy/Enemies will appear from the distance and move towards their Target Position.")]
-                public SpawnType enterType;
-            }
-            public EnemyInfo enemyInfo;
-        }
-        [Header("Enemy Spawn")]
-        public List<EnemySpawn> enemySpawnInfo;
-
-        [System.Serializable]
-        public class ObstacleSpawn
-        {
-            public string obstacleName;
-            public GameObject obstaclePrefab;
-            public Vector2 spawnPosition = new();
-            public float timeOfAppearance = 1f;
-        }
-        [Header("Obstacle Spawn")]
-        public List<ObstacleSpawn> obstacleSpawnInfo;
-
-        [System.Serializable]
-        public class PowerUpSpawn
-        {
-            public string powerUpName;
-            public GameObject powerUpPrefab;
-            // Insert Powerup EnumSelect Here //TODO
-            public Vector3 spawnPosition = new(0, 0, 20); // Where the power-up box will spawn
-            public float timeOfAppearance = 1f; // Time from the start of the wave when this object will spawn
-        }
-        [Header("Power-Up Spawn")]
-        public List<PowerUpSpawn> powerUpSpawnInfo;
-
-        [Header("Wave Settings")]
-        public float waveDuration;
-        public float waveStartTime;
-        public int defeatedEnemiesReqirement = 0;
-
-        [Header("Detection")]
-        public List<GameObject> activeObjects;
-
-        [Header("Debug")]
-        public bool debugActive = true;
-        public Color debugColour = Color.red;
-    }
-    public List<Wave> waves;
     [SerializeField] GameObject portalPrefab; // Portal object used for spawning enemies via a portal
 
     public bool paused;
     public float playTime = 0;
+    [SerializeField] float waveTime;
+    [SerializeField] int currentWave;
+
+    [Header("Detection")]
+    public List<Enemy_Character_Data> activeObjects;
 
     private void Awake()
     {
         paused = true;
-        if(instance = null) instance = this;
+        instance = this;
     }
     public void StartWaves()
     {
@@ -107,26 +29,28 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
         StartCoroutine(WaveTimer());
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        if (paused) return;
-        playTime += Time.deltaTime;
+        if (GameData.isPaused) return;
+        playTime += Global_Game_Speed.GetDeltaTime();
     }
 
-
+    #region Wave Timer
     private IEnumerator WaveTimer()
     {
         bool waveActive = false;
-        float waveTime = 0;
-        int currentWave = 0;
-        int waveCount = waves.Count;
-        Wave wave = waves[currentWave];
+        waveTime = 0;
+        currentWave = 0;
+        int waveCount = levelData.waves.Count;
+        SO_Level_Data.Wave wave = levelData.waves[currentWave];
 
         while (true)
         {
+            yield return new WaitUntil(() => !GameData.isPaused); // Return when the game is paused
+
             if (waveTime >= wave.waveStartTime && !waveActive)
             {
-                wave = waves[currentWave];
+                wave = levelData.waves[currentWave];
 
                 if (wave.enemySpawnInfo != null)
                 {
@@ -149,41 +73,59 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
                 {
                     StartCoroutine(SpawnPowerUps(wave));
                 }
-                currentWave++;
+                waveCount++;
                 waveActive = true;
             }
-
-            if (currentWave >= waveCount) break;
-            //if (GetActiveObjects(wave))
-            //{
-            //    waveActive = false;
-            //    wave.activeObjects.Clear();
-            //}
-            yield return new WaitForFixedUpdate();
-            waveTime+= Time.fixedDeltaTime;
-            print(waveTime);
+            if (GetActiveObjects(wave) && waveTime > wave.waveDuration)
+            {
+               waveActive = false;
+               foreach (var item in activeObjects)
+                {
+                    if(item.isActiveAndEnabled) item.TriggerLeave();
+                }
+               activeObjects.Clear();
+            }
+            if (!waveActive)
+            {
+                waveTime = 0;
+                currentWave++;
+                Debug.Log($"Wave {waveCount} completed.");
+            }
+            if (currentWave >= waveCount)
+            {
+                yield return new WaitForSeconds(2);
+                Player_Game_UI_Manager.instance.ShowResultsMenu(true);
+                Debug.Log($"Wave {waveCount} completed. Stopping Wave Spawner, Showing Results Menu.");
+                break;
+            }
+            waveTime+= Global_Game_Speed.GetDeltaTime();
             yield return null;
         }
     }
+    #endregion
 
-    private bool GetActiveObjects(Wave wave)
+    private bool GetActiveObjects(SO_Level_Data.Wave wave)
     {
         int c = 0;
-        foreach (var item in wave.activeObjects)
+        foreach (var item in activeObjects)
         {
-            if (!item.activeSelf) c++;
+            if (!item.gameObject.activeSelf) c++;
         }
         return c >= wave.defeatedEnemiesReqirement;
     }
 
-    private IEnumerator SpawnEnemyTimer(Wave.EnemySpawn ES)
+    private IEnumerator SpawnEnemyTimer(SO_Level_Data.Wave.EnemySpawn ES)
     {
-        if (ES.enemyInfo.timeOfAppearance > 0) 
-            yield return new WaitForSeconds(ES.enemyInfo.timeOfAppearance);
+        float t = 0;
+        while (t < ES.enemyInfo.timeOfAppearance)
+        {
+            yield return new WaitUntil(() => !GameData.isPaused);
+            t += Global_Game_Speed.GetDeltaTime();
+        }
         SpawnEnemy(ES, new());
         yield break;
     }
-    private IEnumerator SpawnClonesRoutine(Wave.EnemySpawn ES)
+    private IEnumerator SpawnClonesRoutine(SO_Level_Data.Wave.EnemySpawn ES)
     {
         Vector2 offset = new();
         for (int i = 0; i < ES.cloneAmount + 1; i++)
@@ -197,7 +139,7 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
     }
 
     #region Spawn Obstacles
-    private IEnumerator SpawnObstacles(Wave wave)
+    private IEnumerator SpawnObstacles(SO_Level_Data.Wave wave)
     {
 
         yield break;
@@ -206,7 +148,7 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
 
     #region Spawn PowerUps
 
-    private IEnumerator SpawnPowerUps(Wave wave)
+    private IEnumerator SpawnPowerUps(SO_Level_Data.Wave wave)
     {
         
         yield break;
@@ -215,7 +157,7 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
 
     #region Spawn Enemy
 
-    public void SpawnEnemy(Wave.EnemySpawn item, Vector3 offset)
+    public void SpawnEnemy(SO_Level_Data.Wave.EnemySpawn item, Vector3 offset)
     {
         Debug.Log("Activated");
         Enemy_Character_Data ECD = New_Enemy_Pool_System.instance.GetEnemy((int)item.enemyInfo.enemyID);
@@ -228,15 +170,17 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
 
         ECD.enemyID = (int)item.enemyInfo.enemyID;
         ECD.spawnType = item.enemyInfo.enterType;
+        activeObjects.Add(ECD);
         ECD.StartEnterance();
-        Debug.Log($"{ECD.name} Spawned. Enter Type: {ECD.spawnType}");
+        // Debug.Log($"{ECD.name} Spawned. Enter Type: {ECD.spawnType}");
     }
     #endregion
 
     #region Debug
     private void OnDrawGizmosSelected()
     {
-        foreach (var w in waves)
+        if (levelData == null) return;
+        foreach (var w in levelData.waves)
         {
             if (!w.debugActive) return;
             Gizmos.color = w.debugColour;

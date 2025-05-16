@@ -12,8 +12,8 @@ public class Player_Health : MonoBehaviour // by Samuel White
     public int playerNumber = 0; // 0 = Player 1, 1 = Player 2
 
     [Header("Health Settings")]
-    [SerializeField] int maxHealth = 5;
-    [SerializeReference] float health;
+    public int maxHealth = 5;
+    public int health;
 
     [Header("Visual Effects")]
     [SerializeField] Material characterMaterial;
@@ -32,7 +32,7 @@ public class Player_Health : MonoBehaviour // by Samuel White
     private float flashT;
     private bool flashing;
 
-    void Awake()
+    void Start()
     {
         health = maxHealth;
         if (characterMeshRenderer != null) characterMaterial = characterMeshRenderer.material;
@@ -50,7 +50,7 @@ public class Player_Health : MonoBehaviour // by Samuel White
 
         health -= value;
         DamageFlash();
-        AudioManager.PlayPlayerSound(PlayerCategory.PlayerSoundTypes.Damage, 1);
+        AudioManager.PlayPlayerSound(PlayerCategory.PlayerSoundTypes.Took_Damage, 1);
         if(health <= 0) 
         {
             GameManager.playerData[playerNumber].lives--;
@@ -88,6 +88,8 @@ public class Player_Health : MonoBehaviour // by Samuel White
         flashing = true;
         while (flashT < 1)
         {
+            yield return new WaitUntil(() => !GameData.isPaused); // Pause coroutine when the game is paused
+            
             flashT += Global_Game_Speed.GetDeltaTime() / damageFlashDuration;
             characterMaterial.SetFloat("_Flash", damageFlashCurve.Evaluate(Mathf.InverseLerp(0, Settings_Manager.damageFlashIntensity, flashT)));
             yield return null;
@@ -108,6 +110,8 @@ public class Player_Health : MonoBehaviour // by Samuel White
         float t = 0;
         while (t < 1)
         {
+            yield return new WaitUntil(() => !GameData.isPaused); // Pause coroutine when the game is paused
+
             t += Global_Game_Speed.GetDeltaTime() / respawnInvincibilityDuration;
             characterMaterial.SetFloat("_Flash", respawnInvincibilityCurve.Evaluate(Mathf.InverseLerp(0, Settings_Manager.damageFlashIntensity, t)));
             yield return null;

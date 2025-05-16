@@ -30,6 +30,7 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
     public static bool dyslexiaFont = false; // 0 = false, 1 = true
     public static bool playerAutoShoot = false; // 0 = false, 1 = true
     public static bool controllerVibration = true; // 0 = false, 1 = true
+    public static bool enableParticles = true; // 0 = false, 1 = true
     [Range(0, 1)] public static float damageFlashIntensity = 1f;
     
     [Space(10)]
@@ -65,13 +66,14 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
     public bool defaultDyslexiaFont = false; // 0 = false, 1 = true
     public bool defaultPlayerAutoShoot = false; // 0 = false, 1 = true
     public bool defaultControllerVibration = controllerVibration; // 0 = false, 1 = true
-    public float defaultDamageFlashIntensity = 1f;
+    public bool defaultEnableParticles = true; // 0 = false, 1 = true
+    [Range(0, 1)] public float defaultDamageFlashIntensity = 1f;
 
     // =========================================
 
     void Awake()
     {
-        instance = this;
+        if (instance == null) instance = this;
     }
 
     public static void SaveSettings()
@@ -88,7 +90,7 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
             PlayerPrefs.SetInt("ColourBlindMode", (int)colourBlindMode); // 0 = None, 1 = Protanopia, 2 = Deuteranopia, 3 = Tritanopia
             PlayerPrefs.SetInt("DyslexiaFont", dyslexiaFont ? 1 : 0); // 0 = false, 1 = true
             // Motor
-            PlayerPrefs.SetInt("PlayerAutoShoot", 0); // 0 = false, 1 = true
+            PlayerPrefs.SetInt("PlayerAutoShoot", playerAutoShoot ? 1 : 0); // 0 = false, 1 = true
             PlayerPrefs.SetFloat("GameSpeed", gameSpeed); // Global Gameplay Speed Multiplier. 1 = normal speed
             // Hearing
             PlayerPrefs.SetInt("ControllerVibration", controllerVibration ? 0 : 1); // 0 = false, 1 = true
@@ -172,6 +174,7 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
 
     public static void SetColourBlindMode(ColourBlindMode mode)
     {
+        Debug.Log($"Set colour blind mode to {mode}");
         colourBlindMode = mode;
         //SOHNE.Accessibility.Colorblindness.Colorblindness.Instance.Change((int)mode); // Using the SOHNE Colorblindness package
         // ^ Was using the package.Turned out to be mega poopy.^
@@ -180,6 +183,7 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
     public static void SetDyslexiaFont(bool dyslexia)
     {
         dyslexiaFont = dyslexia;
+        GameManager.UpdateGlobalFonts(); // Update the font for all text components
     }
 
     public static void SetPlayerAutoShoot(bool autoShoot)
@@ -212,9 +216,11 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
         gameSpeed = instance.defaultGameSpeed;
         colourBlindMode = instance.defaultColourBlindMode;
         dyslexiaFont = instance.defaultDyslexiaFont;
+        GameManager.UpdateGlobalFonts();
         playerAutoShoot = instance.defaultPlayerAutoShoot;
         controllerVibration = instance.defaultControllerVibration;
         damageFlashIntensity = instance.defaultDamageFlashIntensity;
+        enableParticles = instance.defaultEnableParticles;
 
         SaveSettings();
     }

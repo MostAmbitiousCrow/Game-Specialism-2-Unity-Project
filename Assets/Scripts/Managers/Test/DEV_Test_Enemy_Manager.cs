@@ -17,7 +17,7 @@ public class DEV_Test_Enemy_Manager : MonoBehaviour // By Samuel White
 
     [SerializeField] Enemy_Character_Data selectedEnemydata;
 
-    [SerializeField] New_Level_Manager.Wave.EnemySpawn.EnemyInfo.SpawnType spawnType;
+    [SerializeField] SO_Level_Data.Wave.EnemySpawn.EnemyInfo.SpawnType spawnType;
 
     [Serializable]
     public struct EnemyData
@@ -64,9 +64,9 @@ public class DEV_Test_Enemy_Manager : MonoBehaviour // By Samuel White
     {
         switch (type)
         {
-            case 0: spawnType = New_Level_Manager.Wave.EnemySpawn.EnemyInfo.SpawnType.Portal; break;
-            case 1: spawnType = New_Level_Manager.Wave.EnemySpawn.EnemyInfo.SpawnType.Front; break;
-            case 2: spawnType = New_Level_Manager.Wave.EnemySpawn.EnemyInfo.SpawnType.Behind; break;
+            case 0: spawnType = SO_Level_Data.Wave.EnemySpawn.EnemyInfo.SpawnType.Portal; break;
+            case 1: spawnType = SO_Level_Data.Wave.EnemySpawn.EnemyInfo.SpawnType.Front; break;
+            case 2: spawnType = SO_Level_Data.Wave.EnemySpawn.EnemyInfo.SpawnType.Behind; break;
         }
     }
 

@@ -40,9 +40,9 @@ public class Player_Power_Up_Controller : MonoBehaviour // By Samuel White && Kh
         }
     }
 
-    public void TriggerPowerUp(InputAction.CallbackContext context)
+    public void OnPowerUp(InputValue context)
     {
-        if (powerUpType != PowerUpType.None && context.ReadValueAsButton())
+        if (powerUpType != PowerUpType.None && context.isPressed)
         {
             // Trigger the power-up's trigger method here:
             switch (powerUpType)
