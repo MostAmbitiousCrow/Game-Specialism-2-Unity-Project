@@ -103,6 +103,9 @@ public class Main_Menu_Manager : MonoBehaviour // By Samuel White
         playerCount = GameData.playerInputs.Count;
         playerInput.gameObject.name = $"Player {playerCount}";
         playerInput.neverAutoSwitchControlSchemes = true;
+
+        if (playerInput.devices[0] is Gamepad) GameData.controllerRumbles.Add(playerInput.GetComponent<Player_Controller_Rumble>());
+
         if (playerCount >= 1) startButton.interactable = true;
     }
 

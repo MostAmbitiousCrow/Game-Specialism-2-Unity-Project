@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.Rendering;
 
 public class Settings_Menu_Manager : MonoBehaviour // By Samuel White
 {
@@ -102,6 +101,7 @@ public class Settings_Menu_Manager : MonoBehaviour // By Samuel White
         public void ControllerVibration()
         {
             Settings_Manager.SetControllerVibration(gamepadVibrationToggle.isOn);
+            foreach (var item in GameData.controllerRumbles) item.StartRumble(1, .2f, 1);
         }
 
         public void AutoShoot()

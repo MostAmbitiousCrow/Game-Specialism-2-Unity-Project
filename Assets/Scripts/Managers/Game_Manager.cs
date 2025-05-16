@@ -390,7 +390,9 @@ public static class GameData
     public static Scene_Loader_Transition.SceneNames currentLevel;
     public static int playerCount = 0;
 
+    // public static Dictionary<PlayerInput, Player_Controller_Rumble> playerComponents;
     public static List<PlayerInput> playerInputs = new();
+    public static List<Player_Controller_Rumble> controllerRumbles = new();
     public class WorldLimits
     {
         public static float worldXLimit = 4.5f;
