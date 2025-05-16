@@ -2,28 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerUpBox : MonoBehaviour // Made by Khayne Lutchmun.
+public class PowerUpBox : MonoBehaviour // Made by Khayne. This script is for the power up box that the player can destroy to get a power up.
 {
-    [SerializeField] private List<GameObject> PowerUps; // This is a list of power-ups that can be dropped from the box. The power-ups must be assigned in the inspector.
-    [SerializeField] private GameObject SetPowerUp; // This is the power-up that will be assigned to the box. If it is not assigned, then a random power-up will be chosen from the list.
-    [SerializeField] private bool Assigned = false; // This is a boolean that determines if the box has a specific power-up assigned to it. If it is true, then the box will drop the assigned power-up.
-    [SerializeField] private bool EmptyBox = false; // This is a boolean that determines if the box is empty or not. If it is true, then the box is empty and will not drop anything.
+    [SerializeField] private List<GameObject> PowerUps;
+    [SerializeField] private GameObject SetPowerUp;
+    [SerializeField] private bool Assigned = false;
+    [SerializeField] private bool EmptyBox = false;
 
-    public void BreakOpen() 
+    public void BreakOpen()
     {
         Destroy(gameObject);
-        if (Assigned) // If the box has a specific power-up assigned to it, then drop that power-up.
+        if (Assigned)
         {
-            Instantiate(SetPowerUp, transform.position, Quaternion.identity); // Instantiate the assigned power-up at the box's position.
+            Instantiate(SetPowerUp, transform.position, Quaternion.identity);
         }
-        else if(!Assigned) // If the box does not have a specific power-up assigned to it, then drop a random power-up from the list.
+        else if(!Assigned)
         {
-            int RandomPowerUp = Random.Range(0, PowerUps.Count); // Get a random index from the PowerUps list.
-            Instantiate(PowerUps[RandomPowerUp], transform.position, Quaternion.identity); // Instantiate a random power-up from the list at the box's position.
+            int RandomPowerUp = Random.Range(0, PowerUps.Count);
+            Instantiate(PowerUps[RandomPowerUp], transform.position, Quaternion.identity);
         }
-        else if (EmptyBox) // If the box is empty, then do nothing.
+        else if (EmptyBox)
         {
-            Debug.Log("Empty Box"); // This box is empty, so nothing happens.
+            Debug.Log("Empty Box");
         }
     }
     

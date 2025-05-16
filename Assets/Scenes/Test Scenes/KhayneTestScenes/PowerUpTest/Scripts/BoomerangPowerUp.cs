@@ -12,16 +12,12 @@ public class BoomerangPowerUp : MonoBehaviour // By Khayne Lutchmun.
     [SerializeField] float fireRate = 1f;
     [SerializeField] float nextFireTime;
     [SerializeField] float PowerUpTime = 20f;
-    [SerializeField] int maxFires = 1; // Maximum number of times the boomerang can be fired
+    [SerializeField] int maxFires = 2; // Maximum number of times the boomerang can be fired
     private int fireCount = 0; // Counter for the number of times the boomerang has been fired
-    [SerializeField] PlayerInput WafflePlayerInput; // Reference to the player input component
-
 
     void Start()
     {
         readValue = false; // Ensure readValue is false at the start
-        WafflePlayerInput = GetComponent<PlayerInput>(); // Get the PlayerInput component
-        WafflePlayerInput.enabled = false; // Disable the player input component
     }
 
     private void Update()
@@ -39,14 +35,12 @@ public class BoomerangPowerUp : MonoBehaviour // By Khayne Lutchmun.
         {
             Fire();
         }
-        WafflePlayerInput.enabled = true; // Enable the player input component
     }
 
     public void PowerUpDeactivate()
     {
         enabled = false;
         ready = false;
-        WafflePlayerInput.enabled = false; // Disable the player input component
     }
 
     public void PowerUpTimer()
