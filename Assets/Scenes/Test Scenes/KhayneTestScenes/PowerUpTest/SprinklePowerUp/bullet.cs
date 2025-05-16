@@ -8,8 +8,6 @@ public class SprinklesBullet : MonoBehaviour // Made by Khayne Lutchmun.
     [SerializeField] float speed = 40f;
     [SerializeField] float lifetime = 4f;
     [SerializeField] int damage = 1;
-    [SerializeField] bool frozenBullet = false; // If the bullet is frozen
-    [SerializeField] int playerNumber = 0; // The player number that fired the bullet
 
     void Start()
     {
@@ -22,7 +20,7 @@ public class SprinklesBullet : MonoBehaviour // Made by Khayne Lutchmun.
     }
         private void OnTriggerEnter(Collider c)
     {
-        if (c.CompareTag("EnemyB")) c.GetComponent<Enemy_Character_Data>().Damage(damage, frozenBullet, playerNumber); // Damage the target
+        if (c.CompareTag("EnemyB")) c.GetComponent<Enemy_Character_Data>().Damage(damage); // Damage the target
         else if (c.CompareTag("Box")) c.GetComponent<Character_Health_Script>().Damage(damage); // Damage the target
         Deactivate();
     }
