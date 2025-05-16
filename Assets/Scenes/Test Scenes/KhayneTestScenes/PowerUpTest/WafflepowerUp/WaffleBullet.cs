@@ -14,6 +14,9 @@ public class WaffleBullet : MonoBehaviour
     private Transform player;
     private BoomerangPowerUp powerUpScript;
 
+    [SerializeField] bool frozenBullet = false; // If the bullet is frozen
+    [SerializeField] int playerNumber = 0; // The player number that fired the bullet
+
     void Start()
     {
         startPosition = transform.position;
@@ -61,7 +64,7 @@ public class WaffleBullet : MonoBehaviour
     {
         if (c.CompareTag("EnemyB"))
         {
-            c.GetComponent<Enemy_Character_Data>().Damage(damage); // Damage the target
+            c.GetComponent<Enemy_Character_Data>().Damage(damage, frozenBullet, playerNumber); // Damage the target
             returning = true; // Start returning to the player
         }
         else if (c.CompareTag("Box"))
