@@ -8,6 +8,8 @@ public class WaffleBullet : MonoBehaviour
     [SerializeField] int damage = 1;
     [SerializeField] float returnSpeed = 20f;
     //[SerializeField] float maxDistance = 20f;
+    [SerializeField] bool frozenBullet = false; // If the bullet is frozen
+    [SerializeField] int playerNumber = 0; // The player number that fired the bullet
 
     private Vector3 startPosition;
     private bool returning = false;
@@ -61,7 +63,7 @@ public class WaffleBullet : MonoBehaviour
     {
         if (c.CompareTag("EnemyB"))
         {
-            c.GetComponent<Enemy_Character_Data>().Damage(damage); // Damage the target
+            c.GetComponent<Enemy_Character_Data>().Damage(damage, frozenBullet, playerNumber); // Damage the target            
             returning = true; // Start returning to the player
         }
         else if (c.CompareTag("Box"))
