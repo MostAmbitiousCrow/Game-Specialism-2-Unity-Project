@@ -10,12 +10,12 @@ public class Enemy_Idle : IEnemyState // By Samuel White
 
     public void OnEnter(Enemy_Character_Data data)
     {
-        return;
+
     }
 
     public void OnExit(Enemy_Character_Data data)
     {
-        return;
+
     }
 
     public void OnDeath(Enemy_Character_Data data)
@@ -23,11 +23,5 @@ public class Enemy_Idle : IEnemyState // By Samuel White
         data.ChangeState(data.IdleState);
         data.gameObject.SetActive(false);
         data.ReturnEnemy();
-    }
-
-    public void TriggerLeave(Enemy_Character_Data data)
-    {
-        data.reverseMovement = true;
-        data.ChangeState(data.MoveState);
     }
 }

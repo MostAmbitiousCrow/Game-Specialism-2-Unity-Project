@@ -109,24 +109,15 @@ public class Main_Menu_Manager : MonoBehaviour // By Samuel White
     public void DisconnectAllPlayers()
     {
         int loops = playerCount;
-        Debug.Log($"Disconnected {GameData.playerInputs.Count} PLayers");
-        if (GameData.playerInputs.Count > 0)
+        Debug.Log($"Disconnected All PLayers");
+        for (int i = 0; i < loops; i++)
         {
-            for (int i = 0; i < loops; i++)
-            {
-                if (GameData.playerInputs[0] == null)
-                {
-                    GameData.playerInputs.RemoveAt(0);
-                    return;
-                }
-                Debug.Log($"Destroyed { GameData.playerInputs[0] }");
-                Destroy(GameData.playerInputs[0].gameObject);
-                playerBoxes[i].SetActive(false);
-            }
+            Debug.Log(i);
+            Debug.Log($"Destroyed { GameData.playerInputs[0].gameObject }");
+            Destroy(GameData.playerInputs[0].gameObject);
+            playerBoxes[i].SetActive(false);
         }
         GameData.playerInputs.Clear();
-        foreach (var item in playerBoxes) item.SetActive(false);
-
         playerCount = 0;
         GameManager.instance.eventSystem.SetSelectedGameObject(menuDatas[2].enterButton);
     }
@@ -145,7 +136,8 @@ public class Main_Menu_Manager : MonoBehaviour // By Samuel White
     public void PlayGame()
     {
         if (!multiplayerMenuOpen) return;
-        GameData.isMultiplayer = playerCount > 1; // Decide if it's multiplayer or not based on player count
+        if (playerCount > 1) GameData.isMultiplayer = true;
+        else GameData.isMultiplayer = false;
 
         // Load the game scene
         AudioManager.PlayMusic(AudioManager.MusicOptions.Stop, 1, 0, MusicCategory.MusicSoundTypes.None);
@@ -179,14 +171,14 @@ public class Main_Menu_Manager : MonoBehaviour // By Samuel White
         clickBlocker.raycastTarget = true;
         GameManager.instance.eventSystem.SetSelectedGameObject(null);
 
-        for (float t = 0; t < shutterTransitionTime; t += Time.unscaledDeltaTime)
+        for (float t = 0; t < shutterTransitionTime; t += Time.deltaTime)
         {
             float alpha = Mathf.Clamp01(t / shutterTransitionTime);
             shutter.anchoredPosition = Vector3.Lerp(shutterStartPos, shutterEndPos, alpha);
             yield return null;
         }
         shutter.anchoredPosition = shutterEndPos; // Set the shutter position to the end position
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSeconds(0.5f);
 
         if (newMenu != 4) menuDatas[newMenu].menu.SetActive(true);
         if (oldMenu != 4) menuDatas[oldMenu].menu.SetActive(false);
@@ -203,7 +195,7 @@ public class Main_Menu_Manager : MonoBehaviour // By Samuel White
             // RemoveAllPlayers();
         }
 
-        for (float t = 0; t < shutterTransitionTime; t += Time.unscaledDeltaTime)
+        for (float t = 0; t < shutterTransitionTime; t += Time.deltaTime)
         {
             float alpha = Mathf.Clamp01(t / shutterTransitionTime);
             shutter.anchoredPosition = Vector3.Lerp(shutterEndPos, shutterStartPos, alpha);

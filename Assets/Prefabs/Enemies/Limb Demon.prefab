@@ -130,11 +130,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b63e62aa9de8b42e193524e982a1806c, type: 2}
-    - target: {fileID: 8996980385874086482, guid: 530d275a1b61b49dda2842a814c35e19,
-        type: 3}
-      propertyPath: maxHealth
-      value: 50
-      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3782800105717502986, guid: 530d275a1b61b49dda2842a814c35e19, type: 3}
     - {fileID: 4400099293831257741, guid: 530d275a1b61b49dda2842a814c35e19, type: 3}

@@ -52,7 +52,7 @@ public class New_Enemy_Pool_System : MonoBehaviour // By Samuel White
         if (enemyTypes[ID].enemyPool.Count > 0)
         {
             Enemy_Character_Data ECD = enemyTypes[ID].enemyPool.Dequeue();
-            // Debug.Log($"Spawned {ECD.name}");
+            Debug.Log($"Spawned {ECD.name}");
             return ECD;
         }
         else
@@ -67,6 +67,6 @@ public class New_Enemy_Pool_System : MonoBehaviour // By Samuel White
         EnemyType ET = enemyTypes[ECD.enemyID];
         ECD.gameObject.SetActive(false);
         enemyTypes[ECD.enemyID].enemyPool.Enqueue(ECD);
-        // Debug.Log($"{ET.name}s Remaining: {ET.enemyPool.Count}"); // Debug
+        Debug.Log($"{ET.name}s Remaining: {ET.enemyPool.Count}"); // Debug
     }
 }

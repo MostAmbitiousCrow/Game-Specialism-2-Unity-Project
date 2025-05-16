@@ -249,22 +249,19 @@ MonoBehaviour:
       sounds: []
     - listName: Shot_Hit
       playerSoundType: 3
-      sounds:
-      - {fileID: 8300000, guid: 784d4c56cb7a643e7b518b2607c0b001, type: 3}
+      sounds: []
     - listName: Frozen_Shot_Hit
-      playerSoundType: 4
-      sounds:
-      - {fileID: 8300000, guid: 784d4c56cb7a643e7b518b2607c0b001, type: 3}
+      playerSoundType: 0
+      sounds: []
     - listName: Deaths
-      playerSoundType: 5
+      playerSoundType: 0
       sounds: []
     - listName: Indicators
-      playerSoundType: 6
+      playerSoundType: 0
       sounds: []
     - listName: Powerup_Obtain
-      playerSoundType: 7
-      sounds:
-      - {fileID: 8300000, guid: 00667bbc5db07439fa2160d78ede49c3, type: 3}
+      playerSoundType: 0
+      sounds: []
     - listName: PU_Boomerang_Throw
       playerSoundType: 0
       sounds: []
@@ -289,16 +286,13 @@ MonoBehaviour:
     soundList:
     - listName: Imp_Attack
       enemySoundType: 0
-      sounds:
-      - {fileID: 8300000, guid: 283bb938eb9aa4ac2805683dfed029e9, type: 3}
+      sounds: []
     - listName: Imp_Death
       enemySoundType: 1
-      sounds:
-      - {fileID: 8300000, guid: e8fdcb53790414907a731b1e3ebcf452, type: 3}
+      sounds: []
     - listName: Imp_Spawn
       enemySoundType: 2
-      sounds:
-      - {fileID: 8300000, guid: 7ea4d5686653a45928cfb85bf9303fab, type: 3}
+      sounds: []
     - listName: Succubus_Attack
       enemySoundType: 3
       sounds:
@@ -315,8 +309,7 @@ MonoBehaviour:
       - {fileID: 8300000, guid: d7aaf2e3d51824ad1a97efe9ca407fc9, type: 3}
     - listName: Chef_Attack
       enemySoundType: 6
-      sounds:
-      - {fileID: 8300000, guid: 4810d90eb45aa4952a44f68a084773d9, type: 3}
+      sounds: []
     - listName: Chef_Death
       enemySoundType: 7
       sounds: []
@@ -332,11 +325,10 @@ MonoBehaviour:
     - listName: Limb_Spin
       enemySoundType: 10
       sounds:
-      - {fileID: 8300000, guid: 37cca9e30cf7d45f491a0ce490476bd2, type: 3}
+      - {fileID: 8300000, guid: 46c71d3511c684020b0fb5ca1e26836d, type: 3}
     - listName: Limb_Death
       enemySoundType: 11
-      sounds:
-      - {fileID: 8300000, guid: 46c71d3511c684020b0fb5ca1e26836d, type: 3}
+      sounds: []
     - listName: Limb_Spawn
       enemySoundType: 12
       sounds: []
@@ -355,11 +347,8 @@ MonoBehaviour:
     - listName: Enemy_Frozen
       enemySoundType: 17
       sounds: []
-    - listName: Enemy_Frozen_Smashed
-      enemySoundType: 18
-      sounds: []
     - listName: Enemy_Defeated
-      enemySoundType: 19
+      enemySoundType: 0
       sounds: []
   interfaceCategory:
     categoryName: 
@@ -386,7 +375,7 @@ MonoBehaviour:
       audioType: 3
       sounds: []
     - listName: Unpause
-      audioType: 4
+      audioType: 0
       sounds: []
     - listName: Button_GameStart
       audioType: 5
@@ -418,6 +407,11 @@ MonoBehaviour:
       music: {fileID: 0}
   musicAudioSource: {fileID: 6579145245743203193}
   audioMixer: {fileID: 24100000, guid: a28f884f9e1091a439662ebba969555c, type: 2}
+  masterAudioGroup: {fileID: 0}
+  playerAudioGroup: {fileID: 0}
+  enemyAudioGroup: {fileID: 0}
+  interfaceAudioGroup: {fileID: 0}
+  musicAudioGroup: {fileID: 0}
 --- !u!1 &2307188494550785423
 GameObject:
   m_ObjectHideFlags: 0

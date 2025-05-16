@@ -28,13 +28,9 @@ public class GameManager : MonoBehaviour // By Samuel White
 
     private void Awake()
     {
-        if (instance == null) instance = this;
-        else
-        {
-            Destroy(transform.root.gameObject);
-            return;
-        }
+        instance = this;
         DontDestroyOnLoad(transform.root);
+        GameData.isMultiplayer = true;
     }
 
     private void Start()
@@ -68,13 +64,11 @@ public class GameManager : MonoBehaviour // By Samuel White
             for (int i = 0; i < 2; i++)
             {
                 PlayerData data = new();
-                // GameObject o = Instantiate(playerPrefabs[i]);
-                GameObject o = playersFolder.transform.GetChild(i).GetChild(0).gameObject;
-                o.SetActive(true);
+                GameObject o = Instantiate(playerPrefabs[i]);
                 data.playerObject = o;
                 o.name = $"Player {i + 1}";
                 o.transform.position = spawnPositions[i];
-                // DontDestroyOnLoad(o);
+                DontDestroyOnLoad(o);
 
                 Player_Character_Data character_Data = o.GetComponent<Player_Character_Data>();
                 character_Data.playerNumber = i;
@@ -84,9 +78,8 @@ public class GameManager : MonoBehaviour // By Samuel White
                 o.transform.SetParent(playerInput.transform);
                 // newPlayerInput.actions = playerInput.actions;
                 // newPlayerInput.defaultControlScheme = playerInput.defaultControlScheme;
-                // playerInput.notificationBehavior = PlayerNotifications.BroadcastMessages;
+                playerInput.notificationBehavior = PlayerNotifications.BroadcastMessages;
                 playerInput.SwitchCurrentActionMap("Player Movement");
-                playerInput.uiInputModule = eventSystem.GetComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
                 data.playerInput = playerInput;
                 data.playerInput.neverAutoSwitchControlSchemes = true;
 
@@ -110,41 +103,35 @@ public class GameManager : MonoBehaviour // By Samuel White
         {
             // Create 1 Player
             PlayerData data = new();
-            // GameObject o = Instantiate(playerPrefabs[0]);
-            GameObject o = playersFolder.transform.GetChild(0).GetChild(0).gameObject;
-            o.SetActive(true);
+            GameObject o = Instantiate(playerPrefabs[0]);
             data.playerObject = o;
             o.name = $"Player 1";
-            o.transform.position = spawnPositions[0];
-            // DontDestroyOnLoad(o.transform.parent.gameObject); //TODO Find a cleaner solution to this (Don't have time...)
+            playerData.Add(data);
 
-            Player_Character_Data character_Data = o.GetComponent<Player_Character_Data>();
-            character_Data.playerNumber = 0;
-            character_Data.view = playerCamera;
+            Player_Character_Data pData = o.GetComponent<Player_Character_Data>();
+            pData.playerNumber = 0;
+            pData.view = playerCamera;
 
             PlayerInput playerInput = GameData.playerInputs[0];
-            o.transform.SetParent(playerInput.transform);
-            // newPlayerInput.actions = playerInput.actions;
-            // newPlayerInput.defaultControlScheme = playerInput.defaultControlScheme;
-            // playerInput.notificationBehavior = PlayerNotifications.BroadcastMessages;
-            playerInput.SwitchCurrentActionMap("Player Movement");
-            playerInput.uiInputModule = eventSystem.GetComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
-            data.playerInput = playerInput;
-            data.playerInput.neverAutoSwitchControlSchemes = true;
+            PlayerInput newPlayerInput = o.AddComponent<PlayerInput>();
+            newPlayerInput.actions = playerInput.actions;
+            newPlayerInput.defaultControlScheme = playerInput.defaultControlScheme;
+            newPlayerInput.SwitchCurrentActionMap("Player Movement");
+            playerData[0].playerInput = newPlayerInput;
 
             GameData.players.Add(o.transform);
-            playerData.Add(data);
 
             // Set Player Data
             playerData[0].characterData = playerData[0].playerObject.GetComponent<Player_Character_Data>();
             playerData[0].score = 0;
-            playerData[0].highScore = PlayerPrefs.GetFloat($"P1 HighScore", 0);
+            playerData[0].highScore = PlayerPrefs.GetFloat("HighScore", 0);
             playerData[0].lives = GameData.current_DifficultyData.difficultyData.playerLives;
             playerData[0].kills = 0;
             playerData[0].deaths = 0;
             playerData[0].isDead = false;
             playerData[0].characterData.playerNumber = 0;
             playerData[0].playerInput = GameData.playerInputs[0];
+            Debug.Log($"Singleplayer detected: Created {playerData.Count} player");
         }
     }
     #endregion
@@ -177,17 +164,12 @@ public class GameManager : MonoBehaviour // By Samuel White
 
     public static void UpdateGlobalFonts()
     {
-        for (int i = 0; i < instance.textComponents.Count; i++)
+        foreach (var item in instance.textComponents)
         {
-            instance.textComponents[i].font = Settings_Manager.dyslexiaFont ? instance.DyslexFont : instance.DefaultFont;
+            item.font = Settings_Manager.dyslexiaFont ? instance.DyslexFont : instance.DefaultFont;
         }
     }
 #endregion
-
-    public static void ClearGlobalFonts()
-    {
-        instance.textComponents.Clear();
-    }
 
     #region Award Score
     // ======================================== Award Score ========================================
@@ -283,7 +265,6 @@ public class GameManager : MonoBehaviour // By Samuel White
         GameData.canPause = true;
         CreateInitialPlayers();
         AudioManager.PlayMusic(AudioManager.MusicOptions.Play, 1, .5f, MusicCategory.MusicSoundTypes.Game_Intro);
-        Time.timeScale = Settings_Manager.gameSpeed;
         if (New_Level_Manager.instance != null) New_Level_Manager.instance.StartWaves();
         else Debug.LogError("Level Manager is Missing");
     }
@@ -295,9 +276,8 @@ public class GameManager : MonoBehaviour // By Samuel White
     {
         if (!GameData.canPause) return;
         GameData.isPaused = pause;
-        Time.timeScale = pause ? 0 : Settings_Manager.gameSpeed;
-        if (pause) AudioManager.UpdateMusic(AudioManager.MusicOptions.Pause);
-        else AudioManager.UpdateMusic(AudioManager.MusicOptions.Resume);
+        Time.timeScale = pause ? 0 : 1;
+        Player_Game_UI_Manager.instance.ShowPauseMenu(pause);
     }
     #endregion
 
@@ -305,14 +285,11 @@ public class GameManager : MonoBehaviour // By Samuel White
     // ======================================== Game Over ========================================
     public void GameOver()
     {
-        GameData.isGameStarted = false;
         GameData.isGameOver = true;
         GameData.isGameFinished = true;
         GameData.isPaused = true;
-        GameData.canPause = false;
-
         // TODO - Toggle Game Over Menu
-        Player_Game_UI_Manager.instance.ShowResultsMenu(true);
+         Player_Game_UI_Manager.instance.ShowResultsMenu(true);
     }
     #endregion
 

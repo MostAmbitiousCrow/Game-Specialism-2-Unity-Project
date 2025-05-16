@@ -73,7 +73,7 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
 
     void Awake()
     {
-        if (instance == null) instance = this;
+        instance = this;
     }
 
     public static void SaveSettings()
@@ -90,7 +90,7 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
             PlayerPrefs.SetInt("ColourBlindMode", (int)colourBlindMode); // 0 = None, 1 = Protanopia, 2 = Deuteranopia, 3 = Tritanopia
             PlayerPrefs.SetInt("DyslexiaFont", dyslexiaFont ? 1 : 0); // 0 = false, 1 = true
             // Motor
-            PlayerPrefs.SetInt("PlayerAutoShoot", playerAutoShoot ? 1 : 0); // 0 = false, 1 = true
+            PlayerPrefs.SetInt("PlayerAutoShoot", 0); // 0 = false, 1 = true
             PlayerPrefs.SetFloat("GameSpeed", gameSpeed); // Global Gameplay Speed Multiplier. 1 = normal speed
             // Hearing
             PlayerPrefs.SetInt("ControllerVibration", controllerVibration ? 0 : 1); // 0 = false, 1 = true

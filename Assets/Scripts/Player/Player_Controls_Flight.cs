@@ -59,13 +59,13 @@ public class Player_Controls_Flight : MonoBehaviour // By Samuel White
             Mathf.Clamp(newPos.y, GameData.WorldLimits.worldLowerLimit, GameData.WorldLimits.worldUpperYLimit));
     }
 
-    public void OnMove(InputAction.CallbackContext context)
+    public void OnMove(InputValue context)
     {
-        inputDirection = context.ReadValue<Vector2>();
+        inputDirection = context.Get<Vector2>();
     }
 
-    public void OnPoint(InputAction.CallbackContext context)
+    public void OnPoint(InputValue context)
     {
-        cursorPosition = context.ReadValue<Vector2>();
+        cursorPosition = context.Get<Vector2>();
     }
 }

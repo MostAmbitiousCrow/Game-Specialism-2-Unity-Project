@@ -374,7 +374,7 @@ Transform:
   m_GameObject: {fileID: 705508472606234944}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 0, z: -0.15}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -602,7 +602,7 @@ Transform:
   m_GameObject: {fileID: 1808497709225198605}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: -0, z: -0.15}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1433,6 +1433,9 @@ MonoBehaviour:
   screenWidth: 0
   screenHeight: 0
   useCursorMovement: 0
+  worldXLimit: 4.5
+  worldLowerYLimit: -2
+  worldUpperYLimit: 2.75
   cursorPosition: {x: 0, y: 0}
   inputDirection: {x: 0, y: 0}
 --- !u!114 &6833870661536184949
@@ -1453,14 +1456,6 @@ MonoBehaviour:
   fireRate: 0.05
   shootPointA: {fileID: 2785143755135533972}
   shootPointB: {fileID: 5443200363664097008}
-  bullet_Sprites:
-  - {fileID: -853861654, guid: 1e3b40ad689094db1879f4bbdad28f02, type: 3}
-  - {fileID: 806755312, guid: 1e3b40ad689094db1879f4bbdad28f02, type: 3}
-  - {fileID: 1293927878, guid: 1e3b40ad689094db1879f4bbdad28f02, type: 3}
-  - {fileID: -244824861, guid: 1e3b40ad689094db1879f4bbdad28f02, type: 3}
-  - {fileID: -1802501053, guid: 1e3b40ad689094db1879f4bbdad28f02, type: 3}
-  - {fileID: 725939888, guid: 1e3b40ad689094db1879f4bbdad28f02, type: 3}
-  - {fileID: -1950756939, guid: 1e3b40ad689094db1879f4bbdad28f02, type: 3}
   Character: {fileID: 5949559266920600587}
   enemyDetectRings:
   - {fileID: 6283365587399571215}
@@ -1481,15 +1476,8 @@ MonoBehaviour:
   freezeMeterMax: 100
   freezeModeTime: 16
   freezeMeterDecayRate: 1
-  frozenBullet_Sprites:
-  - {fileID: -826558948, guid: d47e862c6c5ab41f69fd644a71e76fa8, type: 3}
-  - {fileID: 979130662, guid: d47e862c6c5ab41f69fd644a71e76fa8, type: 3}
-  - {fileID: -633827061, guid: d47e862c6c5ab41f69fd644a71e76fa8, type: 3}
-  - {fileID: -1287534361, guid: d47e862c6c5ab41f69fd644a71e76fa8, type: 3}
-  - {fileID: -1892270468, guid: d47e862c6c5ab41f69fd644a71e76fa8, type: 3}
-  - {fileID: -643714636, guid: d47e862c6c5ab41f69fd644a71e76fa8, type: 3}
-  - {fileID: -805452779, guid: d47e862c6c5ab41f69fd644a71e76fa8, type: 3}
   enableDebug: 1
+  mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &7071102896247699362
 MonoBehaviour:
   m_ObjectHideFlags: 0

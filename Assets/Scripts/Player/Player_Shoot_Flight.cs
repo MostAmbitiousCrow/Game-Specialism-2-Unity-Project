@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,14 +11,9 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
     [SerializeField] private ScriptableObject projectileData;
     [SerializeField] private bool isShooting = false;
     [SerializeField] float fireRate = .2f;
-    [SerializeField] private Transform shootPointA, shootPointB;
+    [SerializeField] Transform shootPointA, shootPointB;
     private float t = 0;
     private bool lG;
-    [Space(10)]
-    [SerializeField] Sprite[] bullet_Sprites;
-    private int spriteCount;
-    private int currentBullet;
-
     [Header("Player Character")]
     public Transform Character;
 
@@ -43,22 +37,19 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
     public float freezeMeterMax = 100;
     [SerializeField] float freezeModeTime = 16;
     [SerializeField] float freezeMeterDecayRate = 1;
-    [Space(10)]
-    [SerializeField] Sprite[] frozenBullet_Sprites;
 
     [Header("Debug")]
     [SerializeField] bool enableDebug = true;
+    [SerializeField] Mesh mesh;
     
     void Start()
     {
         transform.GetChild(0).parent = null; // Unparent the rings
         playerData.view = Camera.main.transform;
-        spriteCount = bullet_Sprites.Length;
     }
 
     void Update()
     {
-        if(GameData.isPaused) return;
         Shooting();
         DetectEnemies();
         UpdateRings();
@@ -90,14 +81,15 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
 
     void Shooting()
     {
-        if (isShooting || Settings_Manager.playerAutoShoot) 
+        if (isShooting)
         {
             t += Global_Game_Speed.GetDeltaTime();
             if (t >= fireRate)
             {
                 Shoot();
+
                 t = 0;
-            }
+            }   
         }
     }
 
@@ -130,14 +122,13 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
                     Quaternion look = detectedEnemies.Count == 0 ? Quaternion.LookRotation(transform.forward)
                         : Quaternion.LookRotation(detectedEnemies[i].position - pos.position);
                     p.transform.SetPositionAndRotation(pos.position, look);
-
-                    p.spriteRenderer.sprite = freezeModeActive ? frozenBullet_Sprites[currentBullet] : bullet_Sprites[currentBullet];
-                    currentBullet = (currentBullet + 1) % spriteCount; // Damn that's cool! (if current bullet is modular to the spritecount, set as zero) https://discussions.unity.com/t/c-what-is/505394/4
-
                     p.gameObject.SetActive(true);
                     lG = !lG;
                 }
-                else Debug.LogWarning("Failed to get bullet from pool.");
+                else
+                {
+                    Debug.LogWarning("Failed to get bullet from pool.");
+                }   
             }
         }
         else
@@ -146,13 +137,9 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
             if (p != null)
             {
                 Transform pos = lG ? shootPointA : shootPointB;
-                // Vector3 dir = transform.position - playerData.view.position;
+                Vector3 dir = transform.position - playerData.view.position;
                 Quaternion rot = Quaternion.LookRotation(transform.forward);
                 p.transform.SetPositionAndRotation(pos.position, rot);
-
-                p.spriteRenderer.sprite = freezeModeActive ? frozenBullet_Sprites[currentBullet] : bullet_Sprites[currentBullet];
-                currentBullet = (currentBullet + 1) % spriteCount;
-
                 p.gameObject.SetActive(true);
                 lG = !lG;
             }
@@ -163,23 +150,15 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
         }
     }
 
-    public void OnFire(InputAction.CallbackContext context)
+    public void OnFire(InputValue context)
     {
-        if (context.performed) // Button pressed
-        {
-            isShooting = true;
-            Debug.Log("Shooting started.");
-        }
-        else if (context.canceled) // Button released
-        {
-            isShooting = false;
-            Debug.Log("Shooting stopped.");
-        }
+        isShooting = context.isPressed;
+        // isShooting = context.ReadValueAsButton();
     }
 
-    public void OnFreezeMeter(InputAction.CallbackContext  context)
+    public void OnFreezeMeter(InputValue context)
     {
-        if (context.performed && freezeMeter >= freezeMeterMax && !freezeModeActive)
+        if (context.isPressed && freezeMeter >= freezeMeterMax && !freezeModeActive)
         {
             freezeModeActive = true;
             freezeMeter = freezeMeterMax;
