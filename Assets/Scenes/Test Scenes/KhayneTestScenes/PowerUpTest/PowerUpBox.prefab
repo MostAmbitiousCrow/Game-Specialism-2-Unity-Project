@@ -121,7 +121,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PowerUps:
   - {fileID: 575410589969998064, guid: dd61f3315b68fe24ba4922139e28f03e, type: 3}
-  - {fileID: 3313291142366313410, guid: 51c4440d44e974a47982a48280752d91, type: 3}
   - {fileID: 8183920815096363581, guid: bc5fe818502b98243b6db190698ce8d3, type: 3}
   - {fileID: 5150809719252542253, guid: 5acf7976d6e86e24bb2fef4ce146b745, type: 3}
   SetPowerUp: {fileID: 0}

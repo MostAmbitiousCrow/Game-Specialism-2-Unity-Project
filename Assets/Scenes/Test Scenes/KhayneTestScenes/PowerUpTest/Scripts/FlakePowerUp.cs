@@ -48,10 +48,11 @@ public class FlakePowerUp : MonoBehaviour // By Khayne Lutchmun.
         }
     }
 
-    public void PowerUpDeactivate() 
+    public void PowerUpDeactivate()
     {
         enabled = false;
         ready = false;
+        FlakePlayerInput.enabled = false; // Disable the player input component
     }
 
     public void PowerUpTimer() 

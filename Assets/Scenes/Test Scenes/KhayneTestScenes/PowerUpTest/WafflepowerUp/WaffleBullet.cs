@@ -12,7 +12,7 @@ public class WaffleBullet : MonoBehaviour
     private Vector3 startPosition;
     private bool returning = false;
     private Transform player;
-    private BoomerangPowerUp powerUpScript;
+    private BoomerangPowerUp boomerangPowerUpScript;
 
     void Start()
     {
@@ -51,7 +51,7 @@ public class WaffleBullet : MonoBehaviour
             {
                 // Boomerang caught by player
                 returning = false;
-                powerUpScript.ResetFireCount(); // Notify the power-up script to reset the fire count
+                boomerangPowerUpScript.ResetFireCount(); // Notify the power-up script to reset the fire count
                 Destroy(gameObject); // Or handle reuse logic
             }
         }
@@ -69,12 +69,17 @@ public class WaffleBullet : MonoBehaviour
             c.GetComponent<Character_Health_Script>().Damage(damage); // Damage the target
             returning = true; // Start returning to the player
         }
+        else if (c.CompareTag("Player"))
+        {
+            // If the player collides with the boomerang, it should return to the player
+            boomerangPowerUpScript.ResetFireCount(); // Notify the power-up script to reset the fire count
+        }
     }
 
     public void Initialize(Transform playerTransform, BoomerangPowerUp powerUp)
     {
         player = playerTransform;
-        powerUpScript = powerUp;
+        boomerangPowerUpScript = powerUp;
     }
 
     public void Deactivate() // Destroy the bullet

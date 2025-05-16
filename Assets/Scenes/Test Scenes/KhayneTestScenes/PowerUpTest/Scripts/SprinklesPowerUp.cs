@@ -14,11 +14,15 @@ public class SprinklesPowerUp : MonoBehaviour // By Khayne Lutchmun.
     [SerializeField] int maxbullets = 60; // The maximum number of bullets that
     [SerializeField] int currentBullets; // The current number of bullets.
     private float nextFireTime; // The next time the sprinkles will shoot.
+    [SerializeField] PlayerInput SprinklesPlayerInput; // Reference to the player input component
+
 
     private void Start()
     {
         currentBullets = maxbullets; // Initialize the current bullets to the maximum.
         sprinklesGun.SetActive(false); // Deactivate the sprinkles gun at the start.
+        SprinklesPlayerInput = GetComponent<PlayerInput>(); // Get the PlayerInput component.
+        SprinklesPlayerInput.enabled = false; // Disable the player input component.
     }
     private void Update()
     {
@@ -32,6 +36,7 @@ public class SprinklesPowerUp : MonoBehaviour // By Khayne Lutchmun.
             sprinklesGun.SetActive(true); // Activate the sprinkles gun.
             Fire(); // Start firing the sprinkles.
         }
+        SprinklesPlayerInput.enabled = true; // Enable the player input component.
     }
 
 
@@ -40,6 +45,8 @@ public class SprinklesPowerUp : MonoBehaviour // By Khayne Lutchmun.
         enabled = false; // Disable this script.
         ready = false; // Set the power-up to not ready.
         sprinklesGun.SetActive(false); // Deactivate the sprinkles gun.
+        SprinklesPlayerInput.enabled = false; // Disable the player input component.
+        currentBullets = maxbullets; // Reset the current bullets to the maximum.
     }
 
     public void FireCheck() // Called to check if the fire input is triggered.
