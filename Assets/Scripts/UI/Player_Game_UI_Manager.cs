@@ -1,5 +1,7 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 public class Player_Game_UI_Manager : MonoBehaviour // By Samuel White
@@ -52,7 +54,11 @@ public class Player_Game_UI_Manager : MonoBehaviour // By Samuel White
         public TextMeshProUGUI Kills, Lives, Time, Score;
     }
 
+<<<<<<< HEAD
 
+=======
+    private int playerNum; // The Player Number who currently has the UI open
+>>>>>>> Level-Editor-Prototype
 
     void Awake()
     {
@@ -63,33 +69,46 @@ public class Player_Game_UI_Manager : MonoBehaviour // By Samuel White
     // Update is called once per frame
     void Update()
     {
+<<<<<<< HEAD
         if (!GameData.isGameStarted) return; // Don't update if the game hasn't started yet
         UpdatePlayerHealth();
         UpdatePlayerFreeze();
+=======
+        if (GameData.isGameStarted) // Update when the game has started
+        {
+            UpdateUI();
+        }
+>>>>>>> Level-Editor-Prototype
     }
 
     #region Update Player Health
 
-    public void UpdatePlayerHealth()
+    public void UpdateUI()
     {
-        if (GameData.isMultiplayer)
+        int count = Mathf.Min(playerHealthBars.Length, GameManager.playerData.Count);
+        for (int i = 0; i < count; i++)
         {
-            for (int i = 0; i < playerHealthBars.Length - 1; i++)
+            // Update Health
+            var minHealth = GameManager.playerData[i].characterData.playerHealth.health;
+            var maxHealth = GameManager.playerData[i].characterData.playerHealth.maxHealth;
+            playerHealthBars[i].fillAmount = minHealth / maxHealth;
+            if (minHealth <= 0) playerHealthBars[i].fillAmount = 0f;
+
+            // Update Freeze Meter
+            var minMeter = GameManager.playerData[i].characterData.playerShoot.freezeMeter;
+            var maxMeter = GameManager.playerData[i].characterData.playerShoot.freezeMeterMax;
+            playerFreezeBars[i].fillAmount = minMeter / maxMeter;
+            if (minMeter <= 0) playerFreezeBars[i].fillAmount = 0f;
+
+            // Update Score Gameplay UI
+            if (GameManager.playerData[i].characterData.playerShoot.freezeMeter <= 0)
             {
-                playerHealthBars[i].fillAmount = GameManager.playerData[i].characterData.playerHealth.health / GameManager.playerData[i].characterData.playerHealth.maxHealth;
-                if (GameManager.playerData[i].characterData.playerHealth.health <= 0) { playerHealthBars[i].fillAmount = 0f; }
+                playerFreezeBars[i].fillAmount = 0f;
             }
-        }
-        else
-        {
-            playerHealthBars[0].fillAmount = GameManager.playerData[0].characterData.playerHealth.health / GameManager.playerData[0].characterData.playerHealth.maxHealth;
-            if (GameManager.playerData[0].characterData.playerHealth.health <= 0) { playerHealthBars[0].fillAmount = 0f; }
-        }
-    }
-    #endregion
 
-    #region Update Player Freeze Bars
+            playerScoreTexts[i].text = $"p{i} Score: {GameManager.playerData[i].score}";
 
+<<<<<<< HEAD
     public void UpdatePlayerFreeze()
     {
         if (GameData.isMultiplayer)
@@ -114,6 +133,8 @@ public class Player_Game_UI_Manager : MonoBehaviour // By Samuel White
             {
                 playerFreezeBars[0].fillAmount = 0f;
             }
+=======
+>>>>>>> Level-Editor-Prototype
         }
     }
     #endregion
@@ -135,16 +156,32 @@ public class Player_Game_UI_Manager : MonoBehaviour // By Samuel White
 
     #region Show Menus
 
-    public void ShowPauseMenu(bool show)
+    public void UI_ShowPauseMenu(bool show)
     {
+        ShowPauseMenu(show, playerNum);
+    }
+
+    public void ShowPauseMenu(bool show, int pNum)
+    {
+        playerNum = pNum;
+
         if (!GameData.canPause) return;
         pauseMenu.SetActive(show);
         GameManager.instance.PauseGame(show);
+<<<<<<< HEAD
+=======
+        GameManager.instance.eventSystem.GetComponent<InputSystemUIInputModule>().actionsAsset 
+            = GameData.playerInputs[playerNum].actions;
+        GameData.playerInputs[playerNum].SwitchCurrentActionMap(show ? "UI" : "Player Movement");
+        GameManager.instance.EventSystem_SelectUIButton(pause_resumeButton);
+        AudioManager.UpdateMusic(show ? AudioManager.MusicOptions.Pause : AudioManager.MusicOptions.Resume);
+>>>>>>> Level-Editor-Prototype
     }
 
     public void ShowResultsMenu(bool show)
     {
         resultsMenu.SetActive(show);
+        GameData.playerInputs[playerNum].SwitchCurrentActionMap(show ? "UI" : "Player Movement");
         if (show)
         {
             if (GameData.isGameOver) resultTitles[0].SetActive(true);
@@ -212,7 +249,10 @@ public class Player_Game_UI_Manager : MonoBehaviour // By Samuel White
 
     public void NextLevel()
     {
-        Scene_Loader_Transition.LoadScene(GameData.currentLevel++);
+        //Scene_Loader_Transition.SceneNames scene = GameData.currentLevel++;
+        GameData.currentLevel = GameData.currentLevel++;
+        Scene_Loader_Transition.LoadScene(GameData.currentLevel);
+        Debug.Log($"Next Level: {GameData.currentLevel}");
     }
 
     public void ReturnToMainMenu()

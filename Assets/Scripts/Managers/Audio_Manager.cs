@@ -276,7 +276,12 @@ public class AudioManager : MonoBehaviour // By Samuel White
     }
     #endregion
 
+<<<<<<< HEAD
 #if UNITY_EDITOR
+=======
+#region Display Inspector Sounds
+// #if UNITY_EDITOR
+>>>>>>> Level-Editor-Prototype
     // Creates and names the sound lists in the inspector
     private void OnDrawGizmos()
     {
@@ -286,12 +291,12 @@ public class AudioManager : MonoBehaviour // By Samuel White
         {
             playerCategory.soundList[i].listName = pNames[i];
 
-            //string[] slNames = Enum.GetNames(typeof(PlayerCategory.SoundList));
-            //Array.Resize(ref playerCategory[i].soundList, slNames.Length);
-            //for (int j = 0; j < categoryList[i].soundList.Length; j++)
-            //{
+            // string[] slNames = Enum.GetNames(typeof(PlayerCategory.SoundList));
+            // Array.Resize(ref playerCategory[i].soundList, slNames.Length);
+            // for (int j = 0; j < categoryList[i].soundList.Length; j++)
+            // {
             //    categoryList[i].soundList[j].listName = slNames[j];
-            //}
+            // }
         }
         string[] eNames = Enum.GetNames(typeof(EnemyCategory.EnemySoundTypes));
         Array.Resize(ref enemyCategory.soundList, eNames.Length);
@@ -306,7 +311,7 @@ public class AudioManager : MonoBehaviour // By Samuel White
             interfaceCategory.soundList[i].listName = iNames[i];
         }
     }
-#endif
+// #endif
 }
 
 [Serializable]
@@ -314,8 +319,8 @@ public struct PlayerCategory
 {
     [HideInInspector] public string categoryName; //  Name of Sound Category
     public AudioSource audioSource;
-    public enum PlayerSoundTypes { Took_Damage, Fire_Bullet, Frozen_Shot, Shot_Hit, Frozen_Shot_Hit, Deaths, Indicators, Powerup_Obtain, PU_Boomerang_Throw, PU_Boomerang_Hit,
-    PU_Boomerang_Catch, PU_Flake, PU_Sprinkles, PU_BubbleGum, }
+    public enum PlayerSoundTypes { Took_Damage, Fire_Bullet, Fire_Frozen_Shot, Shot_Hit, Frozen_Shot_Hit, FreezeMode_Activate, Deaths, Indicators, Powerup_Obtain, 
+    PU_Boomerang_Throw, PU_Boomerang_Hit, PU_Boomerang_Catch, PU_Flake, PU_Sprinkles, PU_BubbleGum, }
     [SerializeField] public SoundList[] soundList; // List of Types of Sounds
     [Serializable]
     public struct SoundList

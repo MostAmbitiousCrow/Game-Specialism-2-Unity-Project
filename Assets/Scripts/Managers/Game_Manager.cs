@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 
 public class GameManager : MonoBehaviour // By Samuel White
 {
@@ -68,7 +69,10 @@ public class GameManager : MonoBehaviour // By Samuel White
                 data.playerObject = o;
                 o.name = $"Player {i + 1}";
                 o.transform.position = spawnPositions[i];
+<<<<<<< HEAD
                 DontDestroyOnLoad(o);
+=======
+>>>>>>> Level-Editor-Prototype
 
                 Player_Character_Data character_Data = o.GetComponent<Player_Character_Data>();
                 character_Data.playerNumber = i;
@@ -76,12 +80,15 @@ public class GameManager : MonoBehaviour // By Samuel White
 
                 PlayerInput playerInput = GameData.playerInputs[i];
                 o.transform.SetParent(playerInput.transform);
+<<<<<<< HEAD
                 // newPlayerInput.actions = playerInput.actions;
                 // newPlayerInput.defaultControlScheme = playerInput.defaultControlScheme;
                 playerInput.notificationBehavior = PlayerNotifications.BroadcastMessages;
                 playerInput.SwitchCurrentActionMap("Player Movement");
                 data.playerInput = playerInput;
                 data.playerInput.neverAutoSwitchControlSchemes = true;
+=======
+>>>>>>> Level-Editor-Prototype
 
                 GameData.players.Add(o.transform);
                 playerData.Add(data);
@@ -96,6 +103,13 @@ public class GameManager : MonoBehaviour // By Samuel White
                 playerData[i].isDead = false;
                 playerData[i].characterData.playerNumber = i;
                 playerData[i].playerInput = GameData.playerInputs[i];
+                
+                // Update Event System UI Inputs and Mapping
+                playerInput.SwitchCurrentActionMap("Player Movement");
+                UpdateUIInput();
+                playerInput.uiInputModule = eventSystem.GetComponent<InputSystemUIInputModule>();
+                data.playerInput = playerInput;
+                data.playerInput.neverAutoSwitchControlSchemes = true;
             }
             Debug.Log($"Multiplayer detected: Created {playerData.Count} players");
         }
@@ -106,18 +120,26 @@ public class GameManager : MonoBehaviour // By Samuel White
             GameObject o = Instantiate(playerPrefabs[0]);
             data.playerObject = o;
             o.name = $"Player 1";
+<<<<<<< HEAD
             playerData.Add(data);
+=======
+            o.transform.position = spawnPositions[0];
+>>>>>>> Level-Editor-Prototype
 
             Player_Character_Data pData = o.GetComponent<Player_Character_Data>();
             pData.playerNumber = 0;
             pData.view = playerCamera;
 
             PlayerInput playerInput = GameData.playerInputs[0];
+<<<<<<< HEAD
             PlayerInput newPlayerInput = o.AddComponent<PlayerInput>();
             newPlayerInput.actions = playerInput.actions;
             newPlayerInput.defaultControlScheme = playerInput.defaultControlScheme;
             newPlayerInput.SwitchCurrentActionMap("Player Movement");
             playerData[0].playerInput = newPlayerInput;
+=======
+            o.transform.SetParent(playerInput.transform);
+>>>>>>> Level-Editor-Prototype
 
             GameData.players.Add(o.transform);
 
@@ -131,7 +153,17 @@ public class GameManager : MonoBehaviour // By Samuel White
             playerData[0].isDead = false;
             playerData[0].characterData.playerNumber = 0;
             playerData[0].playerInput = GameData.playerInputs[0];
+<<<<<<< HEAD
             Debug.Log($"Singleplayer detected: Created {playerData.Count} player");
+=======
+
+            // Update Event System UI Inputs and Mapping
+            playerInput.SwitchCurrentActionMap("Player Movement");
+            UpdateUIInput();
+            playerInput.uiInputModule = eventSystem.GetComponent<InputSystemUIInputModule>();
+            data.playerInput = playerInput;
+            data.playerInput.neverAutoSwitchControlSchemes = true;
+>>>>>>> Level-Editor-Prototype
         }
     }
     #endregion
@@ -139,10 +171,20 @@ public class GameManager : MonoBehaviour // By Samuel White
     #region Reset Players
     public void DestroyPlayers()
     {
+        // Destroy all PlayerInput GameObjects and Data
         for (int i = 0; i < GameData.playerInputs.Count; i++)
         {
-            Destroy(GameData.playerInputs[0].gameObject);
+            PlayerInput pInput = GameData.playerInputs[i];
+            if (pInput != null) Destroy(pInput.gameObject);
         }
+        // foreach (var pi in GameData.playerInputs)
+        // {
+        //     if (pi != null)
+        //         Destroy(pi.gameObject);
+        // }
+        GameData.playerInputs.Clear();
+        GameData.players.Clear();
+        playerData.Clear();
     }
     #endregion
 
@@ -171,6 +213,23 @@ public class GameManager : MonoBehaviour // By Samuel White
     }
 #endregion
 
+<<<<<<< HEAD
+=======
+    public void UpdateUIInput()
+    {
+        if (eventSystem == null) eventSystem = GameObject.FindWithTag("EventSystem").GetComponent<EventSystem>();
+
+        InputSystemUIInputModule uiModule = eventSystem.GetComponent<InputSystemUIInputModule>();
+        uiModule.actionsAsset = GameData.playerInputs[0].actions;
+        GameData.playerInputs[0].uiInputModule = uiModule;
+    }
+
+    public static void ClearGlobalFonts()
+    {
+        instance.textComponents.Clear();
+    }
+
+>>>>>>> Level-Editor-Prototype
     #region Award Score
     // ======================================== Award Score ========================================
     public void AwardScore(int playerID, ScoreContext context)
@@ -274,6 +333,7 @@ public class GameManager : MonoBehaviour // By Samuel White
     // ======================================== Pause Game ========================================
     public void PauseGame(bool pause)
     {
+        Debug.Log($"Game Paused: {pause}");
         if (!GameData.canPause) return;
         GameData.isPaused = pause;
         Time.timeScale = pause ? 0 : 1;
@@ -333,6 +393,14 @@ public class GameManager : MonoBehaviour // By Samuel White
         eventSystem.SetSelectedGameObject(button);
     }
     #endregion
+
+    #region Scene Loaded
+
+    public void SceneLoaded()
+    {
+        eventSystem = GameObject.FindWithTag("EventSystem").GetComponent<EventSystem>();
+    }
+    #endregion
 }
 
 #region Game Data
@@ -357,7 +425,9 @@ public static class GameData
     public static Scene_Loader_Transition.SceneNames currentLevel;
     public static int playerCount = 0;
 
+    // public static Dictionary<PlayerInput, Player_Controller_Rumble> playerComponents;
     public static List<PlayerInput> playerInputs = new();
+    public static List<Player_Controller_Rumble> controllerRumbles = new();
     public class WorldLimits
     {
         public static float worldXLimit = 4.5f;

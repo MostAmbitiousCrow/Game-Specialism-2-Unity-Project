@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.Rendering;
 
 public class Settings_Menu_Manager : MonoBehaviour // By Samuel White
 {
@@ -32,7 +31,7 @@ public class Settings_Menu_Manager : MonoBehaviour // By Samuel White
     void Start()
     {
         UpdateUI();
-        gameObject.SetActive(false);
+        if(GameData.currentLevel == Scene_Loader_Transition.SceneNames.Main_Menu) gameObject.SetActive(false);
     }
 
     #region Settings Menu Content
@@ -95,7 +94,12 @@ public class Settings_Menu_Manager : MonoBehaviour // By Samuel White
 
         public void ControllerVibration()
         {
+<<<<<<< HEAD
             Settings_Manager.controllerVibration = gamepadVibrationToggle.isOn;
+=======
+            Settings_Manager.SetControllerVibration(gamepadVibrationToggle.isOn);
+            foreach (var item in GameData.controllerRumbles) item.StartRumble(1, .2f, 1);
+>>>>>>> Level-Editor-Prototype
         }
 
         public void AutoShoot()

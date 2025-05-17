@@ -14,7 +14,23 @@ public class Player_Character_Data : MonoBehaviour
 
     public void OnPause()
     {
+<<<<<<< HEAD
         Player_Game_UI_Manager.instance.ShowPauseMenu(true);
         Debug.Log($"{name} Paused Game");
+=======
+        if (context.performed && GameData.canPause)
+        {
+            if (!GameData.isPaused)
+            {
+                Player_Game_UI_Manager.instance.ShowPauseMenu(true, playerNumber);
+                Debug.Log($"{name} Paused Game");
+            }
+            else
+            {
+                Player_Game_UI_Manager.instance.ShowPauseMenu(false, playerNumber);
+                Debug.Log($"{name} Unpaused Game");  
+            }
+        }
+>>>>>>> Level-Editor-Prototype
     }
 }
