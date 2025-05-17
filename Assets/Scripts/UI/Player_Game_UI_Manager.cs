@@ -1,5 +1,7 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 public class Player_Game_UI_Manager : MonoBehaviour // By Samuel White
@@ -61,6 +63,8 @@ public class Player_Game_UI_Manager : MonoBehaviour // By Samuel White
     {
         public TextMeshProUGUI Kills, Lives, Time, Score;
     }
+
+    private int playerNum; // The Player Number who currently has the UI open
 
     void Awake()
     {
@@ -163,11 +167,21 @@ public class Player_Game_UI_Manager : MonoBehaviour // By Samuel White
 
     #region Show Menus
 
-    public void ShowPauseMenu(bool show)
+    public void UI_ShowPauseMenu(bool show)
     {
+        ShowPauseMenu(show, playerNum);
+    }
+
+    public void ShowPauseMenu(bool show, int pNum)
+    {
+        playerNum = pNum;
+
         if (!GameData.canPause) return;
         pauseMenu.SetActive(show);
         GameManager.instance.PauseGame(show);
+        GameManager.instance.eventSystem.GetComponent<InputSystemUIInputModule>().actionsAsset 
+            = GameData.playerInputs[playerNum].actions;
+        GameData.playerInputs[playerNum].SwitchCurrentActionMap(show ? "UI" : "Player Movement");
         GameManager.instance.EventSystem_SelectUIButton(pause_resumeButton);
         AudioManager.UpdateMusic(show ? AudioManager.MusicOptions.Pause : AudioManager.MusicOptions.Resume);
     }

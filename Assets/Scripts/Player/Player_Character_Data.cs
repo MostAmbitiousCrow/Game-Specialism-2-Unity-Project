@@ -15,16 +15,16 @@ public class Player_Character_Data : MonoBehaviour
 
     public void OnPause(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && GameData.canPause)
         {
             if (!GameData.isPaused)
             {
-                Player_Game_UI_Manager.instance.ShowPauseMenu(true);
+                Player_Game_UI_Manager.instance.ShowPauseMenu(true, playerNumber);
                 Debug.Log($"{name} Paused Game");
             }
             else
             {
-                Player_Game_UI_Manager.instance.ShowPauseMenu(false);
+                Player_Game_UI_Manager.instance.ShowPauseMenu(false, playerNumber);
                 Debug.Log($"{name} Unpaused Game");  
             }
         }

@@ -32,7 +32,7 @@ public class Settings_Menu_Manager : MonoBehaviour // By Samuel White
     void Start()
     {
         UpdateUI();
-        gameObject.SetActive(false);
+        if(GameData.currentLevel == Scene_Loader_Transition.SceneNames.Main_Menu) gameObject.SetActive(false);
     }
 
     #region Settings Menu Content

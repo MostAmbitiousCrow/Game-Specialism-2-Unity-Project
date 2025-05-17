@@ -4,6 +4,7 @@ using System.Collections;
 using UnityEngine.InputSystem;
 using System;
 using TMPro;
+using UnityEngine.InputSystem.UI;
 
 public class Main_Menu_Manager : MonoBehaviour // By Samuel White
 {
@@ -96,15 +97,18 @@ public class Main_Menu_Manager : MonoBehaviour // By Samuel White
     {
         Debug.Log("Player Joined");
         AudioManager.PlayInterfaceSound(InterfaceCategory.InterfaceSoundTypes.Player_Joined);
+
         playerBoxes[Mathf.Clamp(playerCount, 0, 1)].SetActive(true);
+
         playerInput.ActivateInput();
         GameData.playerInputs.Add(playerInput);
         playerInput.transform.SetParent(GameManager.instance.playersFolder.transform);
         playerCount = GameData.playerInputs.Count;
         playerInput.gameObject.name = $"Player {playerCount}";
         playerInput.neverAutoSwitchControlSchemes = true;
+        playerInput.SwitchCurrentActionMap("UI");
 
-        if (playerInput.devices[0] is Gamepad) GameData.controllerRumbles.Add(playerInput.GetComponent<Player_Controller_Rumble>());
+        GameManager.instance.UpdateUIInput();
 
         if (playerCount >= 1) startButton.interactable = true;
     }
@@ -142,7 +146,10 @@ public class Main_Menu_Manager : MonoBehaviour // By Samuel White
         Destroy(playerInput.gameObject);
         GameData.playerInputs.Remove(playerInput);
         playerCount = GameData.playerInputs.Count;
-        if (playerCount < 1) startButton.interactable = false;
+        if (playerCount < 1) 
+        {
+            startButton.interactable = false;
+        }
     }
 
     public void PlayGame()

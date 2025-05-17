@@ -75,7 +75,6 @@ public class GameManager : MonoBehaviour // By Samuel White
                 data.playerObject = o;
                 o.name = $"Player {i + 1}";
                 o.transform.position = spawnPositions[i];
-                o.transform.parent.GetComponent<MultiplayerEventSystem>().enabled = true;
 
                 Player_Character_Data character_Data = o.GetComponent<Player_Character_Data>();
                 character_Data.playerNumber = i;
@@ -83,13 +82,6 @@ public class GameManager : MonoBehaviour // By Samuel White
 
                 PlayerInput playerInput = GameData.playerInputs[i];
                 o.transform.SetParent(playerInput.transform);
-                // newPlayerInput.actions = playerInput.actions;
-                // newPlayerInput.defaultControlScheme = playerInput.defaultControlScheme;
-                // playerInput.notificationBehavior = PlayerNotifications.BroadcastMessages;
-                playerInput.SwitchCurrentActionMap("Player Movement");
-                playerInput.uiInputModule = eventSystem.GetComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
-                data.playerInput = playerInput;
-                data.playerInput.neverAutoSwitchControlSchemes = true;
 
                 GameData.players.Add(o.transform);
                 playerData.Add(data);
@@ -104,6 +96,13 @@ public class GameManager : MonoBehaviour // By Samuel White
                 playerData[i].isDead = false;
                 playerData[i].characterData.playerNumber = i;
                 playerData[i].playerInput = GameData.playerInputs[i];
+                
+                // Update Event System UI Inputs and Mapping
+                playerInput.SwitchCurrentActionMap("Player Movement");
+                UpdateUIInput();
+                playerInput.uiInputModule = eventSystem.GetComponent<InputSystemUIInputModule>();
+                data.playerInput = playerInput;
+                data.playerInput.neverAutoSwitchControlSchemes = true;
             }
             Debug.Log($"Multiplayer detected: Created {playerData.Count} players");
         }
@@ -117,7 +116,6 @@ public class GameManager : MonoBehaviour // By Samuel White
             data.playerObject = o;
             o.name = $"Player 1";
             o.transform.position = spawnPositions[0];
-            o.transform.parent.GetComponent<MultiplayerEventSystem>().enabled = false;
 
             Player_Character_Data character_Data = o.GetComponent<Player_Character_Data>();
             character_Data.playerNumber = 0;
@@ -125,13 +123,6 @@ public class GameManager : MonoBehaviour // By Samuel White
 
             PlayerInput playerInput = GameData.playerInputs[0];
             o.transform.SetParent(playerInput.transform);
-            // newPlayerInput.actions = playerInput.actions;
-            // newPlayerInput.defaultControlScheme = playerInput.defaultControlScheme;
-            // playerInput.notificationBehavior = PlayerNotifications.BroadcastMessages;
-            playerInput.SwitchCurrentActionMap("Player Movement");
-            playerInput.uiInputModule = eventSystem.GetComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
-            data.playerInput = playerInput;
-            data.playerInput.neverAutoSwitchControlSchemes = true;
 
             GameData.players.Add(o.transform);
             playerData.Add(data);
@@ -146,6 +137,13 @@ public class GameManager : MonoBehaviour // By Samuel White
             playerData[0].isDead = false;
             playerData[0].characterData.playerNumber = 0;
             playerData[0].playerInput = GameData.playerInputs[0];
+
+            // Update Event System UI Inputs and Mapping
+            playerInput.SwitchCurrentActionMap("Player Movement");
+            UpdateUIInput();
+            playerInput.uiInputModule = eventSystem.GetComponent<InputSystemUIInputModule>();
+            data.playerInput = playerInput;
+            data.playerInput.neverAutoSwitchControlSchemes = true;
         }
     }
     #endregion
@@ -184,6 +182,13 @@ public class GameManager : MonoBehaviour // By Samuel White
         }
     }
 #endregion
+
+    public void UpdateUIInput()
+    {
+        InputSystemUIInputModule uiModule = eventSystem.GetComponent<InputSystemUIInputModule>();
+        uiModule.actionsAsset = GameData.playerInputs[0].actions;
+        GameData.playerInputs[0].uiInputModule = uiModule;
+    }
 
     public static void ClearGlobalFonts()
     {

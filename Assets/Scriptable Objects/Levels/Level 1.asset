@@ -108,8 +108,8 @@ MonoBehaviour:
         enterType: 0
     obstacleSpawnInfo: []
     powerUpSpawnInfo: []
-    waveDuration: 15
-    waveStartTime: 5
+    waveDuration: 30
+    waveStartTime: 2.5
     defeatedEnemiesReqirement: 0
     debugActive: 1
     debugColour: {r: 1, g: 0, b: 0, a: 1}
