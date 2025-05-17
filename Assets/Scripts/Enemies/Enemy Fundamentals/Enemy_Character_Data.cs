@@ -39,6 +39,20 @@ public class Enemy_Character_Data : MonoBehaviour //  By Samuel White
     public bool isFrozen = false;
     [SerializeField] float frozenValue = 0;
 
+    [Header("Health Settings")]
+    [SerializeField] int maxHealth = 5;
+    [SerializeReference] float health;
+
+    [Header("Visual Effects")]
+    [SerializeField] MeshRenderer characterMeshRenderer;
+    [SerializeField] SpriteRenderer characterSpriteRenderer;
+
+    [SerializeField] float damageFlashDuration = 0.1f;
+    [SerializeField] AnimationCurve damageFlashCurve;
+
+    private float flashT;
+    private bool flashing;
+
     void Awake()
     {
         // Initialize the current state to a default state
@@ -46,8 +60,8 @@ public class Enemy_Character_Data : MonoBehaviour //  By Samuel White
         currentState.OnEnter(this);
 
         health = maxHealth;
-        if (characterMeshRenderer != null) characterMaterial = characterMeshRenderer.material;
-        else if (characterSpriteRenderer != null) characterMaterial = characterSpriteRenderer.material;
+        if (characterMeshRenderer != null) enemyMaterial = characterMeshRenderer.material;
+        else if (characterSpriteRenderer != null) enemyMaterial = characterSpriteRenderer.material;
     }
 
     public void StartEnterance()
@@ -78,21 +92,6 @@ public class Enemy_Character_Data : MonoBehaviour //  By Samuel White
             New_Enemy_Pool_System.instance.ReturnEnemy(this);
         }
     }
-
-    [Header("Health Settings")]
-    [SerializeField] int maxHealth = 5;
-    [SerializeReference] float health;
-
-    [Header("Visual Effects")]
-    [SerializeField] Material characterMaterial;
-    [SerializeField] MeshRenderer characterMeshRenderer;
-    [SerializeField] SpriteRenderer characterSpriteRenderer;
-
-    [SerializeField] float damageFlashDuration = 0.1f;
-    [SerializeField] AnimationCurve damageFlashCurve;
-
-    private float flashT;
-    private bool flashing;
 
     private void OnEnable()
     {
@@ -153,7 +152,7 @@ public class Enemy_Character_Data : MonoBehaviour //  By Samuel White
 
     void DamageFlash()
     {
-        Debug.Log($"{name} Flashed");
+        // Debug.Log($"{name} Flashed");
         if (!flashing) StartCoroutine(DamageFlashCoroutine());
         else flashT = 0;
     }
@@ -165,7 +164,7 @@ public class Enemy_Character_Data : MonoBehaviour //  By Samuel White
         while (flashT < 1)
         {
             flashT += Global_Game_Speed.GetDeltaTime() / damageFlashDuration;
-            characterMaterial.SetFloat("_Flash", damageFlashCurve.Evaluate(Mathf.InverseLerp(0, Settings_Manager.damageFlashIntensity, flashT)));
+            enemyMaterial.SetFloat("_Flash", damageFlashCurve.Evaluate(Mathf.InverseLerp(0, Settings_Manager.damageFlashIntensity, flashT))); // TODO Rework
             yield return new WaitForEndOfFrame();
         }
         flashing = false;

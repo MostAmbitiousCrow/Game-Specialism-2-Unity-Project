@@ -76,76 +76,37 @@ public class Player_Game_UI_Manager : MonoBehaviour // By Samuel White
     {
         if (GameData.isGameStarted) // Update when the game has started
         {
-            UpdatePlayerHealth();
-            UpdatePlayerFreeze();
-            UpdatePlayerScore();
+            UpdateUI();
         }
     }
 
     #region Update Player Health
 
-    public void UpdatePlayerHealth()
+    public void UpdateUI()
     {
-        if (GameData.isMultiplayer)
+        int count = Mathf.Min(playerHealthBars.Length, GameManager.playerData.Count);
+        for (int i = 0; i < count; i++)
         {
-            for (int i = 0; i < playerHealthBars.Length - 1; i++)
+            // Update Health
+            var minHealth = GameManager.playerData[i].characterData.playerHealth.health;
+            var maxHealth = GameManager.playerData[i].characterData.playerHealth.maxHealth;
+            playerHealthBars[i].fillAmount = minHealth / maxHealth;
+            if (minHealth <= 0) playerHealthBars[i].fillAmount = 0f;
+
+            // Update Freeze Meter
+            var minMeter = GameManager.playerData[i].characterData.playerShoot.freezeMeter;
+            var maxMeter = GameManager.playerData[i].characterData.playerShoot.freezeMeterMax;
+            playerFreezeBars[i].fillAmount = minMeter / maxMeter;
+            if (minMeter <= 0) playerFreezeBars[i].fillAmount = 0f;
+
+            // Update Score Gameplay UI
+            if (GameManager.playerData[i].characterData.playerShoot.freezeMeter <= 0)
             {
-                playerHealthBars[i].fillAmount = GameManager.playerData[i].characterData.playerHealth.health / GameManager.playerData[i].characterData.playerHealth.maxHealth;
-                if (GameManager.playerData[i].characterData.playerHealth.health <= 0) { playerHealthBars[i].fillAmount = 0f; }
+                playerFreezeBars[i].fillAmount = 0f;
             }
-        }
-        else
-        {
-            playerHealthBars[0].fillAmount = GameManager.playerData[0].characterData.playerHealth.health / GameManager.playerData[0].characterData.playerHealth.maxHealth;
-            if (GameManager.playerData[0].characterData.playerHealth.health <= 0) { playerHealthBars[0].fillAmount = 0f; }
-        }
-    }
-    #endregion
 
-    #region Update Player Freeze Bars
+            playerScoreTexts[i].text = $"p{i} Score: {GameManager.playerData[i].score}";
 
-    public void UpdatePlayerFreeze()
-    {
-        if (GameData.isMultiplayer)
-        {
-            for (int i = 0; i < playerFreezeBars.Length - 1; i++)
-            {
-                if (!GameManager.playerData[i].characterData.playerShoot.freezeModeActive) return; // Return if freeze mode is not active
-
-                playerFreezeBars[i].fillAmount = GameManager.playerData[i].characterData.playerShoot.freezeMeter / GameManager.playerData[i].characterData.playerShoot.freezeMeterMax;
-                if (GameManager.playerData[i].characterData.playerShoot.freezeMeter <= 0)
-                {
-                    playerFreezeBars[i].fillAmount = 0f;
-                }
-            }
-        }
-        else
-        {
-            if (!GameManager.playerData[0].characterData.playerShoot.freezeModeActive) return; // Return if freeze mode is not active
-
-            playerFreezeBars[0].fillAmount = GameManager.playerData[0].characterData.playerShoot.freezeMeter / GameManager.playerData[0].characterData.playerShoot.freezeMeterMax;
-            if (GameManager.playerData[0].characterData.playerShoot.freezeMeter <= 0)
-            {
-                playerFreezeBars[0].fillAmount = 0f;
-            }
-        }
-    }
-    #endregion
-
-    #region Update Player Score
-
-    public void UpdatePlayerScore()
-    {
-        if (GameData.isMultiplayer)
-        {
-            for (int i = 0; i < playerScoreTexts.Length; i++)
-            {
-                playerScoreTexts[i].text = $"P{i} Score: {GameManager.playerData[0].score}";
-            }
-        }
-        else
-        {
-            playerScoreTexts[0].text = $"P1 Score: {GameManager.playerData[0].score}";
         }
     }
     #endregion
@@ -189,6 +150,7 @@ public class Player_Game_UI_Manager : MonoBehaviour // By Samuel White
     public void ShowResultsMenu(bool show)
     {
         resultsMenu.SetActive(show);
+        GameData.playerInputs[playerNum].SwitchCurrentActionMap(show ? "UI" : "Player Movement");
         if (show)
         {
             GameData.canPause = false;

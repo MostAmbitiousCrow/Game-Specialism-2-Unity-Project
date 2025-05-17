@@ -14,6 +14,7 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
     public float playTime = 0;
     [SerializeField] float waveTime;
     [SerializeField] int currentWave;
+    [SerializeField] bool waveActive;
 
     [Header("Detection")]
     public List<Enemy_Character_Data> activeObjects;
@@ -45,7 +46,7 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
         while (currentWave < totalWaves)
         {
             SO_Level_Data.Wave wave = levelData.waves[currentWave];
-            bool waveActive = false;
+            waveActive = false;
             waveTime = 0;
 
             // Wait for wave start time

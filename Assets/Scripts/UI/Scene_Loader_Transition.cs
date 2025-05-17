@@ -13,7 +13,7 @@ public class Scene_Loader_Transition : MonoBehaviour // Made by Samuel White
     [SerializeField] private Image fadeImage;
     [SerializeField] private float fadeTime = 1f;
     public static Scene_Loader_Transition Instance;
-    private bool isLoading;
+    public bool isLoading;
     
     public enum SceneNames
     {
@@ -105,6 +105,7 @@ public class Scene_Loader_Transition : MonoBehaviour // Made by Samuel White
         fadeImage.raycastTarget = false;
         fadeImage.color = Color.clear;
 
+        isLoading = false;
         FadeObject.SetActive(false); // Hide the fade object after fading in.
 
         if (sceneNum > 0) GameManager.instance.StartGame(); // Start The Game // TODO Temporary

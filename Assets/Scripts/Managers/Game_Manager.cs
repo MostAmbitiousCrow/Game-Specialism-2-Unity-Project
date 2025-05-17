@@ -151,10 +151,20 @@ public class GameManager : MonoBehaviour // By Samuel White
     #region Reset Players
     public void DestroyPlayers()
     {
+        // Destroy all PlayerInput GameObjects and Data
         for (int i = 0; i < GameData.playerInputs.Count; i++)
         {
-            Destroy(GameData.playerInputs[0].gameObject);
+            PlayerInput pInput = GameData.playerInputs[i];
+            if (pInput != null) Destroy(pInput.gameObject);
         }
+        // foreach (var pi in GameData.playerInputs)
+        // {
+        //     if (pi != null)
+        //         Destroy(pi.gameObject);
+        // }
+        GameData.playerInputs.Clear();
+        GameData.players.Clear();
+        playerData.Clear();
     }
     #endregion
 
@@ -185,6 +195,8 @@ public class GameManager : MonoBehaviour // By Samuel White
 
     public void UpdateUIInput()
     {
+        if (eventSystem == null) eventSystem = GameObject.FindWithTag("EventSystem").GetComponent<EventSystem>();
+
         InputSystemUIInputModule uiModule = eventSystem.GetComponent<InputSystemUIInputModule>();
         uiModule.actionsAsset = GameData.playerInputs[0].actions;
         GameData.playerInputs[0].uiInputModule = uiModule;

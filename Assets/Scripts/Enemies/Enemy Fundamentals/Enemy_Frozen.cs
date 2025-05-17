@@ -9,7 +9,11 @@ public class Enemy_Frozen : IEnemyState // By Samuel White
     
     public void OnEnter(Enemy_Character_Data data)
     {
-        data.enemyMaterial.SetInt("_IsFrozen", 1);
+        if (data.enemyMaterial == null)
+            Debug.LogError($"{data.name} is Missing their Material");
+        else
+            data.enemyMaterial.SetInt("_IsFrozen", 1);
+            
         data.transform.tag = "FrozenEnemy";
 
         AudioManager.PlayEnemySound(EnemyCategory.EnemySoundTypes.Enemy_Frozen, .5f);

@@ -45,11 +45,26 @@ public class Main_Menu_Manager : MonoBehaviour // By Samuel White
     {
         shutterStartPos = shutter.anchoredPosition;
         shutterEndPos = new Vector3(shutterStartPos.x, 0, shutterStartPos.z); // Move up by 200
-        GameManager.instance.eventSystem.SetSelectedGameObject(menuDatas[3].enterButton);
-        playerInputManager.JoinPlayer();
+
+        StartCoroutine(InitialJoinProcess()); // Initial Player Join Process
+
         AudioManager.PlayMusic(AudioManager.MusicOptions.Play, 1, 2, MusicCategory.MusicSoundTypes.MainMenu);
-        settingsMenuManager.UpdateUI();
         GameManager.UpdateGlobalFonts();
+    }
+
+    IEnumerator InitialJoinProcess()
+    {
+        yield return new WaitUntil(() => !Scene_Loader_Transition.Instance.isLoading);
+        Debug.Log("Started Initial Player Join Process");
+        // DisconnectAllPlayers();
+        yield return new WaitForSecondsRealtime(.2f);
+        
+        playerInputManager.EnableJoining();
+        playerInputManager.JoinPlayer();
+        settingsMenuManager.UpdateUI();
+        GameManager.instance.eventSystem.SetSelectedGameObject(menuDatas[3].enterButton);
+        playerInputManager.DisableJoining();
+        Debug.Log($"Join Player Count: {playerInputManager.playerCount}");
     }
 
     #region Menu Navigation
@@ -98,12 +113,12 @@ public class Main_Menu_Manager : MonoBehaviour // By Samuel White
         Debug.Log("Player Joined");
         AudioManager.PlayInterfaceSound(InterfaceCategory.InterfaceSoundTypes.Player_Joined);
 
-        playerBoxes[Mathf.Clamp(playerCount, 0, 1)].SetActive(true);
+        playerCount = GameData.playerInputs.Count + 1;
+        if (playerCount - 1 < playerBoxes.Length) playerBoxes[playerCount - 1].SetActive(true);
 
         playerInput.ActivateInput();
         GameData.playerInputs.Add(playerInput);
         playerInput.transform.SetParent(GameManager.instance.playersFolder.transform);
-        playerCount = GameData.playerInputs.Count;
         playerInput.gameObject.name = $"Player {playerCount}";
         playerInput.neverAutoSwitchControlSchemes = true;
         playerInput.SwitchCurrentActionMap("UI");
@@ -115,26 +130,17 @@ public class Main_Menu_Manager : MonoBehaviour // By Samuel White
 
     public void DisconnectAllPlayers()
     {
-        int loops = playerCount;
-        Debug.Log($"Disconnected {GameData.playerInputs.Count} PLayers");
-        if (GameData.playerInputs.Count > 0)
+        Debug.Log($"Disconnected {GameData.playerInputs.Count} Players");
+        foreach (var pi in GameData.playerInputs)
         {
-            for (int i = 0; i < loops; i++)
-            {
-                if (GameData.playerInputs[0] == null)
-                {
-                    GameData.playerInputs.RemoveAt(0);
-                    return;
-                }
-                Debug.Log($"Destroyed { GameData.playerInputs[0] }");
-                Destroy(GameData.playerInputs[0].gameObject);
-                playerBoxes[i].SetActive(false);
-            }
+            if (pi != null)
+                Destroy(pi.gameObject);
         }
         GameData.playerInputs.Clear();
-        foreach (var item in playerBoxes) item.SetActive(false);
-
         playerCount = 0;
+        foreach (var box in playerBoxes)
+            if (box != null) box.SetActive(false);
+
         GameManager.instance.eventSystem.SetSelectedGameObject(menuDatas[2].enterButton);
     }
 

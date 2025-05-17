@@ -34,7 +34,7 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
     [Range(0, 4)] [SerializeField] int closestEnemiesRange = 2;
 
     public List<Transform> detectedEnemies;
-    public static Transform targetEnemy;
+    public Transform targetEnemy;
     [SerializeField] LayerMask enemyLayer;
 
     [Header("Freeze Meter")]
@@ -119,7 +119,7 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
 
     public void Shoot()
     {
-        if (detectedEnemies.Count != 0)
+        if (detectedEnemies.Count != 0) // Enemies Detected
         {
             for (int i = 0; i < Mathf.Clamp(detectedEnemies.Count, 0, closestEnemiesRange); i++)
             {
@@ -133,14 +133,16 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
 
                     p.spriteRenderer.sprite = freezeModeActive ? frozenBullet_Sprites[currentBullet] : bullet_Sprites[currentBullet];
                     currentBullet = (currentBullet + 1) % spriteCount; // Damn that's cool! (if current bullet is modular to the spritecount, set as zero) https://discussions.unity.com/t/c-what-is/505394/4
+                    p.Frozen = freezeModeActive;
 
+                    p.target = targetEnemy;
                     p.gameObject.SetActive(true);
                     lG = !lG;
                 }
                 else Debug.LogWarning("Failed to get bullet from pool.");
             }
         }
-        else
+        else // No Enemies Detected
         {
             Projectile_Player_Flight p = Bullet_Pool_System.instance.GetPlayerBullet(playerData.playerNumber);
             if (p != null)
@@ -152,6 +154,7 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
 
                 p.spriteRenderer.sprite = freezeModeActive ? frozenBullet_Sprites[currentBullet] : bullet_Sprites[currentBullet];
                 currentBullet = (currentBullet + 1) % spriteCount;
+                p.Frozen = freezeModeActive;
 
                 p.gameObject.SetActive(true);
                 lG = !lG;
@@ -193,14 +196,21 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
         if (!freezeModeActive)
         {
             freezeMeter += 1;
+            if(freezeMeter > freezeMeterMax) 
+            {
+                AudioManager.PlayPlayerSound(PlayerCategory.PlayerSoundTypes.FreezeMode_Activate);
+                ParticleManager.instance.PlayPlayerParticle(ParticleManager.PlayerParticlesType.PlayerActivateFreezeMode, transform.position);
+                StartCoroutine(FreezeModeTimer());
+            }
         }
     }
 
     IEnumerator FreezeModeTimer()
     {
+        freezeModeActive = true;
         while (freezeModeActive)
         {
-            freezeMeter -=  Global_Game_Speed.GetDeltaTime() / freezeModeTime;
+            freezeMeter -=  Global_Game_Speed.GetDeltaTime() / freezeMeterDecayRate;
             if (freezeMeter <= -.1f)
             {
                 freezeModeActive = false;

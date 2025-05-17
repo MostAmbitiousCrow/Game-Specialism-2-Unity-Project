@@ -255,33 +255,36 @@ MonoBehaviour:
       playerSoundType: 4
       sounds:
       - {fileID: 8300000, guid: 784d4c56cb7a643e7b518b2607c0b001, type: 3}
-    - listName: Deaths
+    - listName: Freeze_Mode_Activate
       playerSoundType: 5
       sounds: []
-    - listName: Indicators
+    - listName: Deaths
       playerSoundType: 6
       sounds: []
-    - listName: Powerup_Obtain
+    - listName: Indicators
       playerSoundType: 7
+      sounds: []
+    - listName: Powerup_Obtain
+      playerSoundType: 8
       sounds:
       - {fileID: 8300000, guid: 00667bbc5db07439fa2160d78ede49c3, type: 3}
     - listName: PU_Boomerang_Throw
-      playerSoundType: 0
+      playerSoundType: 9
       sounds: []
     - listName: PU_Boomerang_Hit
-      playerSoundType: 0
+      playerSoundType: 10
       sounds: []
     - listName: PU_Boomerang_Catch
-      playerSoundType: 0
+      playerSoundType: 11
       sounds: []
     - listName: PU_Flake
-      playerSoundType: 0
+      playerSoundType: 12
       sounds: []
     - listName: PU_Sprinkles
-      playerSoundType: 0
+      playerSoundType: 13
       sounds: []
     - listName: PU_BubbleGum
-      playerSoundType: 0
+      playerSoundType: 14
       sounds: []
   enemyCategory:
     categoryName: 
