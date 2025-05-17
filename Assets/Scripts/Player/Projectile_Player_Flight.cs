@@ -23,7 +23,7 @@ public class Projectile_Player_Flight : BulletManager // By Samuel White
 
         float f = scriptable_Object.projectileSize;
         transform.localScale = new(f,f,f);
-        // target = Player_Shoot_Flight.targetEnemy;
+        target = Player_Shoot_Flight.targetEnemy;
         time = 0;
     }
     #endregion

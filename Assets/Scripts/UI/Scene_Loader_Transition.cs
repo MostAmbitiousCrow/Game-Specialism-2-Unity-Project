@@ -13,10 +13,6 @@ public class Scene_Loader_Transition : MonoBehaviour // Made by Samuel White
     [SerializeField] private Image fadeImage;
     [SerializeField] private float fadeTime = 1f;
     public static Scene_Loader_Transition Instance;
-<<<<<<< HEAD
-=======
-    public bool isLoading;
->>>>>>> Level-Editor-Prototype
     
     public enum SceneNames
     {
@@ -91,13 +87,7 @@ public class Scene_Loader_Transition : MonoBehaviour // Made by Samuel White
             AudioManager.LoadAudioData(false, AudioManager.AudioDataTypes.Gameplay_Sounds);
         }
 
-<<<<<<< HEAD
         yield return new WaitForSeconds(.5f);
-=======
-        GameManager.instance.SceneLoaded();
-
-        yield return new WaitForSecondsRealtime(1f);
->>>>>>> Level-Editor-Prototype
 
         // Fade out
         for (float t = 0; t < fadeTime; t += Time.deltaTime)
@@ -109,7 +99,6 @@ public class Scene_Loader_Transition : MonoBehaviour // Made by Samuel White
         fadeImage.raycastTarget = false;
         fadeImage.color = Color.clear;
 
-        isLoading = false;
         FadeObject.SetActive(false); // Hide the fade object after fading in.
 
         if (sceneNum > 0) GameManager.instance.StartGame(); // Start The Game // TODO Temporary

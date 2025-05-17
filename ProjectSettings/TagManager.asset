@@ -8,11 +8,7 @@ TagManager:
   - EnemyB
   - FrozenEnemy
   - PlayerCamera
-<<<<<<< HEAD
   - Box
-=======
-  - EventSystem
->>>>>>> Level-Editor-Prototype
   layers:
   - Default
   - TransparentFX

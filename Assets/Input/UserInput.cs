@@ -474,7 +474,7 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Submit"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""8d425fac-ddf8-4d77-8b2b-6a3beaeed469"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -483,7 +483,7 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Cancel"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""6f24e49e-8c79-41b3-a7fa-f30f8dd22d24"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",

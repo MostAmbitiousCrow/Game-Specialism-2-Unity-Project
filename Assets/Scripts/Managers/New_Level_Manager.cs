@@ -11,15 +11,6 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
 
     public bool paused;
     public float playTime = 0;
-<<<<<<< HEAD
-=======
-    [SerializeField] float waveTime;
-    [SerializeField] int currentWave;
-    [SerializeField] bool waveActive;
-
-    [Header("Detection")]
-    public List<Enemy_Character_Data> activeObjects;
->>>>>>> Level-Editor-Prototype
 
     private void Awake()
     {
@@ -41,49 +32,31 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
 
     private IEnumerator WaveTimer()
     {
-<<<<<<< HEAD
         bool waveActive = false;
         float waveTime = 0;
         int currentWave = 0;
         int waveCount = levelData.waves.Count;
         SO_Level_Data.Wave wave = levelData.waves[currentWave];
-=======
-        waveTime = 0;
-        currentWave = 0;
-        int totalWaves = levelData.waves.Count;
->>>>>>> Level-Editor-Prototype
 
-        while (currentWave < totalWaves)
+        while (true)
         {
-<<<<<<< HEAD
             if (waveTime >= wave.waveStartTime && !waveActive)
-=======
-            SO_Level_Data.Wave wave = levelData.waves[currentWave];
-            waveActive = false;
-            waveTime = 0;
-
-            // Wait for wave start time
-            while (waveTime < wave.waveStartTime)
->>>>>>> Level-Editor-Prototype
             {
-                yield return new WaitUntil(() => !GameData.isPaused);
-                waveTime += Global_Game_Speed.GetDeltaTime();
-            }
+                wave = levelData.waves[currentWave];
 
-            // Spawn enemies, obstacles, powerups for this wave
-            if (wave.enemySpawnInfo != null)
-            {
-                foreach (var item in wave.enemySpawnInfo)
+                if (wave.enemySpawnInfo != null)
                 {
-                    if (item.cloneAmount > 0)
+                    foreach (var item in wave.enemySpawnInfo)
                     {
-                        if (item.cloneSpawnDelay > 0) StartCoroutine(SpawnClonesRoutine(item));
-                        else SpawnEnemy(item, new());
+                        if (item.cloneAmount > 0) // Has Clones?
+                        {
+                            if (item.cloneSpawnDelay > 0) StartCoroutine(SpawnClonesRoutine(item)); // Has timer
+                            else SpawnEnemy(item, new()); // No timer, spawn
+                        }
+                        else if (item.enemyInfo.timeOfAppearance > 0) StartCoroutine(SpawnEnemyTimer(item)); // No Clones, has a timer?
+                        else SpawnEnemy(item, new()); // No time, just spawn enemy
                     }
-                    else if (item.enemyInfo.timeOfAppearance > 0) StartCoroutine(SpawnEnemyTimer(item));
-                    else SpawnEnemy(item, new());
                 }
-<<<<<<< HEAD
                 if (wave.obstacleSpawnInfo != null)
                 {
                     StartCoroutine(SpawnObstacles(wave));
@@ -106,49 +79,7 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
             waveTime+= Time.fixedDeltaTime;
             print(waveTime);
             yield return null;
-=======
-            }
-            if (wave.obstacleSpawnInfo != null)
-            {
-                StartCoroutine(SpawnObstacles(wave));
-            }
-            if (wave.powerUpSpawnInfo != null)
-            {
-                StartCoroutine(SpawnPowerUps(wave));
-            }
-
-            waveActive = true;
-
-            // Wait for wave duration or until all required enemies are defeated
-            waveTime = 0;
-            while (waveTime < wave.waveDuration)
-            {
-                yield return new WaitUntil(() => !GameData.isPaused);
-                waveTime += Global_Game_Speed.GetDeltaTime();
-
-                // if (GetActiveObjects(wave)) // <<< Removed because this was causing the issue with waves ending too early
-                // {
-                //     // All required enemies defeated, break early
-                //     break;
-                // }
-            }
-
-            // End of wave: trigger leave on all active objects
-            foreach (var item in activeObjects)
-            {
-                if (item != null && item.isActiveAndEnabled) item.TriggerLeave();
-            }
-            activeObjects.Clear();
-
-            currentWave++;
-            Debug.Log($"Wave {currentWave} completed.");
->>>>>>> Level-Editor-Prototype
         }
-
-        // All waves complete
-        yield return new WaitForSeconds(2);
-        Player_Game_UI_Manager.instance.ShowResultsMenu(true);
-        Debug.Log("All waves completed. Stopping Wave Spawner, Showing Results Menu.");
     }
 
     private bool GetActiveObjects(SO_Level_Data.Wave wave)
@@ -184,7 +115,7 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
     #region Spawn Obstacles
     private IEnumerator SpawnObstacles(SO_Level_Data.Wave wave)
     {
-        // Implement obstacle spawning logic here
+
         yield break;
     }
     #endregion
@@ -193,7 +124,7 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
 
     private IEnumerator SpawnPowerUps(SO_Level_Data.Wave wave)
     {
-        // Implement powerup spawning logic here
+        
         yield break;
     }
     #endregion

@@ -176,7 +176,7 @@ MonoBehaviour:
   playerPrefabs:
   - {fileID: 6221873141013438439, guid: ec27d3c27974c4b22ba5e20449f7c866, type: 3}
   - {fileID: 3367035262126319381, guid: 6e2585c3babec46beb44fe01200eb5ff, type: 3}
-  eventSystem: {fileID: 0}
+  eventSystem: {fileID: 4208982557254803757}
   playerCamera: {fileID: 0}
   difficulty_Datas:
   - {fileID: 11400000, guid: 1929af56e950ab149870122e5b0e8385, type: 2}
@@ -251,7 +251,6 @@ MonoBehaviour:
       playerSoundType: 3
       sounds: []
     - listName: Frozen_Shot_Hit
-<<<<<<< HEAD
       playerSoundType: 0
       sounds: []
     - listName: Deaths
@@ -263,41 +262,23 @@ MonoBehaviour:
     - listName: Powerup_Obtain
       playerSoundType: 0
       sounds: []
-=======
-      playerSoundType: 4
-      sounds:
-      - {fileID: 8300000, guid: 784d4c56cb7a643e7b518b2607c0b001, type: 3}
-    - listName: Freeze_Mode_Activate
-      playerSoundType: 5
-      sounds: []
-    - listName: Deaths
-      playerSoundType: 6
-      sounds: []
-    - listName: Indicators
-      playerSoundType: 7
-      sounds: []
-    - listName: Powerup_Obtain
-      playerSoundType: 8
-      sounds:
-      - {fileID: 8300000, guid: 00667bbc5db07439fa2160d78ede49c3, type: 3}
->>>>>>> Level-Editor-Prototype
     - listName: PU_Boomerang_Throw
-      playerSoundType: 9
+      playerSoundType: 0
       sounds: []
     - listName: PU_Boomerang_Hit
-      playerSoundType: 10
+      playerSoundType: 0
       sounds: []
     - listName: PU_Boomerang_Catch
-      playerSoundType: 11
+      playerSoundType: 0
       sounds: []
     - listName: PU_Flake
-      playerSoundType: 12
+      playerSoundType: 0
       sounds: []
     - listName: PU_Sprinkles
-      playerSoundType: 13
+      playerSoundType: 0
       sounds: []
     - listName: PU_BubbleGum
-      playerSoundType: 14
+      playerSoundType: 0
       sounds: []
   enemyCategory:
     categoryName: 
@@ -847,6 +828,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 85421142112136101}
   - {fileID: 3187712963412964389}
   - {fileID: 5693786095780752664}
   - {fileID: 7146106763945457393}
@@ -901,6 +883,93 @@ MonoBehaviour:
     type: 2}
   pixelateRenderPipelineAsset: {fileID: 11400000, guid: 287a030232b0b4009acd2610fe6c2ea8,
     type: 2}
+--- !u!1 &5584755380636287197
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 85421142112136101}
+  - component: {fileID: 4208982557254803757}
+  - component: {fileID: 1475457759641766890}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &85421142112136101
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5584755380636287197}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 525627110296230712}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4208982557254803757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5584755380636287197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!114 &1475457759641766890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5584755380636287197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: f22bfbd81ae87474aaae80b50a3ea917,
+    type: 3}
+  m_PointAction: {fileID: 1054132383583890850, guid: f22bfbd81ae87474aaae80b50a3ea917,
+    type: 3}
+  m_MoveAction: {fileID: 3710738434707379630, guid: f22bfbd81ae87474aaae80b50a3ea917,
+    type: 3}
+  m_SubmitAction: {fileID: -8354479179002605995, guid: f22bfbd81ae87474aaae80b50a3ea917,
+    type: 3}
+  m_CancelAction: {fileID: -1967631576421560919, guid: f22bfbd81ae87474aaae80b50a3ea917,
+    type: 3}
+  m_LeftClickAction: {fileID: 2477493123455679750, guid: f22bfbd81ae87474aaae80b50a3ea917,
+    type: 3}
+  m_MiddleClickAction: {fileID: 3279352641294131588, guid: f22bfbd81ae87474aaae80b50a3ea917,
+    type: 3}
+  m_RightClickAction: {fileID: 3837173908680883260, guid: f22bfbd81ae87474aaae80b50a3ea917,
+    type: 3}
+  m_ScrollWheelAction: {fileID: 4502412055082496612, guid: f22bfbd81ae87474aaae80b50a3ea917,
+    type: 3}
+  m_TrackedDevicePositionAction: {fileID: 0}
+  m_TrackedDeviceOrientationAction: {fileID: 0}
+  m_DeselectOnBackgroundClick: 0
+  m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
 --- !u!1 &7332982067086239293
 GameObject:
   m_ObjectHideFlags: 0
