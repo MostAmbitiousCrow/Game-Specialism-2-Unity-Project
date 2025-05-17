@@ -9,6 +9,7 @@ TagManager:
   - FrozenEnemy
   - PlayerCamera
   - EventSystem
+  - Box
   layers:
   - Default
   - TransparentFX
