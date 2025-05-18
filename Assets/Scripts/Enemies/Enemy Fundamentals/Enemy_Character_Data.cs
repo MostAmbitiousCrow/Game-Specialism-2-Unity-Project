@@ -30,6 +30,7 @@ public class Enemy_Character_Data : MonoBehaviour //  By Samuel White
     public Animator Animator;
     public GameObject character;
     public Animator portalAnimator;
+    public BoxCollider hitBox;
 
     [Header("Shooting")]
     public Transform[] projectileSpawnPoints;
@@ -49,6 +50,9 @@ public class Enemy_Character_Data : MonoBehaviour //  By Samuel White
 
     [SerializeField] float damageFlashDuration = 0.1f;
     [SerializeField] AnimationCurve damageFlashCurve;
+
+    [Header("Freeze Settings")]
+    public float frozenSpeed = 5;
 
     private float flashT;
     private bool flashing;
@@ -100,8 +104,12 @@ public class Enemy_Character_Data : MonoBehaviour //  By Samuel White
 
     public void TriggerLeave()
     {
-        reverseMovement = true;
-        ChangeState(MoveState);
+        if(isFrozen) ReturnEnemy(); // If in Frozen State, JUST return the enemy.
+        else // If not, reverse enter transition
+        {
+            reverseMovement = true;
+            ChangeState(MoveState);   
+        }
     }
 
 

@@ -61,6 +61,7 @@ MonoBehaviour:
   Animator: {fileID: 4083772336272093710}
   character: {fileID: 2552439076530248376}
   portalAnimator: {fileID: 5012086778035015058}
+  hitBox: {fileID: 4919817068724059607}
   projectileSpawnPoints:
   - {fileID: 187754195184782643}
   spawnPointRoot: {fileID: 8024643072408716713}
@@ -68,7 +69,6 @@ MonoBehaviour:
   frozenValue: 0
   maxHealth: 100
   health: 0
-  characterMaterial: {fileID: 0}
   characterMeshRenderer: {fileID: 0}
   characterSpriteRenderer: {fileID: 7729920076737365686}
   damageFlashDuration: 0.4
@@ -96,6 +96,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  frozenSpeed: 10
 --- !u!65 &4919817068724059607
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -172,7 +173,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 11843312951328411}

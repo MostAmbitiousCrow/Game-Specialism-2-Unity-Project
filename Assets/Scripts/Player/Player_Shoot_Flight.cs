@@ -58,7 +58,7 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
 
     void Update()
     {
-        if(GameData.isPaused) return;
+        if (GameData.isPaused || Scene_Loader_Transition.Instance.isLoading) return;
         Shooting();
         DetectEnemies();
         UpdateRings();
@@ -219,6 +219,18 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
             }
             yield return null;
         }
+    }
+
+    void OnDisable()
+    {
+        Debug.Log("Disabled Rings");
+        foreach (var item in enemyDetectRings) item.gameObject.SetActive(false);
+    }
+
+    void OnEnable()
+    {
+        Debug.Log("Enabled Rings");
+        foreach (var item in enemyDetectRings) item.gameObject.SetActive(true);
     }
 
     void OnDrawGizmos()

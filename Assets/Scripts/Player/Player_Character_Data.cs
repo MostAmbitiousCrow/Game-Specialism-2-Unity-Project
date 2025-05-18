@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player_Character_Data : MonoBehaviour
+public class Player_Character_Data : MonoBehaviour // By Samuel White
 {
     //========================================
     // Stores each player data.
@@ -12,6 +12,8 @@ public class Player_Character_Data : MonoBehaviour
     public Transform view; // The player camera view
     public Player_Health playerHealth;
     public Player_Shoot_Flight playerShoot;
+    [SerializeField] MeshRenderer vanMesh;
+    [SerializeField] Material[] playerMaterials; // 0 = P1 | 1 = P2
 
     public void OnPause(InputAction.CallbackContext context)
     {
@@ -29,4 +31,6 @@ public class Player_Character_Data : MonoBehaviour
             }
         }
     }
+
+    void Start() => vanMesh.material = playerMaterials[playerNumber]; // Assign player material
 }

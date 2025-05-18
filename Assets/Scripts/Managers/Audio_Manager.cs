@@ -21,6 +21,7 @@ public class AudioManager : MonoBehaviour // By Samuel White
     [Space(10)]
 
     [SerializeField] private AudioMixer audioMixer;
+    private Coroutine musicCoroutine;
 
     private void Awake()
     {
@@ -94,17 +95,17 @@ public class AudioManager : MonoBehaviour // By Samuel White
             switch (option)
             {
                 case MusicOptions.Play:
-                a.Play();
-                break;
+                    a.Play();
+                    break;
                 case MusicOptions.Pause:
-                a.Pause();
-                return;
+                    a.Pause();
+                    return;
                 case MusicOptions.Stop:
-                a.Stop();
-                break;
+                    a.Stop();
+                    break;
                 case MusicOptions.Resume:
-                a.UnPause();
-                break;
+                    a.UnPause();
+                    break;
             }
         }
     }
@@ -115,17 +116,18 @@ public class AudioManager : MonoBehaviour // By Samuel White
         switch (option)
         {
             case MusicOptions.Play:
-            a.Play();
-            break;
+                a.Play();
+                break;
             case MusicOptions.Pause:
-            a.Pause();
-            return;
+                a.Pause();
+                break;
             case MusicOptions.Stop:
-            a.Stop();
-            break;
+                a.Stop();
+                if(instance.musicCoroutine != null) instance.StopCoroutine(instance.musicCoroutine);
+                break;
             case MusicOptions.Resume:
-            a.UnPause();
-            break;
+                a.UnPause();
+                break;
         }
     }
 

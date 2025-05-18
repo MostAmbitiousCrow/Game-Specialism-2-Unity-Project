@@ -44,6 +44,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3f13d294d17e3f409c302b87331a8c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ready: 1
+  readValue: 0
+  firePoint: {fileID: 0}
+  firePoint2: {fileID: 0}
+  bulletPrefab: {fileID: 0}
+  fireRate: 1
+  bulletsPerShot: 9
+  horizontalSpreadAngle: 5
+  verticalSpreadAngle: 5
+  PowerUpTime: 20
+  FlakePlayerInput: {fileID: 0}
+  timerEnabled: 0
 --- !u!1 &138427868528204970
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,6 +100,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3366203d0c4251f408cea8eba9147a3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ready: 1
+  readValue: 0
+  firePoint: {fileID: 0}
+  player: {fileID: 0}
+  boomerangPrefab: {fileID: 0}
+  fireRate: 1
+  nextFireTime: 0
+  PowerUpTime: 20
+  maxFires: 1
+  WafflePlayerInput: {fileID: 0}
 --- !u!1 &668249794300716501
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,7 +733,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4017525469984394016
 Transform:
   m_ObjectHideFlags: 0
@@ -858,6 +880,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b7852ff9b7fe474683924e43aadb694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ready: 1
+  readValue: 0
+  sprinklesGun: {fileID: 0}
+  shootPointMinigun: {fileID: 0}
+  bulletPrefab: {fileID: 0}
+  fireRateSprinkles: 0.025
+  maxbullets: 60
+  currentBullets: 0
+  SprinklesPlayerInput: {fileID: 0}
 --- !u!1 &6267928040471774471
 GameObject:
   m_ObjectHideFlags: 0
@@ -917,6 +948,10 @@ MonoBehaviour:
   view: {fileID: 0}
   playerHealth: {fileID: 7515385479982502315}
   playerShoot: {fileID: 6833870661536184949}
+  vanMesh: {fileID: 102668359708570393}
+  playerMaterials:
+  - {fileID: 2100000, guid: d3926f10411b1481a8c9a86c39627c4f, type: 2}
+  - {fileID: 2100000, guid: 3c5abb50457b7415cae08ec653a95576, type: 2}
 --- !u!114 &8149993409331940106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -973,6 +1008,7 @@ MonoBehaviour:
   detectRange: 16
   closestEnemiesRange: 1
   detectedEnemies: []
+  targetEnemy: {fileID: 0}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256

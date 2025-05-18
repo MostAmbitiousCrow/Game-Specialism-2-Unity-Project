@@ -157,11 +157,7 @@ public class GameManager : MonoBehaviour // By Samuel White
             PlayerInput pInput = GameData.playerInputs[i];
             if (pInput != null) Destroy(pInput.gameObject);
         }
-        // foreach (var pi in GameData.playerInputs)
-        // {
-        //     if (pi != null)
-        //         Destroy(pi.gameObject);
-        // }
+
         GameData.playerInputs.Clear();
         GameData.players.Clear();
         playerData.Clear();

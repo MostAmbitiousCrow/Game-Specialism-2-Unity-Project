@@ -82,6 +82,7 @@ public class Scene_Loader_Transition : MonoBehaviour // Made by Samuel White
         if (sceneNum == (int)SceneNames.Main_Menu) // If Loaded MainMenu
         {
             GameManager.instance.DestroyPlayers();
+            AudioManager.UpdateMusic(AudioManager.MusicOptions.Stop); // Stop Music
             AudioManager.LoadAudioData(false, AudioManager.AudioDataTypes.MainMenu_Sounds);
             AudioManager.LoadAudioData(true, AudioManager.AudioDataTypes.Gameplay_Sounds);
         }

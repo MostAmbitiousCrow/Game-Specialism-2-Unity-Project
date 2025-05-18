@@ -131,11 +131,17 @@ public class Main_Menu_Manager : MonoBehaviour // By Samuel White
     public void DisconnectAllPlayers()
     {
         Debug.Log($"Disconnected {GameData.playerInputs.Count} Players");
-        foreach (var pi in GameData.playerInputs)
+        for (int i = 0; i < GameData.playerInputs.Count; i++)
         {
+            PlayerInput pi = GameData.playerInputs[i];
             if (pi != null)
                 Destroy(pi.gameObject);
         }
+        // foreach (var pi in GameData.playerInputs)
+        // {
+        //     if (pi != null)
+        //         Destroy(pi.gameObject);
+        // }
         GameData.playerInputs.Clear();
         playerCount = 0;
         foreach (var box in playerBoxes)

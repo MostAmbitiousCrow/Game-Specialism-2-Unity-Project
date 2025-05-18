@@ -63,11 +63,20 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
                 {
                     if (item.cloneAmount > 0)
                     {
-                        if (item.cloneSpawnDelay > 0) StartCoroutine(SpawnClonesRoutine(item));
-                        else SpawnEnemy(item, new());
+                        StartCoroutine(SpawnClonesRoutine(item));
+                        // if (item.cloneSpawnDelay > 0) StartCoroutine(SpawnClonesRoutine(item));
+                        // else 
+                        // {
+                        //     for (int i = 0; i < item.cloneAmount + 1; i++) // Create Clones
+                        //     {
+                        //         StartCoroutine(SpawnEnemyTimer(item, offset));
+                        //         offset += item.clonesOffset;   
+                        //     }
+                        // }
+                        // offset = new(); // Reset Offset
                     }
                     else if (item.enemyInfo.timeOfAppearance > 0) StartCoroutine(SpawnEnemyTimer(item));
-                    else SpawnEnemy(item, new());
+                    else StartCoroutine(SpawnEnemyTimer(item));
                 }
             }
             if (wave.obstacleSpawnInfo != null)
@@ -88,7 +97,7 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
                 yield return new WaitUntil(() => !GameData.isPaused);
                 waveTime += Global_Game_Speed.GetDeltaTime();
 
-                // if (GetActiveObjects(wave)) // <<< Removed because this was causing the issue with waves ending too early
+                // if (GetActiveObjects(wave)) // <<< Removed because this was causing the issue with waves ending too early // TODO Rework
                 // {
                 //     // All required enemies defeated, break early
                 //     break;
@@ -123,6 +132,7 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
         return c >= wave.defeatedEnemiesReqirement;
     }
 
+    #region Spawn Enemy Timers
     private IEnumerator SpawnEnemyTimer(SO_Level_Data.Wave.EnemySpawn ES)
     {
         float t = 0;
@@ -130,6 +140,7 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
         {
             yield return new WaitUntil(() => !GameData.isPaused);
             t += Global_Game_Speed.GetDeltaTime();
+            yield return null;
         }
         SpawnEnemy(ES, new());
         yield break;
@@ -137,15 +148,25 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
     private IEnumerator SpawnClonesRoutine(SO_Level_Data.Wave.EnemySpawn ES)
     {
         Vector2 offset = new();
+        float t = 0;
         for (int i = 0; i < ES.cloneAmount + 1; i++)
         {
-            if (ES.cloneSpawnDelay > 0) yield return new WaitForSeconds(ES.cloneSpawnDelay);
+            if (ES.cloneSpawnDelay > 0)
+            {
+                while (t < ES.enemyInfo.timeOfAppearance)
+                {
+                    yield return new WaitUntil(() => !GameData.isPaused);
+                    t += Global_Game_Speed.GetDeltaTime();
+                    yield return null;
+                }
+            }
             SpawnEnemy(ES, offset);
             offset += ES.clonesOffset;
             yield return null;
         }
         yield break;
     }
+    #endregion
 
     #region Spawn Obstacles
     private IEnumerator SpawnObstacles(SO_Level_Data.Wave wave)
@@ -168,7 +189,6 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
 
     public void SpawnEnemy(SO_Level_Data.Wave.EnemySpawn item, Vector3 offset)
     {
-        Debug.Log("Activated");
         Enemy_Character_Data ECD = New_Enemy_Pool_System.instance.GetEnemy((int)item.enemyInfo.enemyID);
         ECD.gameObject.SetActive(true);
         ECD.targetPosition = item.enemyInfo.targetSpawnPosition + offset;
