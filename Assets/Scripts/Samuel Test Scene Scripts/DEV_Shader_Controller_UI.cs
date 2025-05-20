@@ -1,9 +1,12 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class DEV_Shader_UI_Controller : MonoBehaviour // By Samuel White
 {
+    // ================================================
+    // Used to change the pixelation and posterisation in the Pixelise/Posterise shader material
+    // ================================================
+
     [SerializeField] Material shaderMaterial;
 
     [SerializeField] Slider pixelSlider;

@@ -1,8 +1,12 @@
 using System.Collections;
 using UnityEngine;
 
-public class Scene_Transition_Controller : MonoBehaviour // By Samuel
+public class Scene_Transition_Controller : MonoBehaviour // By Samuel White (Unused)
 {
+    //========================================
+    // Script for a VFX Scene transition for the Pixelate/Posterise Shader
+    //========================================
+
     [SerializeField] float t;
     private Coroutine c;
     [SerializeField] Material shaderMaterial;
