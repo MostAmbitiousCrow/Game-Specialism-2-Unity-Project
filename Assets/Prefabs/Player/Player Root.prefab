@@ -1016,7 +1016,6 @@ MonoBehaviour:
   freezeMeter: 0
   freezeMeterMax: 100
   freezeModeTime: 16
-  freezeMeterDecayRate: 1
   frozenBullet_Sprites:
   - {fileID: -826558948, guid: d47e862c6c5ab41f69fd644a71e76fa8, type: 3}
   - {fileID: 979130662, guid: d47e862c6c5ab41f69fd644a71e76fa8, type: 3}
@@ -1056,7 +1055,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 0
-  maxHealth: 5
+  maxHealth: 10
   health: 0
   characterMaterial: {fileID: -876546973899608171, guid: 99a355666ca2042daa748d0a7f603e20,
     type: 3}

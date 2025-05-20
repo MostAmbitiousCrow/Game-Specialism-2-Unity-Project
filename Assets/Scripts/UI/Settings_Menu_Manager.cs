@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Runtime.CompilerServices;
 
 public class Settings_Menu_Manager : MonoBehaviour // By Samuel White
 {
@@ -22,6 +23,7 @@ public class Settings_Menu_Manager : MonoBehaviour // By Samuel White
     [SerializeField] private Toggle gamepadVibrationToggle;
     [SerializeField] private Toggle autoshootToggle;
     [SerializeField] private Toggle dyslexiaFontToggle;
+    [SerializeField] private Toggle playerInvincibleToggle;
     [SerializeField] private TMP_Dropdown colourblindDropDown;
 
     [Header("Menus")]
@@ -114,6 +116,11 @@ public class Settings_Menu_Manager : MonoBehaviour // By Samuel White
             Settings_Manager.SetDyslexiaFont(dyslexiaFontToggle.isOn);
         }
 
+        public void PlayerInvincible()
+        {
+            Settings_Manager.SetPlayerInvincibility(playerInvincibleToggle.isOn);
+        }
+
         public void SelectColourBlindMode()
         {
             Settings_Manager.SetColourBlindMode((Settings_Manager.ColourBlindMode)colourblindDropDown.value);
@@ -154,6 +161,7 @@ public class Settings_Menu_Manager : MonoBehaviour // By Samuel White
         gamepadVibrationToggle.isOn = Settings_Manager.controllerVibration;
         autoshootToggle.isOn = Settings_Manager.playerAutoShoot;
         dyslexiaFontToggle.isOn = Settings_Manager.dyslexiaFont;
+        playerInvincibleToggle.isOn = Settings_Manager.playerInvicible;
         colourblindDropDown.value = (int)Settings_Manager.colourBlindMode;
     }
 }

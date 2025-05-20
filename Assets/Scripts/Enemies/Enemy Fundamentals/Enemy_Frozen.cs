@@ -51,9 +51,11 @@ public class Enemy_Frozen : IEnemyState // By Samuel White
             {
                 if (hit.collider.CompareTag("Player"))
                 {
-                    GameManager.instance.AwardScore(hit.collider.GetComponent<Player_Character_Data>().playerNumber, GameManager.ScoreContext.Enemy_Frozen_Smashed);
+                    int playerNum = hit.collider.GetComponent<Player_Character_Data>().playerNumber;
+                    GameManager.instance.AwardScore(playerNum, GameManager.ScoreContext.Enemy_Frozen_Smashed);
                     ParticleManager.instance.PlayEnemyParticle(ParticleManager.EnemyParticlesType.EnemyFreeze_Explode, data.transform.position);
                     AudioManager.PlayEnemySound(EnemyCategory.EnemySoundTypes.Enemy_Frozen_Smashed, .5f);
+                    GameManager.playerData[playerNum].kills++;
 
                     data.Animator.SetBool("Frozen", false);
                     data.transform.tag = "EnemyB";

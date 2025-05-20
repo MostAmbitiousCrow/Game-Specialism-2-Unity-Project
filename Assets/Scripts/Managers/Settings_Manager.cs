@@ -31,6 +31,7 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
     public static bool playerAutoShoot = false; // 0 = false, 1 = true
     public static bool controllerVibration = true; // 0 = false, 1 = true
     public static bool enableParticles = true; // 0 = false, 1 = true
+    public static bool playerInvicible = false;
     [Range(0, 1)] public static float damageFlashIntensity = 1f;
     
     [Space(10)]
@@ -67,6 +68,7 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
     public bool defaultPlayerAutoShoot = false; // 0 = false, 1 = true
     public bool defaultControllerVibration = controllerVibration; // 0 = false, 1 = true
     public bool defaultEnableParticles = true; // 0 = false, 1 = true
+    public bool DefaultPlayerInvicible = false;
     [Range(0, 1)] public float defaultDamageFlashIntensity = 1f;
 
     // =========================================
@@ -95,6 +97,8 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
             // Hearing
             PlayerPrefs.SetInt("ControllerVibration", controllerVibration ? 0 : 1); // 0 = false, 1 = true
             PlayerPrefs.SetFloat("DamageFlashIntensity", damageFlashIntensity);
+            // Other
+            PlayerPrefs.SetInt("PlayerInvincibility", playerInvicible ? 1 : 0);
 
         // // Save Gameplay Settings
         //     PlayerPrefs.SetInt("CursorMovement", cursorMovement ? 1 : 0); // 0 = false, 1 = true
@@ -126,6 +130,8 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
             // Hearing
             controllerVibration = PlayerPrefs.GetInt("ControllerVibration", defaultControllerVibration ? 0 : 1) == 0; // 0 = false, 1 = true
             damageFlashIntensity = PlayerPrefs.GetFloat("DamageFlashIntensity", defaultDamageFlashIntensity);
+            // Other
+            PlayerPrefs.GetInt("PlayerInvincibility", DefaultPlayerInvicible ? 1 : 0);
 
         Debug.Log("Settings loaded");
     }
@@ -202,6 +208,14 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
     }
 
     // ========================================
+    // Other Settings
+
+    public static void SetPlayerInvincibility(bool invincible)
+    {
+        playerInvicible = invincible;
+    }
+
+    // ========================================
     // Reset Settings to Default
 
     public static void SetDefaultSettings()
@@ -221,6 +235,7 @@ public class Settings_Manager : MonoBehaviour // By Samuel White
         controllerVibration = instance.defaultControllerVibration;
         damageFlashIntensity = instance.defaultDamageFlashIntensity;
         enableParticles = instance.defaultEnableParticles;
+        playerInvicible = instance.DefaultPlayerInvicible;
 
         SaveSettings();
     }

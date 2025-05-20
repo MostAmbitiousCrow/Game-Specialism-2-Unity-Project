@@ -29,8 +29,8 @@ public class Player_Health : MonoBehaviour // by Samuel White
     [SerializeField] GameObject character;
     [SerializeField] BoxCollider characterCollider;
 
-    [Header("Debug")]
-    [SerializeField] bool DevInvinicbility = true;
+    // [Header("Debug")]
+    // [SerializeField] bool DevInvinicbility = true;
 
     private float flashT;
     private bool flashing;
@@ -49,7 +49,7 @@ public class Player_Health : MonoBehaviour // by Samuel White
 
     public void Damage(int value)
     {
-        if (GameManager.playerData[playerNumber].isDead || GameManager.playerData[playerNumber].isInvincible || DevInvinicbility) return;
+        if (GameManager.playerData[playerNumber].isDead || GameManager.playerData[playerNumber].isInvincible || Settings_Manager.playerInvicible) return;
 
         health -= value;
         DamageFlash();
@@ -104,6 +104,8 @@ public class Player_Health : MonoBehaviour // by Samuel White
     IEnumerator DamageInvicibility()
     {
         character.SetActive(false);
+        characterCollider.enabled = false;
+        GameManager.playerData[playerNumber].isInvincible = true;
         yield return new WaitForSeconds(2f);
         character.SetActive(true);
         characterCollider.enabled = false;
@@ -121,6 +123,7 @@ public class Player_Health : MonoBehaviour // by Samuel White
         }
         flashing = false;
         characterCollider.enabled = true;
+        GameManager.playerData[playerNumber].isInvincible = false;
         yield break;
     }
 }

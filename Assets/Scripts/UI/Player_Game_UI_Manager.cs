@@ -87,8 +87,8 @@ public class Player_Game_UI_Manager : MonoBehaviour // By Samuel White
         for (int i = 0; i < count; i++)
         {
             // Update Health
-            var minHealth = GameManager.playerData[i].characterData.playerHealth.health;
-            var maxHealth = GameManager.playerData[i].characterData.playerHealth.maxHealth;
+            float minHealth = GameManager.playerData[i].characterData.playerHealth.health;
+            float maxHealth = GameManager.playerData[i].characterData.playerHealth.maxHealth;
             playerHealthBars[i].fillAmount = minHealth / maxHealth;
             if (minHealth <= 0) playerHealthBars[i].fillAmount = 0f;
 
@@ -104,7 +104,7 @@ public class Player_Game_UI_Manager : MonoBehaviour // By Samuel White
                 playerFreezeBars[i].fillAmount = 0f;
             }
 
-            playerScoreTexts[i].text = $"p{i + 1} Score: {GameManager.playerData[i].score}";
+            playerScoreTexts[i].text = $"P{i + 1} Score: {GameManager.playerData[i].score}";
 
         }
     }

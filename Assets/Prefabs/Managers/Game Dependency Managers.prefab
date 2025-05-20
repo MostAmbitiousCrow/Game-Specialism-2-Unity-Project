@@ -92482,6 +92482,36 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -608.57965
       objectReference: {fileID: 0}
+    - target: {fileID: 9117409710937450158, guid: 856742e084c0744f58a9c3687e89a11e,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9117409710937450158, guid: 856742e084c0744f58a9c3687e89a11e,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9117409710937450158, guid: 856742e084c0744f58a9c3687e89a11e,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 755
+      objectReference: {fileID: 0}
+    - target: {fileID: 9117409710937450158, guid: 856742e084c0744f58a9c3687e89a11e,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 84.97867
+      objectReference: {fileID: 0}
+    - target: {fileID: 9117409710937450158, guid: 856742e084c0744f58a9c3687e89a11e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 377.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9117409710937450158, guid: 856742e084c0744f58a9c3687e89a11e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -42.489334
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
