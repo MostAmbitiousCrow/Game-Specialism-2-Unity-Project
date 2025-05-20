@@ -17,7 +17,8 @@ public class GameManager : MonoBehaviour // By Samuel White
 
     public GameObject[] playerPrefabs;
 
-    public EventSystem eventSystem;
+    public MultiplayerEventSystem eventSystem;
+    //public MultiplayerEventSystem multiplayerEventSystem;
 
     [SerializeField] private Transform playerCamera;
 
@@ -194,7 +195,7 @@ public class GameManager : MonoBehaviour // By Samuel White
 
     public void UpdateUIInput()
     {
-        if (eventSystem == null) eventSystem = GameObject.FindWithTag("EventSystem").GetComponent<EventSystem>();
+        if (eventSystem == null) eventSystem = GameObject.FindWithTag("EventSystem").GetComponent<MultiplayerEventSystem>();
 
         InputSystemUIInputModule uiModule = eventSystem.GetComponent<InputSystemUIInputModule>();
         uiModule.actionsAsset = GameData.playerInputs[0].actions;
@@ -379,7 +380,7 @@ public class GameManager : MonoBehaviour // By Samuel White
 
     public void SceneLoaded()
     {
-        eventSystem = GameObject.FindWithTag("EventSystem").GetComponent<EventSystem>();
+        eventSystem = GameObject.FindWithTag("EventSystem").GetComponent<MultiplayerEventSystem>();
     }
     #endregion
 }

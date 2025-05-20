@@ -79,7 +79,7 @@ public class Player_Game_UI_Manager : MonoBehaviour // By Samuel White
         }
     }
 
-    #region Update Player Health
+    #region Update Player UI
 
     public void UpdateUI()
     {
@@ -104,7 +104,7 @@ public class Player_Game_UI_Manager : MonoBehaviour // By Samuel White
                 playerFreezeBars[i].fillAmount = 0f;
             }
 
-            playerScoreTexts[i].text = $"p{i} Score: {GameManager.playerData[i].score}";
+            playerScoreTexts[i].text = $"p{i + 1} Score: {GameManager.playerData[i].score}";
 
         }
     }
@@ -129,6 +129,7 @@ public class Player_Game_UI_Manager : MonoBehaviour // By Samuel White
 
     public void UI_ShowPauseMenu(bool show)
     {
+        settingsMenu.SetActive(false);
         ShowPauseMenu(show, playerNum);
     }
 
@@ -149,7 +150,11 @@ public class Player_Game_UI_Manager : MonoBehaviour // By Samuel White
     public void ShowResultsMenu(bool show)
     {
         resultsMenu.SetActive(show);
-        GameData.playerInputs[playerNum].SwitchCurrentActionMap(show ? "UI" : "Player Movement");
+        foreach (var item in GameData.playerInputs)
+        {
+            item.SwitchCurrentActionMap(show ? "UI" : "Player Movement");
+        }
+        //GameData.playerInputs[0].SwitchCurrentActionMap(show ? "UI" : "Player Movement");
         if (show)
         {
             GameData.canPause = false;
@@ -250,6 +255,7 @@ public class Player_Game_UI_Manager : MonoBehaviour // By Samuel White
 
     public void ReturnToMainMenu()
     {
+        GameData.currentLevel = Scene_Loader_Transition.SceneNames.Main_Menu;
         Scene_Loader_Transition.LoadScene(Scene_Loader_Transition.SceneNames.Main_Menu);
     }
 }

@@ -57,7 +57,7 @@ public class AudioManager : MonoBehaviour // By Samuel White
     #endregion
 
     #region Update Volume
-        public static void UpdateAudioManagerVolume()
+    public static void UpdateAudioManagerVolume()
     {
         instance.audioMixer.SetFloat("Master", Mathf.Log10(Settings_Manager.masterVolume) * 20);
         instance.audioMixer.SetFloat("Music", Mathf.Log10(Settings_Manager.musicVolume) * 20);

@@ -38,7 +38,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  loopAttackAnimation: 1
-  animationDelay: 0.1
+  loopAttackAnimation: 0
+  animationDelay: 0.3
   shootSound: 13
   deathSound: 14

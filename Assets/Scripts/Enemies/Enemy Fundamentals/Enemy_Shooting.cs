@@ -133,6 +133,7 @@ public class Enemy_Shooting_State : IEnemyState // By Samuel White
                     Quaternion rot = Quaternion.LookRotation(direction);
 
                     p.transform.SetPositionAndRotation(data.projectileSpawnPoints[i].position, rot);
+                    p.Target = target;
                     p.gameObject.SetActive(true);
                     AudioManager.PlayEnemySound(data.attackData.shootSound, 1);
                 }
