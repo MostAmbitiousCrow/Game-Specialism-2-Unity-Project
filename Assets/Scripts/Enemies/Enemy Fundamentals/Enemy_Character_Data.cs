@@ -50,6 +50,7 @@ public class Enemy_Character_Data : MonoBehaviour //  By Samuel White
 
     [SerializeField] float damageFlashDuration = 0.1f;
     [SerializeField] AnimationCurve damageFlashCurve;
+    private Coroutine damageFlashRoutine;
 
     [Header("Freeze Settings")]
     public float frozenSpeed = 5;
@@ -70,6 +71,7 @@ public class Enemy_Character_Data : MonoBehaviour //  By Samuel White
 
     public void StartEnterance()
     {
+        reverseMovement = false;
         ChangeState(MoveState);
     }
 
@@ -90,6 +92,11 @@ public class Enemy_Character_Data : MonoBehaviour //  By Samuel White
     {
         if (New_Enemy_Pool_System.instance.isActiveAndEnabled)
         {
+            if (damageFlashRoutine != null) StopCoroutine(DamageFlashCoroutine());
+            enemyMaterial.SetFloat("_Flash", 0);
+            portalAnimator.gameObject.SetActive(false);
+
+            isFrozen = false;
             gameObject.SetActive(false);
             transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
             transform.localScale = Vector3.one;
@@ -147,6 +154,7 @@ public class Enemy_Character_Data : MonoBehaviour //  By Samuel White
             GameManager.instance.AwardScore(playerNumber, GameManager.ScoreContext.Enemy_Defeated);
             ParticleManager.instance.PlayEnemyParticle(ParticleManager.EnemyParticlesType.EnemyDeath, transform.position);
             AudioManager.PlayEnemySound(attackData.deathSound, 1);
+            GameManager.playerData[playerNumber].kills++;
             reverseMovement = false;
             isFrozen = false;
             ReturnEnemy();
@@ -161,7 +169,7 @@ public class Enemy_Character_Data : MonoBehaviour //  By Samuel White
     void DamageFlash()
     {
         // Debug.Log($"{name} Flashed");
-        if (!flashing) StartCoroutine(DamageFlashCoroutine());
+        if (!flashing) damageFlashRoutine = StartCoroutine(DamageFlashCoroutine());
         else flashT = 0;
     }
 

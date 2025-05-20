@@ -240,11 +240,12 @@ MonoBehaviour:
     soundList:
     - listName: Took_Damage
       playerSoundType: 0
-      sounds: []
+      sounds:
+      - {fileID: 8300000, guid: b2499a7acdbfb492caa74df65fcc2d5f, type: 3}
     - listName: Fire_Bullet
       playerSoundType: 1
       sounds: []
-    - listName: Frozen_Shot
+    - listName: Fire_Frozen_Shot
       playerSoundType: 2
       sounds: []
     - listName: Shot_Hit
@@ -255,9 +256,11 @@ MonoBehaviour:
       playerSoundType: 4
       sounds:
       - {fileID: 8300000, guid: 784d4c56cb7a643e7b518b2607c0b001, type: 3}
-    - listName: Freeze_Mode_Activate
+    - listName: FreezeMode_Activate
       playerSoundType: 5
-      sounds: []
+      sounds:
+      - {fileID: 8300000, guid: 3be214c16fbcb4eba96a6c102d8ca2dd, type: 3}
+      - {fileID: 8300000, guid: b9485b7873565441798be3a0f0fb9aea, type: 3}
     - listName: Deaths
       playerSoundType: 6
       sounds: []
@@ -342,13 +345,18 @@ MonoBehaviour:
       - {fileID: 8300000, guid: 46c71d3511c684020b0fb5ca1e26836d, type: 3}
     - listName: Limb_Spawn
       enemySoundType: 12
-      sounds: []
+      sounds:
+      - {fileID: 8300000, guid: 7c712ea3d96fc4b4ea5d037897ccb666, type: 3}
+      - {fileID: 8300000, guid: c618dfca2213b425e9ce3477ee5d5092, type: 3}
+      - {fileID: 8300000, guid: 98c2e0c467dc848f8844c64dad705ff9, type: 3}
     - listName: Oni_Attack
       enemySoundType: 13
-      sounds: []
+      sounds:
+      - {fileID: 8300000, guid: 60511711e665d4565900127c2d194a5e, type: 3}
     - listName: Oni_Death
       enemySoundType: 14
-      sounds: []
+      sounds:
+      - {fileID: 8300000, guid: 34534ebb2b4a64e83aa38cf672123b2b, type: 3}
     - listName: Oni_Spawn
       enemySoundType: 15
       sounds: []

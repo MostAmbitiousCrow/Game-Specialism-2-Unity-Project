@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Obstacle_Movement : BulletManager // By Samuel White
+public class Obstacle_Movement : BulletManager // By Samuel White (unusued/unfinished)
 {
     public override void UpdateBullet() // Updated by the Bullet Manager
     {

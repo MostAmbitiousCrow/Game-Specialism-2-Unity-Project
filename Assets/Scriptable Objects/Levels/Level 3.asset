@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1679001d1fdd44da698a6f93aca1d3c1, type: 3}
-  m_Name: Level 2
+  m_Name: Level 3
   m_EditorClassIdentifier: 
   waves:
   - waveName: Wave 1
     enemySpawnInfo:
     - cloneAmount: 1
       cloneSpawnDelay: 0
-      clonesOffset: {x: 14, y: 0}
+      clonesOffset: {x: 7, y: -2}
       enemyInfo:
         name: Imp
         enemyID: 0
@@ -26,11 +26,11 @@ MonoBehaviour:
           type: 2}
         attackData: {fileID: 11400000, guid: fe68fffb57a77e44f9e932790bc0a082, type: 2}
         timeOfAppearance: 0
-        targetSpawnPosition: {x: -7, y: 5, z: 20}
-        enterType: 2
+        targetSpawnPosition: {x: -7, y: 4, z: 20}
+        enterType: 1
     - cloneAmount: 1
       cloneSpawnDelay: 0
-      clonesOffset: {x: 8, y: 0}
+      clonesOffset: {x: -14, y: -8}
       enemyInfo:
         name: Imp
         enemyID: 0
@@ -38,51 +38,64 @@ MonoBehaviour:
         projectileData: {fileID: 11400000, guid: 7288fb8bbd9f12b4fb748c4f3a34a188,
           type: 2}
         attackData: {fileID: 11400000, guid: fe68fffb57a77e44f9e932790bc0a082, type: 2}
-        timeOfAppearance: 1
-        targetSpawnPosition: {x: -4, y: 4, z: 20}
+        timeOfAppearance: 0
+        targetSpawnPosition: {x: 7, y: 4, z: 20}
+        enterType: 1
+    - cloneAmount: 1
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 7, y: -2}
+      enemyInfo:
+        name: Imp
+        enemyID: 0
+        movementData: {fileID: 11400000, guid: d0b600601c1ac614dad751a8f055d348, type: 2}
+        projectileData: {fileID: 11400000, guid: 7288fb8bbd9f12b4fb748c4f3a34a188,
+          type: 2}
+        attackData: {fileID: 11400000, guid: fe68fffb57a77e44f9e932790bc0a082, type: 2}
+        timeOfAppearance: 0
+        targetSpawnPosition: {x: 0, y: -2, z: 20}
+        enterType: 1
+    - cloneAmount: 1
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 3, y: -2}
+      enemyInfo:
+        name: Oni
+        enemyID: 3
+        movementData: {fileID: 11400000, guid: b110d997ddccb4a829dda2b4c02897ad, type: 2}
+        projectileData: {fileID: 11400000, guid: 2eec61bcd4d334d2ebbaac630ff35855,
+          type: 2}
+        attackData: {fileID: 11400000, guid: d49883c92b45444cb9a9d3801810e656, type: 2}
+        timeOfAppearance: 5
+        targetSpawnPosition: {x: -5, y: 4, z: 20}
+        enterType: 2
+    - cloneAmount: 1
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 2, y: -2}
+      enemyInfo:
+        name: Oni
+        enemyID: 3
+        movementData: {fileID: 11400000, guid: b110d997ddccb4a829dda2b4c02897ad, type: 2}
+        projectileData: {fileID: 11400000, guid: 2eec61bcd4d334d2ebbaac630ff35855,
+          type: 2}
+        attackData: {fileID: 11400000, guid: d49883c92b45444cb9a9d3801810e656, type: 2}
+        timeOfAppearance: 5
+        targetSpawnPosition: {x: 0, y: 4, z: 20}
         enterType: 2
     - cloneAmount: 0
       cloneSpawnDelay: 0
       clonesOffset: {x: 0, y: 0}
       enemyInfo:
-        name: Imp
-        enemyID: 0
-        movementData: {fileID: 11400000, guid: d0b600601c1ac614dad751a8f055d348, type: 2}
-        projectileData: {fileID: 11400000, guid: 7288fb8bbd9f12b4fb748c4f3a34a188,
+        name: Oni
+        enemyID: 3
+        movementData: {fileID: 11400000, guid: b110d997ddccb4a829dda2b4c02897ad, type: 2}
+        projectileData: {fileID: 11400000, guid: 2eec61bcd4d334d2ebbaac630ff35855,
           type: 2}
-        attackData: {fileID: 11400000, guid: fe68fffb57a77e44f9e932790bc0a082, type: 2}
-        timeOfAppearance: 1
-        targetSpawnPosition: {x: 0, y: 2, z: 20}
+        attackData: {fileID: 11400000, guid: d49883c92b45444cb9a9d3801810e656, type: 2}
+        timeOfAppearance: 5
+        targetSpawnPosition: {x: 5, y: 4, z: 20}
         enterType: 2
     - cloneAmount: 1
       cloneSpawnDelay: 0
-      clonesOffset: {x: 8, y: 0}
-      enemyInfo:
-        name: Oni
-        enemyID: 3
-        movementData: {fileID: 11400000, guid: b110d997ddccb4a829dda2b4c02897ad, type: 2}
-        projectileData: {fileID: 11400000, guid: 2eec61bcd4d334d2ebbaac630ff35855,
-          type: 2}
-        attackData: {fileID: 11400000, guid: d49883c92b45444cb9a9d3801810e656, type: 2}
-        timeOfAppearance: 8
-        targetSpawnPosition: {x: -4, y: 0, z: 20}
-        enterType: 0
-    - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: 4, y: -4}
-      enemyInfo:
-        name: Oni
-        enemyID: 3
-        movementData: {fileID: 11400000, guid: b110d997ddccb4a829dda2b4c02897ad, type: 2}
-        projectileData: {fileID: 11400000, guid: 2eec61bcd4d334d2ebbaac630ff35855,
-          type: 2}
-        attackData: {fileID: 11400000, guid: d49883c92b45444cb9a9d3801810e656, type: 2}
-        timeOfAppearance: 8
-        targetSpawnPosition: {x: 0, y: 4, z: 20}
-        enterType: 0
-    - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: 11, y: 11}
+      clonesOffset: {x: 1, y: 3}
       enemyInfo:
         name: Succubus
         enemyID: 1
@@ -90,12 +103,25 @@ MonoBehaviour:
         projectileData: {fileID: 11400000, guid: 5bac7052cf37a42f8b6bf21bdcab8ed2,
           type: 2}
         attackData: {fileID: 11400000, guid: d0d35b75cd9e54d13abbb507f6a6592a, type: 2}
-        timeOfAppearance: 15
-        targetSpawnPosition: {x: -5.5, y: -5.5, z: 20}
+        timeOfAppearance: 10
+        targetSpawnPosition: {x: -1, y: -2, z: 20}
         enterType: 0
-    - cloneAmount: 2
+    - cloneAmount: 0
       cloneSpawnDelay: 0
-      clonesOffset: {x: 6, y: 0}
+      clonesOffset: {x: 0, y: 0}
+      enemyInfo:
+        name: Succubus
+        enemyID: 1
+        movementData: {fileID: 11400000, guid: eb150b6da9e5545f4bbf70f5633cec20, type: 2}
+        projectileData: {fileID: 11400000, guid: 5bac7052cf37a42f8b6bf21bdcab8ed2,
+          type: 2}
+        attackData: {fileID: 11400000, guid: d0d35b75cd9e54d13abbb507f6a6592a, type: 2}
+        timeOfAppearance: 10
+        targetSpawnPosition: {x: 1, y: -2, z: 20}
+        enterType: 0
+    - cloneAmount: 1
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 2, y: 0}
       enemyInfo:
         name: Chef
         enemyID: 4
@@ -103,25 +129,38 @@ MonoBehaviour:
         projectileData: {fileID: 11400000, guid: 82e6dc2808dc1416c8cf51065434ec88,
           type: 2}
         attackData: {fileID: 11400000, guid: c0d00a5fe3bbc462f820727e5c3e0de4, type: 2}
-        timeOfAppearance: 20
-        targetSpawnPosition: {x: -6, y: -3, z: 20}
-        enterType: 2
-    - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: 2, y: -3}
-      enemyInfo:
-        name: Limb
-        enemyID: 2
-        movementData: {fileID: 11400000, guid: e754e159561194503b8c08daff547e5a, type: 2}
-        projectileData: {fileID: 11400000, guid: ba933030ea26446fe9169ee6a0794470,
-          type: 2}
-        attackData: {fileID: 11400000, guid: a25bff27bfdb74a9aabccd4899171ef2, type: 2}
-        timeOfAppearance: 25
-        targetSpawnPosition: {x: -8, y: 5, z: 20}
+        timeOfAppearance: 15
+        targetSpawnPosition: {x: -7.5, y: 5, z: 20}
         enterType: 0
     - cloneAmount: 1
       cloneSpawnDelay: 0
-      clonesOffset: {x: 2, y: 3}
+      clonesOffset: {x: 5.5, y: 0}
+      enemyInfo:
+        name: Chef
+        enemyID: 4
+        movementData: {fileID: 11400000, guid: 7353fbc5faee34d39b58a9294d83d357, type: 2}
+        projectileData: {fileID: 11400000, guid: 82e6dc2808dc1416c8cf51065434ec88,
+          type: 2}
+        attackData: {fileID: 11400000, guid: c0d00a5fe3bbc462f820727e5c3e0de4, type: 2}
+        timeOfAppearance: 15
+        targetSpawnPosition: {x: 0, y: 5, z: 20}
+        enterType: 0
+    - cloneAmount: 0
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 0, y: 0}
+      enemyInfo:
+        name: Chef
+        enemyID: 4
+        movementData: {fileID: 11400000, guid: 7353fbc5faee34d39b58a9294d83d357, type: 2}
+        projectileData: {fileID: 11400000, guid: 82e6dc2808dc1416c8cf51065434ec88,
+          type: 2}
+        attackData: {fileID: 11400000, guid: c0d00a5fe3bbc462f820727e5c3e0de4, type: 2}
+        timeOfAppearance: 15
+        targetSpawnPosition: {x: 7.5, y: 5, z: 20}
+        enterType: 0
+    - cloneAmount: 2
+      cloneSpawnDelay: 1
+      clonesOffset: {x: 0, y: 3}
       enemyInfo:
         name: Limb
         enemyID: 2
@@ -129,13 +168,26 @@ MonoBehaviour:
         projectileData: {fileID: 11400000, guid: ba933030ea26446fe9169ee6a0794470,
           type: 2}
         attackData: {fileID: 11400000, guid: a25bff27bfdb74a9aabccd4899171ef2, type: 2}
-        timeOfAppearance: 26
-        targetSpawnPosition: {x: 6, y: 2, z: 20}
+        timeOfAppearance: 20
+        targetSpawnPosition: {x: -7, y: -3, z: 20}
+        enterType: 0
+    - cloneAmount: 1
+      cloneSpawnDelay: 1
+      clonesOffset: {x: 0, y: 4}
+      enemyInfo:
+        name: Limb
+        enemyID: 2
+        movementData: {fileID: 11400000, guid: e754e159561194503b8c08daff547e5a, type: 2}
+        projectileData: {fileID: 11400000, guid: ba933030ea26446fe9169ee6a0794470,
+          type: 2}
+        attackData: {fileID: 11400000, guid: a25bff27bfdb74a9aabccd4899171ef2, type: 2}
+        timeOfAppearance: 23
+        targetSpawnPosition: {x: -6, y: -2, z: 20}
         enterType: 0
     obstacleSpawnInfo: []
     powerUpSpawnInfo: []
-    waveDuration: 35
-    waveStartTime: 2.5
+    waveDuration: 30
+    waveStartTime: 0
     defeatedEnemiesReqirement: 0
     debugActive: 1
     debugColour: {r: 1, g: 0, b: 0, a: 1}
@@ -143,7 +195,7 @@ MonoBehaviour:
     enemySpawnInfo:
     - cloneAmount: 1
       cloneSpawnDelay: 0
-      clonesOffset: {x: 3, y: 1}
+      clonesOffset: {x: 7, y: -2}
       enemyInfo:
         name: Imp
         enemyID: 0
@@ -152,11 +204,37 @@ MonoBehaviour:
           type: 2}
         attackData: {fileID: 11400000, guid: fe68fffb57a77e44f9e932790bc0a082, type: 2}
         timeOfAppearance: 0
-        targetSpawnPosition: {x: -7, y: 5, z: 20}
+        targetSpawnPosition: {x: -7, y: 4, z: 20}
         enterType: 1
-    - cloneAmount: 0
+    - cloneAmount: 1
       cloneSpawnDelay: 0
-      clonesOffset: {x: 0, y: 0}
+      clonesOffset: {x: -14, y: -8}
+      enemyInfo:
+        name: Imp
+        enemyID: 0
+        movementData: {fileID: 11400000, guid: d0b600601c1ac614dad751a8f055d348, type: 2}
+        projectileData: {fileID: 11400000, guid: 7288fb8bbd9f12b4fb748c4f3a34a188,
+          type: 2}
+        attackData: {fileID: 11400000, guid: fe68fffb57a77e44f9e932790bc0a082, type: 2}
+        timeOfAppearance: 0
+        targetSpawnPosition: {x: 7, y: 4, z: 20}
+        enterType: 1
+    - cloneAmount: 1
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 7, y: -2}
+      enemyInfo:
+        name: Imp
+        enemyID: 0
+        movementData: {fileID: 11400000, guid: d0b600601c1ac614dad751a8f055d348, type: 2}
+        projectileData: {fileID: 11400000, guid: 7288fb8bbd9f12b4fb748c4f3a34a188,
+          type: 2}
+        attackData: {fileID: 11400000, guid: fe68fffb57a77e44f9e932790bc0a082, type: 2}
+        timeOfAppearance: 0
+        targetSpawnPosition: {x: 0, y: -2, z: 20}
+        enterType: 1
+    - cloneAmount: 1
+      cloneSpawnDelay: 0.25
+      clonesOffset: {x: 16, y: 0}
       enemyInfo:
         name: Imp
         enemyID: 0
@@ -165,37 +243,11 @@ MonoBehaviour:
           type: 2}
         attackData: {fileID: 11400000, guid: fe68fffb57a77e44f9e932790bc0a082, type: 2}
         timeOfAppearance: 1
-        targetSpawnPosition: {x: 0, y: 2, z: 20}
-        enterType: 1
-    - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: 4, y: 2}
-      enemyInfo:
-        name: Imp
-        enemyID: 0
-        movementData: {fileID: 11400000, guid: d0b600601c1ac614dad751a8f055d348, type: 2}
-        projectileData: {fileID: 11400000, guid: 7288fb8bbd9f12b4fb748c4f3a34a188,
-          type: 2}
-        attackData: {fileID: 11400000, guid: fe68fffb57a77e44f9e932790bc0a082, type: 2}
-        timeOfAppearance: 2
-        targetSpawnPosition: {x: 4, y: 4, z: 20}
+        targetSpawnPosition: {x: -8, y: 0, z: 20}
         enterType: 2
     - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: 8, y: 0}
-      enemyInfo:
-        name: Imp
-        enemyID: 0
-        movementData: {fileID: 11400000, guid: d0b600601c1ac614dad751a8f055d348, type: 2}
-        projectileData: {fileID: 11400000, guid: 7288fb8bbd9f12b4fb748c4f3a34a188,
-          type: 2}
-        attackData: {fileID: 11400000, guid: fe68fffb57a77e44f9e932790bc0a082, type: 2}
-        timeOfAppearance: 3
-        targetSpawnPosition: {x: -4, y: -4, z: 20}
-        enterType: 2
-    - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: 4, y: 4}
+      cloneSpawnDelay: 0.25
+      clonesOffset: {x: 3, y: -2}
       enemyInfo:
         name: Oni
         enemyID: 3
@@ -204,11 +256,306 @@ MonoBehaviour:
           type: 2}
         attackData: {fileID: 11400000, guid: d49883c92b45444cb9a9d3801810e656, type: 2}
         timeOfAppearance: 10
-        targetSpawnPosition: {x: -4, y: 0, z: 20}
+        targetSpawnPosition: {x: -5, y: 4, z: 20}
+        enterType: 2
+    - cloneAmount: 1
+      cloneSpawnDelay: 0.25
+      clonesOffset: {x: 2, y: -2}
+      enemyInfo:
+        name: Oni
+        enemyID: 3
+        movementData: {fileID: 11400000, guid: b110d997ddccb4a829dda2b4c02897ad, type: 2}
+        projectileData: {fileID: 11400000, guid: 2eec61bcd4d334d2ebbaac630ff35855,
+          type: 2}
+        attackData: {fileID: 11400000, guid: d49883c92b45444cb9a9d3801810e656, type: 2}
+        timeOfAppearance: 10
+        targetSpawnPosition: {x: 0, y: 4, z: 20}
+        enterType: 2
+    - cloneAmount: 1
+      cloneSpawnDelay: 0.25
+      clonesOffset: {x: -10, y: -2}
+      enemyInfo:
+        name: Oni
+        enemyID: 3
+        movementData: {fileID: 11400000, guid: b110d997ddccb4a829dda2b4c02897ad, type: 2}
+        projectileData: {fileID: 11400000, guid: 2eec61bcd4d334d2ebbaac630ff35855,
+          type: 2}
+        attackData: {fileID: 11400000, guid: d49883c92b45444cb9a9d3801810e656, type: 2}
+        timeOfAppearance: 10
+        targetSpawnPosition: {x: 5, y: 4, z: 20}
+        enterType: 0
+    - cloneAmount: 0
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 0, y: 0}
+      enemyInfo:
+        name: Oni
+        enemyID: 3
+        movementData: {fileID: 11400000, guid: b110d997ddccb4a829dda2b4c02897ad, type: 2}
+        projectileData: {fileID: 11400000, guid: 2eec61bcd4d334d2ebbaac630ff35855,
+          type: 2}
+        attackData: {fileID: 11400000, guid: d49883c92b45444cb9a9d3801810e656, type: 2}
+        timeOfAppearance: 10.5
+        targetSpawnPosition: {x: 5, y: 2, z: 20}
+        enterType: 0
+    - cloneAmount: 1
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 1, y: 3}
+      enemyInfo:
+        name: Succubus
+        enemyID: 1
+        movementData: {fileID: 11400000, guid: eb150b6da9e5545f4bbf70f5633cec20, type: 2}
+        projectileData: {fileID: 11400000, guid: 5bac7052cf37a42f8b6bf21bdcab8ed2,
+          type: 2}
+        attackData: {fileID: 11400000, guid: d0d35b75cd9e54d13abbb507f6a6592a, type: 2}
+        timeOfAppearance: 19.5
+        targetSpawnPosition: {x: -1, y: -2, z: 20}
+        enterType: 0
+    - cloneAmount: 1
+      cloneSpawnDelay: 0
+      clonesOffset: {x: -2, y: 4}
+      enemyInfo:
+        name: Succubus
+        enemyID: 1
+        movementData: {fileID: 11400000, guid: eb150b6da9e5545f4bbf70f5633cec20, type: 2}
+        projectileData: {fileID: 11400000, guid: 5bac7052cf37a42f8b6bf21bdcab8ed2,
+          type: 2}
+        attackData: {fileID: 11400000, guid: d0d35b75cd9e54d13abbb507f6a6592a, type: 2}
+        timeOfAppearance: 19.5
+        targetSpawnPosition: {x: 1, y: -2, z: 20}
+        enterType: 0
+    - cloneAmount: 1
+      cloneSpawnDelay: 0
+      clonesOffset: {x: -1, y: 3}
+      enemyInfo:
+        name: Succubus
+        enemyID: 1
+        movementData: {fileID: 11400000, guid: eb150b6da9e5545f4bbf70f5633cec20, type: 2}
+        projectileData: {fileID: 11400000, guid: 5bac7052cf37a42f8b6bf21bdcab8ed2,
+          type: 2}
+        attackData: {fileID: 11400000, guid: d0d35b75cd9e54d13abbb507f6a6592a, type: 2}
+        timeOfAppearance: 19.5
+        targetSpawnPosition: {x: 0, y: -1, z: 20}
+        enterType: 0
+    - cloneAmount: 1
+      cloneSpawnDelay: 0
+      clonesOffset: {x: -2, y: 0}
+      enemyInfo:
+        name: Chef
+        enemyID: 4
+        movementData: {fileID: 11400000, guid: 7353fbc5faee34d39b58a9294d83d357, type: 2}
+        projectileData: {fileID: 11400000, guid: 82e6dc2808dc1416c8cf51065434ec88,
+          type: 2}
+        attackData: {fileID: 11400000, guid: c0d00a5fe3bbc462f820727e5c3e0de4, type: 2}
+        timeOfAppearance: 25
+        targetSpawnPosition: {x: -7.5, y: 5, z: 20}
+        enterType: 0
+    - cloneAmount: 1
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 5.5, y: 0}
+      enemyInfo:
+        name: Chef
+        enemyID: 4
+        movementData: {fileID: 11400000, guid: 7353fbc5faee34d39b58a9294d83d357, type: 2}
+        projectileData: {fileID: 11400000, guid: 82e6dc2808dc1416c8cf51065434ec88,
+          type: 2}
+        attackData: {fileID: 11400000, guid: c0d00a5fe3bbc462f820727e5c3e0de4, type: 2}
+        timeOfAppearance: 25
+        targetSpawnPosition: {x: 0, y: 5, z: 20}
+        enterType: 0
+    - cloneAmount: 1
+      cloneSpawnDelay: 0
+      clonesOffset: {x: -10.5, y: 0}
+      enemyInfo:
+        name: Chef
+        enemyID: 4
+        movementData: {fileID: 11400000, guid: 7353fbc5faee34d39b58a9294d83d357, type: 2}
+        projectileData: {fileID: 11400000, guid: 82e6dc2808dc1416c8cf51065434ec88,
+          type: 2}
+        attackData: {fileID: 11400000, guid: c0d00a5fe3bbc462f820727e5c3e0de4, type: 2}
+        timeOfAppearance: 25
+        targetSpawnPosition: {x: 7.5, y: 5, z: 20}
+        enterType: 0
+    - cloneAmount: 1
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 3, y: 1.5}
+      enemyInfo:
+        name: Chef
+        enemyID: 4
+        movementData: {fileID: 11400000, guid: 7353fbc5faee34d39b58a9294d83d357, type: 2}
+        projectileData: {fileID: 11400000, guid: 82e6dc2808dc1416c8cf51065434ec88,
+          type: 2}
+        attackData: {fileID: 11400000, guid: c0d00a5fe3bbc462f820727e5c3e0de4, type: 2}
+        timeOfAppearance: 25
+        targetSpawnPosition: {x: 0, y: 3.5, z: 20}
+        enterType: 0
+    - cloneAmount: 2
+      cloneSpawnDelay: 1
+      clonesOffset: {x: 0, y: 3}
+      enemyInfo:
+        name: Limb
+        enemyID: 2
+        movementData: {fileID: 11400000, guid: e754e159561194503b8c08daff547e5a, type: 2}
+        projectileData: {fileID: 11400000, guid: ba933030ea26446fe9169ee6a0794470,
+          type: 2}
+        attackData: {fileID: 11400000, guid: a25bff27bfdb74a9aabccd4899171ef2, type: 2}
+        timeOfAppearance: 32.5
+        targetSpawnPosition: {x: -7, y: -3, z: 20}
+        enterType: 0
+    - cloneAmount: 1
+      cloneSpawnDelay: 1
+      clonesOffset: {x: 0, y: 4}
+      enemyInfo:
+        name: Limb
+        enemyID: 2
+        movementData: {fileID: 11400000, guid: e754e159561194503b8c08daff547e5a, type: 2}
+        projectileData: {fileID: 11400000, guid: ba933030ea26446fe9169ee6a0794470,
+          type: 2}
+        attackData: {fileID: 11400000, guid: a25bff27bfdb74a9aabccd4899171ef2, type: 2}
+        timeOfAppearance: 32.5
+        targetSpawnPosition: {x: -6, y: -2, z: 20}
+        enterType: 0
+    - cloneAmount: 1
+      cloneSpawnDelay: 1
+      clonesOffset: {x: 0, y: -3}
+      enemyInfo:
+        name: Limb
+        enemyID: 2
+        movementData: {fileID: 11400000, guid: e754e159561194503b8c08daff547e5a, type: 2}
+        projectileData: {fileID: 11400000, guid: ba933030ea26446fe9169ee6a0794470,
+          type: 2}
+        attackData: {fileID: 11400000, guid: a25bff27bfdb74a9aabccd4899171ef2, type: 2}
+        timeOfAppearance: 32.5
+        targetSpawnPosition: {x: 7, y: 3, z: 20}
+        enterType: 0
+    obstacleSpawnInfo: []
+    powerUpSpawnInfo: []
+    waveDuration: 42.5
+    waveStartTime: 0
+    defeatedEnemiesReqirement: 0
+    debugActive: 1
+    debugColour: {r: 1, g: 0.33333334, b: 0, a: 1}
+  - waveName: Wave 3
+    enemySpawnInfo:
+    - cloneAmount: 1
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 7, y: -2}
+      enemyInfo:
+        name: Imp
+        enemyID: 0
+        movementData: {fileID: 11400000, guid: d0b600601c1ac614dad751a8f055d348, type: 2}
+        projectileData: {fileID: 11400000, guid: 7288fb8bbd9f12b4fb748c4f3a34a188,
+          type: 2}
+        attackData: {fileID: 11400000, guid: fe68fffb57a77e44f9e932790bc0a082, type: 2}
+        timeOfAppearance: 0
+        targetSpawnPosition: {x: -7, y: 4, z: 20}
         enterType: 1
     - cloneAmount: 1
       cloneSpawnDelay: 0
-      clonesOffset: {x: 0, y: -10}
+      clonesOffset: {x: -14, y: -8}
+      enemyInfo:
+        name: Imp
+        enemyID: 0
+        movementData: {fileID: 11400000, guid: d0b600601c1ac614dad751a8f055d348, type: 2}
+        projectileData: {fileID: 11400000, guid: 7288fb8bbd9f12b4fb748c4f3a34a188,
+          type: 2}
+        attackData: {fileID: 11400000, guid: fe68fffb57a77e44f9e932790bc0a082, type: 2}
+        timeOfAppearance: 0
+        targetSpawnPosition: {x: 7, y: 4, z: 20}
+        enterType: 1
+    - cloneAmount: 1
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 7, y: -2}
+      enemyInfo:
+        name: Imp
+        enemyID: 0
+        movementData: {fileID: 11400000, guid: d0b600601c1ac614dad751a8f055d348, type: 2}
+        projectileData: {fileID: 11400000, guid: 7288fb8bbd9f12b4fb748c4f3a34a188,
+          type: 2}
+        attackData: {fileID: 11400000, guid: fe68fffb57a77e44f9e932790bc0a082, type: 2}
+        timeOfAppearance: 0
+        targetSpawnPosition: {x: 0, y: -2, z: 20}
+        enterType: 1
+    - cloneAmount: 1
+      cloneSpawnDelay: 0.25
+      clonesOffset: {x: 16, y: 0}
+      enemyInfo:
+        name: Imp
+        enemyID: 0
+        movementData: {fileID: 11400000, guid: d0b600601c1ac614dad751a8f055d348, type: 2}
+        projectileData: {fileID: 11400000, guid: 7288fb8bbd9f12b4fb748c4f3a34a188,
+          type: 2}
+        attackData: {fileID: 11400000, guid: fe68fffb57a77e44f9e932790bc0a082, type: 2}
+        timeOfAppearance: 1
+        targetSpawnPosition: {x: -8, y: 0, z: 20}
+        enterType: 2
+    - cloneAmount: 1
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 12, y: 0}
+      enemyInfo:
+        name: Imp
+        enemyID: 0
+        movementData: {fileID: 11400000, guid: d0b600601c1ac614dad751a8f055d348, type: 2}
+        projectileData: {fileID: 11400000, guid: 7288fb8bbd9f12b4fb748c4f3a34a188,
+          type: 2}
+        attackData: {fileID: 11400000, guid: fe68fffb57a77e44f9e932790bc0a082, type: 2}
+        timeOfAppearance: 4
+        targetSpawnPosition: {x: -6, y: 0, z: 20}
+        enterType: 0
+    - cloneAmount: 1
+      cloneSpawnDelay: 0.25
+      clonesOffset: {x: 3, y: -2}
+      enemyInfo:
+        name: Oni
+        enemyID: 3
+        movementData: {fileID: 11400000, guid: b110d997ddccb4a829dda2b4c02897ad, type: 2}
+        projectileData: {fileID: 11400000, guid: 2eec61bcd4d334d2ebbaac630ff35855,
+          type: 2}
+        attackData: {fileID: 11400000, guid: d49883c92b45444cb9a9d3801810e656, type: 2}
+        timeOfAppearance: 10
+        targetSpawnPosition: {x: -5, y: 4, z: 20}
+        enterType: 2
+    - cloneAmount: 1
+      cloneSpawnDelay: 0.25
+      clonesOffset: {x: 2, y: -2}
+      enemyInfo:
+        name: Oni
+        enemyID: 3
+        movementData: {fileID: 11400000, guid: b110d997ddccb4a829dda2b4c02897ad, type: 2}
+        projectileData: {fileID: 11400000, guid: 2eec61bcd4d334d2ebbaac630ff35855,
+          type: 2}
+        attackData: {fileID: 11400000, guid: d49883c92b45444cb9a9d3801810e656, type: 2}
+        timeOfAppearance: 10
+        targetSpawnPosition: {x: 0, y: 4, z: 20}
+        enterType: 2
+    - cloneAmount: 1
+      cloneSpawnDelay: 0.25
+      clonesOffset: {x: -10, y: -2}
+      enemyInfo:
+        name: Oni
+        enemyID: 3
+        movementData: {fileID: 11400000, guid: b110d997ddccb4a829dda2b4c02897ad, type: 2}
+        projectileData: {fileID: 11400000, guid: 2eec61bcd4d334d2ebbaac630ff35855,
+          type: 2}
+        attackData: {fileID: 11400000, guid: d49883c92b45444cb9a9d3801810e656, type: 2}
+        timeOfAppearance: 10
+        targetSpawnPosition: {x: 5, y: 4, z: 20}
+        enterType: 0
+    - cloneAmount: 0
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 0, y: 0}
+      enemyInfo:
+        name: Oni
+        enemyID: 3
+        movementData: {fileID: 11400000, guid: b110d997ddccb4a829dda2b4c02897ad, type: 2}
+        projectileData: {fileID: 11400000, guid: 2eec61bcd4d334d2ebbaac630ff35855,
+          type: 2}
+        attackData: {fileID: 11400000, guid: d49883c92b45444cb9a9d3801810e656, type: 2}
+        timeOfAppearance: 10.5
+        targetSpawnPosition: {x: 5, y: 2, z: 20}
+        enterType: 0
+    - cloneAmount: 1
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 4, y: 0}
       enemyInfo:
         name: Oni
         enemyID: 3
@@ -217,24 +564,11 @@ MonoBehaviour:
           type: 2}
         attackData: {fileID: 11400000, guid: d49883c92b45444cb9a9d3801810e656, type: 2}
         timeOfAppearance: 12
-        targetSpawnPosition: {x: 0, y: 5, z: 20}
-        enterType: 0
-    - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: -4, y: -4}
-      enemyInfo:
-        name: Oni
-        enemyID: 3
-        movementData: {fileID: 11400000, guid: b110d997ddccb4a829dda2b4c02897ad, type: 2}
-        projectileData: {fileID: 11400000, guid: 2eec61bcd4d334d2ebbaac630ff35855,
-          type: 2}
-        attackData: {fileID: 11400000, guid: d49883c92b45444cb9a9d3801810e656, type: 2}
-        timeOfAppearance: 10
-        targetSpawnPosition: {x: 4, y: 0, z: 20}
+        targetSpawnPosition: {x: -2, y: 4, z: 20}
         enterType: 1
     - cloneAmount: 1
       cloneSpawnDelay: 0
-      clonesOffset: {x: 9, y: 9}
+      clonesOffset: {x: 1, y: 3}
       enemyInfo:
         name: Succubus
         enemyID: 1
@@ -242,12 +576,12 @@ MonoBehaviour:
         projectileData: {fileID: 11400000, guid: 5bac7052cf37a42f8b6bf21bdcab8ed2,
           type: 2}
         attackData: {fileID: 11400000, guid: d0d35b75cd9e54d13abbb507f6a6592a, type: 2}
-        timeOfAppearance: 20
-        targetSpawnPosition: {x: -4.5, y: -4.5, z: 20}
+        timeOfAppearance: 19.5
+        targetSpawnPosition: {x: -1, y: -2, z: 20}
         enterType: 0
     - cloneAmount: 1
       cloneSpawnDelay: 0
-      clonesOffset: {x: 5, y: 5}
+      clonesOffset: {x: -2, y: 4}
       enemyInfo:
         name: Succubus
         enemyID: 1
@@ -255,12 +589,38 @@ MonoBehaviour:
         projectileData: {fileID: 11400000, guid: 5bac7052cf37a42f8b6bf21bdcab8ed2,
           type: 2}
         attackData: {fileID: 11400000, guid: d0d35b75cd9e54d13abbb507f6a6592a, type: 2}
-        timeOfAppearance: 20
-        targetSpawnPosition: {x: -2.5, y: -2.5, z: 20}
+        timeOfAppearance: 19.5
+        targetSpawnPosition: {x: 1, y: -2, z: 20}
         enterType: 0
-    - cloneAmount: 2
+    - cloneAmount: 1
       cloneSpawnDelay: 0
-      clonesOffset: {x: 6, y: 0}
+      clonesOffset: {x: -1, y: 3}
+      enemyInfo:
+        name: Succubus
+        enemyID: 1
+        movementData: {fileID: 11400000, guid: eb150b6da9e5545f4bbf70f5633cec20, type: 2}
+        projectileData: {fileID: 11400000, guid: 5bac7052cf37a42f8b6bf21bdcab8ed2,
+          type: 2}
+        attackData: {fileID: 11400000, guid: d0d35b75cd9e54d13abbb507f6a6592a, type: 2}
+        timeOfAppearance: 19.5
+        targetSpawnPosition: {x: 0, y: -1, z: 20}
+        enterType: 0
+    - cloneAmount: 1
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 0, y: -6}
+      enemyInfo:
+        name: Succubus
+        enemyID: 1
+        movementData: {fileID: 11400000, guid: eb150b6da9e5545f4bbf70f5633cec20, type: 2}
+        projectileData: {fileID: 11400000, guid: 5bac7052cf37a42f8b6bf21bdcab8ed2,
+          type: 2}
+        attackData: {fileID: 11400000, guid: d0d35b75cd9e54d13abbb507f6a6592a, type: 2}
+        timeOfAppearance: 21
+        targetSpawnPosition: {x: 0, y: 3, z: 20}
+        enterType: 0
+    - cloneAmount: 1
+      cloneSpawnDelay: 0
+      clonesOffset: {x: -2, y: 0}
       enemyInfo:
         name: Chef
         enemyID: 4
@@ -269,11 +629,11 @@ MonoBehaviour:
           type: 2}
         attackData: {fileID: 11400000, guid: c0d00a5fe3bbc462f820727e5c3e0de4, type: 2}
         timeOfAppearance: 25
-        targetSpawnPosition: {x: -6, y: -3, z: 20}
+        targetSpawnPosition: {x: -7.5, y: 5, z: 20}
         enterType: 0
-    - cloneAmount: 2
+    - cloneAmount: 1
       cloneSpawnDelay: 0
-      clonesOffset: {x: 6, y: 0}
+      clonesOffset: {x: 3, y: -3}
       enemyInfo:
         name: Chef
         enemyID: 4
@@ -281,12 +641,51 @@ MonoBehaviour:
         projectileData: {fileID: 11400000, guid: 82e6dc2808dc1416c8cf51065434ec88,
           type: 2}
         attackData: {fileID: 11400000, guid: c0d00a5fe3bbc462f820727e5c3e0de4, type: 2}
-        timeOfAppearance: 27
-        targetSpawnPosition: {x: -6, y: 3, z: 20}
+        timeOfAppearance: 27.5
+        targetSpawnPosition: {x: -3, y: 3, z: 20}
         enterType: 0
     - cloneAmount: 1
       cloneSpawnDelay: 0
-      clonesOffset: {x: 2, y: -3}
+      clonesOffset: {x: 5.5, y: 0}
+      enemyInfo:
+        name: Chef
+        enemyID: 4
+        movementData: {fileID: 11400000, guid: 7353fbc5faee34d39b58a9294d83d357, type: 2}
+        projectileData: {fileID: 11400000, guid: 82e6dc2808dc1416c8cf51065434ec88,
+          type: 2}
+        attackData: {fileID: 11400000, guid: c0d00a5fe3bbc462f820727e5c3e0de4, type: 2}
+        timeOfAppearance: 25
+        targetSpawnPosition: {x: 0, y: 5, z: 20}
+        enterType: 0
+    - cloneAmount: 1
+      cloneSpawnDelay: 0
+      clonesOffset: {x: -10.5, y: 0}
+      enemyInfo:
+        name: Chef
+        enemyID: 4
+        movementData: {fileID: 11400000, guid: 7353fbc5faee34d39b58a9294d83d357, type: 2}
+        projectileData: {fileID: 11400000, guid: 82e6dc2808dc1416c8cf51065434ec88,
+          type: 2}
+        attackData: {fileID: 11400000, guid: c0d00a5fe3bbc462f820727e5c3e0de4, type: 2}
+        timeOfAppearance: 25
+        targetSpawnPosition: {x: 7.5, y: 5, z: 20}
+        enterType: 0
+    - cloneAmount: 1
+      cloneSpawnDelay: 0
+      clonesOffset: {x: 3, y: 1.5}
+      enemyInfo:
+        name: Chef
+        enemyID: 4
+        movementData: {fileID: 11400000, guid: 7353fbc5faee34d39b58a9294d83d357, type: 2}
+        projectileData: {fileID: 11400000, guid: 82e6dc2808dc1416c8cf51065434ec88,
+          type: 2}
+        attackData: {fileID: 11400000, guid: c0d00a5fe3bbc462f820727e5c3e0de4, type: 2}
+        timeOfAppearance: 25
+        targetSpawnPosition: {x: 0, y: 3.5, z: 20}
+        enterType: 0
+    - cloneAmount: 2
+      cloneSpawnDelay: 1
+      clonesOffset: {x: 0, y: 3}
       enemyInfo:
         name: Limb
         enemyID: 2
@@ -294,12 +693,12 @@ MonoBehaviour:
         projectileData: {fileID: 11400000, guid: ba933030ea26446fe9169ee6a0794470,
           type: 2}
         attackData: {fileID: 11400000, guid: a25bff27bfdb74a9aabccd4899171ef2, type: 2}
-        timeOfAppearance: 37
-        targetSpawnPosition: {x: -8, y: 5, z: 20}
+        timeOfAppearance: 32.5
+        targetSpawnPosition: {x: -7, y: -3, z: 20}
         enterType: 0
     - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: 2, y: 3}
+      cloneSpawnDelay: 1
+      clonesOffset: {x: 0, y: 4}
       enemyInfo:
         name: Limb
         enemyID: 2
@@ -307,38 +706,12 @@ MonoBehaviour:
         projectileData: {fileID: 11400000, guid: ba933030ea26446fe9169ee6a0794470,
           type: 2}
         attackData: {fileID: 11400000, guid: a25bff27bfdb74a9aabccd4899171ef2, type: 2}
-        timeOfAppearance: 37
-        targetSpawnPosition: {x: 6, y: 2, z: 20}
-        enterType: 0
-    - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: -16, y: -10}
-      enemyInfo:
-        name: Limb
-        enemyID: 2
-        movementData: {fileID: 11400000, guid: e754e159561194503b8c08daff547e5a, type: 2}
-        projectileData: {fileID: 11400000, guid: ba933030ea26446fe9169ee6a0794470,
-          type: 2}
-        attackData: {fileID: 11400000, guid: a25bff27bfdb74a9aabccd4899171ef2, type: 2}
-        timeOfAppearance: 40
-        targetSpawnPosition: {x: 8, y: 5, z: 20}
-        enterType: 0
-    - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: 12, y: -3}
-      enemyInfo:
-        name: Limb
-        enemyID: 2
-        movementData: {fileID: 11400000, guid: e754e159561194503b8c08daff547e5a, type: 2}
-        projectileData: {fileID: 11400000, guid: ba933030ea26446fe9169ee6a0794470,
-          type: 2}
-        attackData: {fileID: 11400000, guid: a25bff27bfdb74a9aabccd4899171ef2, type: 2}
-        timeOfAppearance: 40
+        timeOfAppearance: 32.5
         targetSpawnPosition: {x: -6, y: -2, z: 20}
         enterType: 0
-    - cloneAmount: 0
-      cloneSpawnDelay: 0
-      clonesOffset: {x: 0, y: 0}
+    - cloneAmount: 1
+      cloneSpawnDelay: 1
+      clonesOffset: {x: 0, y: -3}
       enemyInfo:
         name: Limb
         enemyID: 2
@@ -346,282 +719,26 @@ MonoBehaviour:
         projectileData: {fileID: 11400000, guid: ba933030ea26446fe9169ee6a0794470,
           type: 2}
         attackData: {fileID: 11400000, guid: a25bff27bfdb74a9aabccd4899171ef2, type: 2}
-        timeOfAppearance: 40
-        targetSpawnPosition: {x: 8, y: -2, z: 20}
-        enterType: 0
-    obstacleSpawnInfo: []
-    powerUpSpawnInfo: []
-    waveDuration: 50
-    waveStartTime: 5
-    defeatedEnemiesReqirement: 0
-    debugActive: 1
-    debugColour: {r: 1, g: 0.33333334, b: 0, a: 1}
-  - waveName: Wave 3
-    enemySpawnInfo:
-    - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: 11, y: -1}
-      enemyInfo:
-        name: Imp
-        enemyID: 0
-        movementData: {fileID: 11400000, guid: d0b600601c1ac614dad751a8f055d348, type: 2}
-        projectileData: {fileID: 11400000, guid: 7288fb8bbd9f12b4fb748c4f3a34a188,
-          type: 2}
-        attackData: {fileID: 11400000, guid: fe68fffb57a77e44f9e932790bc0a082, type: 2}
-        timeOfAppearance: 0
-        targetSpawnPosition: {x: -7, y: 5, z: 20}
-        enterType: 1
-    - cloneAmount: 0
-      cloneSpawnDelay: 0
-      clonesOffset: {x: 0, y: 0}
-      enemyInfo:
-        name: Imp
-        enemyID: 0
-        movementData: {fileID: 11400000, guid: d0b600601c1ac614dad751a8f055d348, type: 2}
-        projectileData: {fileID: 11400000, guid: 7288fb8bbd9f12b4fb748c4f3a34a188,
-          type: 2}
-        attackData: {fileID: 11400000, guid: fe68fffb57a77e44f9e932790bc0a082, type: 2}
-        timeOfAppearance: 0
-        targetSpawnPosition: {x: 0, y: 2, z: 20}
-        enterType: 1
-    - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: 3, y: 1}
-      enemyInfo:
-        name: Imp
-        enemyID: 0
-        movementData: {fileID: 11400000, guid: d0b600601c1ac614dad751a8f055d348, type: 2}
-        projectileData: {fileID: 11400000, guid: 7288fb8bbd9f12b4fb748c4f3a34a188,
-          type: 2}
-        attackData: {fileID: 11400000, guid: fe68fffb57a77e44f9e932790bc0a082, type: 2}
-        timeOfAppearance: 0
-        targetSpawnPosition: {x: 4, y: 4, z: 20}
-        enterType: 1
-    - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: 8, y: 0}
-      enemyInfo:
-        name: Imp
-        enemyID: 0
-        movementData: {fileID: 11400000, guid: d0b600601c1ac614dad751a8f055d348, type: 2}
-        projectileData: {fileID: 11400000, guid: 7288fb8bbd9f12b4fb748c4f3a34a188,
-          type: 2}
-        attackData: {fileID: 11400000, guid: fe68fffb57a77e44f9e932790bc0a082, type: 2}
-        timeOfAppearance: 0
-        targetSpawnPosition: {x: -4, y: -4, z: 20}
-        enterType: 1
-    - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: 14, y: 0}
-      enemyInfo:
-        name: Imp
-        enemyID: 0
-        movementData: {fileID: 11400000, guid: d0b600601c1ac614dad751a8f055d348, type: 2}
-        projectileData: {fileID: 11400000, guid: 7288fb8bbd9f12b4fb748c4f3a34a188,
-          type: 2}
-        attackData: {fileID: 11400000, guid: fe68fffb57a77e44f9e932790bc0a082, type: 2}
-        timeOfAppearance: 0
-        targetSpawnPosition: {x: -7, y: -4, z: 20}
-        enterType: 1
-    - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: 4, y: 4}
-      enemyInfo:
-        name: Oni
-        enemyID: 3
-        movementData: {fileID: 11400000, guid: b110d997ddccb4a829dda2b4c02897ad, type: 2}
-        projectileData: {fileID: 11400000, guid: 2eec61bcd4d334d2ebbaac630ff35855,
-          type: 2}
-        attackData: {fileID: 11400000, guid: d49883c92b45444cb9a9d3801810e656, type: 2}
-        timeOfAppearance: 12.5
-        targetSpawnPosition: {x: -4, y: 0, z: 20}
-        enterType: 2
-    - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: -4, y: -4}
-      enemyInfo:
-        name: Oni
-        enemyID: 3
-        movementData: {fileID: 11400000, guid: b110d997ddccb4a829dda2b4c02897ad, type: 2}
-        projectileData: {fileID: 11400000, guid: 2eec61bcd4d334d2ebbaac630ff35855,
-          type: 2}
-        attackData: {fileID: 11400000, guid: d49883c92b45444cb9a9d3801810e656, type: 2}
-        timeOfAppearance: 12.5
-        targetSpawnPosition: {x: 4, y: 0, z: 20}
-        enterType: 2
-    - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: 0, y: -10}
-      enemyInfo:
-        name: Oni
-        enemyID: 3
-        movementData: {fileID: 11400000, guid: b110d997ddccb4a829dda2b4c02897ad, type: 2}
-        projectileData: {fileID: 11400000, guid: 2eec61bcd4d334d2ebbaac630ff35855,
-          type: 2}
-        attackData: {fileID: 11400000, guid: d49883c92b45444cb9a9d3801810e656, type: 2}
-        timeOfAppearance: 12.5
-        targetSpawnPosition: {x: 0, y: 5, z: 20}
-        enterType: 2
-    - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: 10, y: 0}
-      enemyInfo:
-        name: Oni
-        enemyID: 3
-        movementData: {fileID: 11400000, guid: b110d997ddccb4a829dda2b4c02897ad, type: 2}
-        projectileData: {fileID: 11400000, guid: 2eec61bcd4d334d2ebbaac630ff35855,
-          type: 2}
-        attackData: {fileID: 11400000, guid: d49883c92b45444cb9a9d3801810e656, type: 2}
-        timeOfAppearance: 12.5
-        targetSpawnPosition: {x: -5, y: 0, z: 20}
-        enterType: 2
-    - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: 9, y: 9}
-      enemyInfo:
-        name: Succubus
-        enemyID: 1
-        movementData: {fileID: 11400000, guid: eb150b6da9e5545f4bbf70f5633cec20, type: 2}
-        projectileData: {fileID: 11400000, guid: 5bac7052cf37a42f8b6bf21bdcab8ed2,
-          type: 2}
-        attackData: {fileID: 11400000, guid: d0d35b75cd9e54d13abbb507f6a6592a, type: 2}
-        timeOfAppearance: 22.5
-        targetSpawnPosition: {x: -4.5, y: -4.5, z: 20}
+        timeOfAppearance: 32.5
+        targetSpawnPosition: {x: 7, y: 3, z: 20}
         enterType: 0
     - cloneAmount: 1
       cloneSpawnDelay: 0
-      clonesOffset: {x: 5, y: 5}
+      clonesOffset: {x: 0, y: -4}
       enemyInfo:
-        name: Succubus
-        enemyID: 1
-        movementData: {fileID: 11400000, guid: eb150b6da9e5545f4bbf70f5633cec20, type: 2}
-        projectileData: {fileID: 11400000, guid: 5bac7052cf37a42f8b6bf21bdcab8ed2,
+        name: Limb
+        enemyID: 2
+        movementData: {fileID: 11400000, guid: e754e159561194503b8c08daff547e5a, type: 2}
+        projectileData: {fileID: 11400000, guid: ba933030ea26446fe9169ee6a0794470,
           type: 2}
-        attackData: {fileID: 11400000, guid: d0d35b75cd9e54d13abbb507f6a6592a, type: 2}
-        timeOfAppearance: 22.5
-        targetSpawnPosition: {x: -2.5, y: -2.5, z: 20}
-        enterType: 0
-    - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: 13, y: 3}
-      enemyInfo:
-        name: Succubus
-        enemyID: 1
-        movementData: {fileID: 11400000, guid: eb150b6da9e5545f4bbf70f5633cec20, type: 2}
-        projectileData: {fileID: 11400000, guid: 5bac7052cf37a42f8b6bf21bdcab8ed2,
-          type: 2}
-        attackData: {fileID: 11400000, guid: d0d35b75cd9e54d13abbb507f6a6592a, type: 2}
-        timeOfAppearance: 22.5
-        targetSpawnPosition: {x: -6.5, y: -1.5, z: 20}
-        enterType: 0
-    - cloneAmount: 2
-      cloneSpawnDelay: 0.25
-      clonesOffset: {x: 6, y: 0}
-      enemyInfo:
-        name: Chef
-        enemyID: 4
-        movementData: {fileID: 11400000, guid: 7353fbc5faee34d39b58a9294d83d357, type: 2}
-        projectileData: {fileID: 11400000, guid: 82e6dc2808dc1416c8cf51065434ec88,
-          type: 2}
-        attackData: {fileID: 11400000, guid: c0d00a5fe3bbc462f820727e5c3e0de4, type: 2}
-        timeOfAppearance: 30
-        targetSpawnPosition: {x: -6, y: -3, z: 20}
-        enterType: 0
-    - cloneAmount: 2
-      cloneSpawnDelay: 0
-      clonesOffset: {x: 6, y: 0}
-      enemyInfo:
-        name: Chef
-        enemyID: 4
-        movementData: {fileID: 11400000, guid: 7353fbc5faee34d39b58a9294d83d357, type: 2}
-        projectileData: {fileID: 11400000, guid: 82e6dc2808dc1416c8cf51065434ec88,
-          type: 2}
-        attackData: {fileID: 11400000, guid: c0d00a5fe3bbc462f820727e5c3e0de4, type: 2}
-        timeOfAppearance: 33
-        targetSpawnPosition: {x: -6, y: 3, z: 20}
-        enterType: 0
-    - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: 8, y: 0}
-      enemyInfo:
-        name: Chef
-        enemyID: 4
-        movementData: {fileID: 11400000, guid: 7353fbc5faee34d39b58a9294d83d357, type: 2}
-        projectileData: {fileID: 11400000, guid: 82e6dc2808dc1416c8cf51065434ec88,
-          type: 2}
-        attackData: {fileID: 11400000, guid: c0d00a5fe3bbc462f820727e5c3e0de4, type: 2}
+        attackData: {fileID: 11400000, guid: a25bff27bfdb74a9aabccd4899171ef2, type: 2}
         timeOfAppearance: 35
-        targetSpawnPosition: {x: -4, y: 5, z: 20}
-        enterType: 0
-    - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: 2, y: -3}
-      enemyInfo:
-        name: Limb
-        enemyID: 2
-        movementData: {fileID: 11400000, guid: e754e159561194503b8c08daff547e5a, type: 2}
-        projectileData: {fileID: 11400000, guid: ba933030ea26446fe9169ee6a0794470,
-          type: 2}
-        attackData: {fileID: 11400000, guid: a25bff27bfdb74a9aabccd4899171ef2, type: 2}
-        timeOfAppearance: 45
-        targetSpawnPosition: {x: -8, y: 5, z: 20}
-        enterType: 0
-    - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: 2, y: 3}
-      enemyInfo:
-        name: Limb
-        enemyID: 2
-        movementData: {fileID: 11400000, guid: e754e159561194503b8c08daff547e5a, type: 2}
-        projectileData: {fileID: 11400000, guid: ba933030ea26446fe9169ee6a0794470,
-          type: 2}
-        attackData: {fileID: 11400000, guid: a25bff27bfdb74a9aabccd4899171ef2, type: 2}
-        timeOfAppearance: 45
         targetSpawnPosition: {x: 6, y: 2, z: 20}
-        enterType: 0
-    - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: 2, y: 3}
-      enemyInfo:
-        name: Limb
-        enemyID: 2
-        movementData: {fileID: 11400000, guid: e754e159561194503b8c08daff547e5a, type: 2}
-        projectileData: {fileID: 11400000, guid: ba933030ea26446fe9169ee6a0794470,
-          type: 2}
-        attackData: {fileID: 11400000, guid: a25bff27bfdb74a9aabccd4899171ef2, type: 2}
-        timeOfAppearance: 50
-        targetSpawnPosition: {x: -8, y: -5, z: 20}
-        enterType: 0
-    - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: -12, y: 3}
-      enemyInfo:
-        name: Limb
-        enemyID: 2
-        movementData: {fileID: 11400000, guid: e754e159561194503b8c08daff547e5a, type: 2}
-        projectileData: {fileID: 11400000, guid: ba933030ea26446fe9169ee6a0794470,
-          type: 2}
-        attackData: {fileID: 11400000, guid: a25bff27bfdb74a9aabccd4899171ef2, type: 2}
-        timeOfAppearance: 50
-        targetSpawnPosition: {x: 6, y: -5, z: 20}
-        enterType: 0
-    - cloneAmount: 1
-      cloneSpawnDelay: 0
-      clonesOffset: {x: -8, y: 2}
-      enemyInfo:
-        name: Limb
-        enemyID: 2
-        movementData: {fileID: 11400000, guid: e754e159561194503b8c08daff547e5a, type: 2}
-        projectileData: {fileID: 11400000, guid: ba933030ea26446fe9169ee6a0794470,
-          type: 2}
-        attackData: {fileID: 11400000, guid: a25bff27bfdb74a9aabccd4899171ef2, type: 2}
-        timeOfAppearance: 52.5
-        targetSpawnPosition: {x: 8, y: -2, z: 20}
-        enterType: 0
+        enterType: 2
     obstacleSpawnInfo: []
     powerUpSpawnInfo: []
-    waveDuration: 60
-    waveStartTime: 5
+    waveDuration: 45
+    waveStartTime: 0
     defeatedEnemiesReqirement: 0
     debugActive: 1
     debugColour: {r: 1, g: 0.6666667, b: 0, a: 1}

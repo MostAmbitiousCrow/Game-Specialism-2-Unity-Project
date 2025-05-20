@@ -51,6 +51,7 @@ public class Enemy_Movement_State : IEnemyState // By Samuel White
 
         yield return new WaitForSeconds(.5f / Settings_Manager.gameSpeed);
         data.character.SetActive(!data.reverseMovement);
+        data.portalAnimator.gameObject.SetActive(false);
 
         yield return new WaitForSeconds(.5f / Settings_Manager.gameSpeed);
 

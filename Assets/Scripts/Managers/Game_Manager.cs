@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour // By Samuel White
             return;
         }
         DontDestroyOnLoad(transform.root);
+        GameData.currentLevel = Scene_Loader_Transition.SceneNames.Main_Menu;
     }
 
     private void Start()
@@ -78,10 +79,11 @@ public class GameManager : MonoBehaviour // By Samuel White
 
                 Player_Character_Data character_Data = o.GetComponent<Player_Character_Data>();
                 character_Data.playerNumber = i;
-                character_Data.view = playerCamera;
+                // character_Data.view = playerCamera;
 
                 PlayerInput playerInput = GameData.playerInputs[i];
                 o.transform.SetParent(playerInput.transform);
+                character_Data.view = Camera.main.transform;
 
                 GameData.players.Add(o.transform);
                 playerData.Add(data);
@@ -119,10 +121,11 @@ public class GameManager : MonoBehaviour // By Samuel White
 
             Player_Character_Data character_Data = o.GetComponent<Player_Character_Data>();
             character_Data.playerNumber = 0;
-            character_Data.view = playerCamera;
+            // character_Data.view = playerCamera;
 
             PlayerInput playerInput = GameData.playerInputs[0];
             o.transform.SetParent(playerInput.transform);
+            character_Data.view = Camera.main.transform;
 
             GameData.players.Add(o.transform);
             playerData.Add(data);
@@ -360,7 +363,7 @@ public class GameManager : MonoBehaviour // By Samuel White
         }
 
         // TODO - Restart the game
-         Scene_Loader_Transition.LoadScene(GameData.currentLevel);
+        Scene_Loader_Transition.LoadScene(GameData.currentLevel);
     }
     #endregion
 

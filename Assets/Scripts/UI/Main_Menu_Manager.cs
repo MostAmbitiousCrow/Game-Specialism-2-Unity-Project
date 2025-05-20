@@ -171,7 +171,8 @@ public class Main_Menu_Manager : MonoBehaviour // By Samuel White
 
         // Load the game scene
         AudioManager.PlayMusic(AudioManager.MusicOptions.Stop, 1, 0, MusicCategory.MusicSoundTypes.None);
-        Scene_Loader_Transition.LoadScene(Scene_Loader_Transition.SceneNames.Level_1);
+        GameData.currentLevel = Scene_Loader_Transition.SceneNames.Level_1;
+        Scene_Loader_Transition.LoadScene(GameData.currentLevel);
     }
 
     public void AddPlayer()

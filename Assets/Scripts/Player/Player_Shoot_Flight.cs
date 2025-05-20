@@ -42,7 +42,6 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
     public float freezeMeter = 0;
     public float freezeMeterMax = 100;
     [SerializeField] float freezeModeTime = 16;
-    [SerializeField] float freezeMeterDecayRate = 1;
     [Space(10)]
     [SerializeField] Sprite[] frozenBullet_Sprites;
 
@@ -58,7 +57,7 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
 
     void Update()
     {
-        if (GameData.isPaused || Scene_Loader_Transition.Instance.isLoading) return;
+        if (GameData.isPaused || Scene_Loader_Transition.Instance.isLoading || !GameData.isGameStarted) return;
         Shooting();
         DetectEnemies();
         UpdateRings();
@@ -208,10 +207,12 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
     IEnumerator FreezeModeTimer()
     {
         freezeModeActive = true;
+        float t = 0;
         while (freezeModeActive)
         {
-            freezeMeter -=  Global_Game_Speed.GetDeltaTime() / freezeMeterDecayRate;
-            if (freezeMeter <= -.1f)
+            freezeMeter = Mathf.InverseLerp(freezeModeTime, 0, t) * freezeMeterMax;
+            t += Global_Game_Speed.GetDeltaTime();
+            if (t > freezeModeTime)
             {
                 freezeModeActive = false;
                 freezeMeter = 0;
@@ -231,6 +232,7 @@ public class Player_Shoot_Flight : MonoBehaviour // By Samuel White
     {
         Debug.Log("Enabled Rings");
         foreach (var item in enemyDetectRings) item.gameObject.SetActive(true);
+        playerData.view = Camera.main.transform;
     }
 
     void OnDrawGizmos()

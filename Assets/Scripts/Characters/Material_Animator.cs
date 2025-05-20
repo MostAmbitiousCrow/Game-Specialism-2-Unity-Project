@@ -5,8 +5,8 @@ using UnityEngine;
 public class Enemy_Animator : MonoBehaviour // By Samuel White // UNUSED SCRIPT
 {
     //========================================
-    // The Enemy Animator class.
-    // This class is used to animate the enemy.
+    // The Enemy Animator.
+    // Used to animate the enemy material image.
     //========================================
 
     public Material Mat { private get; set; }

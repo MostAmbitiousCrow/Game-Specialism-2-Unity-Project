@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System.Collections;
 
-public class Player_Controller_Rumble : MonoBehaviour //  By Samuel White (Scrapped since it requires me to rework the Main Menu)
+public class Player_Controller_Rumble : MonoBehaviour //  By Samuel White (Scrapped since it literally doesn't work with Unity for some reason???)
 {
     private class RumbleData
     {
@@ -17,7 +17,7 @@ public class Player_Controller_Rumble : MonoBehaviour //  By Samuel White (Scrap
     }
 
     private Gamepad gamepad;
-    private RumbleData rumbleData = new();
+    private readonly RumbleData rumbleData = new();
     private PlayerInput playerInput;
     private InputDevice inputDevice;
 

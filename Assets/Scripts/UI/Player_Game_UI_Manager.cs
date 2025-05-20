@@ -191,6 +191,13 @@ public class Player_Game_UI_Manager : MonoBehaviour // By Samuel White
                 // playerStats[0].Time.text = GameData.gameTime.ToString(); //TODO Get time remaining from the Level Manager
                 playerStats[0].Score.text = GameManager.playerData[0].score.ToString();
             }
+            if (GameData.currentLevel == Scene_Loader_Transition.SceneNames.Level_3) // TODO Change when more levels are added in the future
+            {
+                results_RestartGameButton.SetActive(false);
+                results_NextLevel.SetActive(false);
+                results_MainMenuButton.SetActive(true);
+                GameManager.instance.EventSystem_SelectUIButton(results_MainMenuButton);
+            }
         }
         else
         {
@@ -235,8 +242,9 @@ public class Player_Game_UI_Manager : MonoBehaviour // By Samuel White
 
     public void NextLevel()
     {
-        //Scene_Loader_Transition.SceneNames scene = GameData.currentLevel++;
-        GameData.currentLevel = GameData.currentLevel++;
+        int nextLevel = (int)GameData.currentLevel + 1;
+        GameData.currentLevel = (Scene_Loader_Transition.SceneNames)nextLevel;
+
         Scene_Loader_Transition.LoadScene(GameData.currentLevel);
         Debug.Log($"Next Level: {GameData.currentLevel}");
     }

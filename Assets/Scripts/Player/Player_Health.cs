@@ -29,6 +29,9 @@ public class Player_Health : MonoBehaviour // by Samuel White
     [SerializeField] GameObject character;
     [SerializeField] BoxCollider characterCollider;
 
+    [Header("Debug")]
+    [SerializeField] bool DevInvinicbility = true;
+
     private float flashT;
     private bool flashing;
 
@@ -46,7 +49,7 @@ public class Player_Health : MonoBehaviour // by Samuel White
 
     public void Damage(int value)
     {
-        if (GameManager.playerData[playerNumber].isDead || GameManager.playerData[playerNumber].isInvincible) return;
+        if (GameManager.playerData[playerNumber].isDead || GameManager.playerData[playerNumber].isInvincible || DevInvinicbility) return;
 
         health -= value;
         DamageFlash();

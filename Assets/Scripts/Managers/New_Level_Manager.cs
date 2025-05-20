@@ -15,6 +15,7 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
     [SerializeField] float waveTime;
     [SerializeField] int currentWave;
     [SerializeField] bool waveActive;
+    private Coroutine waveRoutine;
 
     [Header("Detection")]
     public List<Enemy_Character_Data> activeObjects;
@@ -27,7 +28,17 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
     public void StartWaves()
     {
         paused = false;
-        StartCoroutine(WaveTimer());
+        waveRoutine = StartCoroutine(WaveTimer());
+    }
+    public void EndWaves()
+    {
+        StopCoroutine(waveRoutine);
+
+        foreach (var item in activeObjects)
+        {
+            item.ReturnEnemy();
+        }
+        Debug.Log("Waves Ended");
     }
 
     private void Update()
@@ -110,6 +121,7 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
                 if (item != null && item.isActiveAndEnabled) item.TriggerLeave();
             }
             activeObjects.Clear();
+            playTime = 0;
 
             currentWave++;
             Debug.Log($"Wave {currentWave} completed.");
@@ -135,33 +147,43 @@ public class New_Level_Manager : MonoBehaviour // By Samuel White
     #region Spawn Enemy Timers
     private IEnumerator SpawnEnemyTimer(SO_Level_Data.Wave.EnemySpawn ES)
     {
-        float t = 0;
-        while (t < ES.enemyInfo.timeOfAppearance)
+        // float t = 0;
+        while (playTime < ES.enemyInfo.timeOfAppearance)
         {
             yield return new WaitUntil(() => !GameData.isPaused);
-            t += Global_Game_Speed.GetDeltaTime();
+            // t += Global_Game_Speed.GetDeltaTime();
             yield return null;
         }
-        SpawnEnemy(ES, new());
+        SpawnEnemy(ES, Vector3.zero);
         yield break;
     }
     private IEnumerator SpawnClonesRoutine(SO_Level_Data.Wave.EnemySpawn ES)
     {
         Vector2 offset = new();
-        float t = 0;
+        // float t = 0;
         for (int i = 0; i < ES.cloneAmount + 1; i++)
         {
             if (ES.cloneSpawnDelay > 0)
             {
-                while (t < ES.enemyInfo.timeOfAppearance)
+                while (playTime < ES.enemyInfo.timeOfAppearance + (ES.cloneSpawnDelay * i))
                 {
                     yield return new WaitUntil(() => !GameData.isPaused);
-                    t += Global_Game_Speed.GetDeltaTime();
+                    // t += Global_Game_Speed.GetDeltaTime();
+                    yield return null;
+                }
+            }
+            else
+            {
+                while (playTime < ES.enemyInfo.timeOfAppearance)
+                {
+                    yield return new WaitUntil(() => !GameData.isPaused);
+                    // t += Global_Game_Speed.GetDeltaTime();
                     yield return null;
                 }
             }
             SpawnEnemy(ES, offset);
             offset += ES.clonesOffset;
+            // t = 0;
             yield return null;
         }
         yield break;
